@@ -53,3 +53,23 @@ google-services.json
 freeline.py
 freeline/
 freeline_project_description.json
+
+# Misc
+.gradle
+bin/
+gen/
+local.properties
+/.idea
+.DS_Store
+build/
+.gradle/
+*.apk
+*.ap_
+*.dex
+*.class
+proguard/
+.idea
+*.iml
+target
+Thumbs.db
+*.swp
