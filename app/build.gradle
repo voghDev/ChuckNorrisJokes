@@ -17,6 +17,22 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
+    }
+}
+
+task createTestResources << {
+    def mockMakerFile = new File("$projectDir/src/test/resources/mockito-extensions/org.mockito.plugins.MockMaker")
+    if (System.env.MOCK_MAKER != null) {
+        logger.info("Using MockMaker ${System.env.MOCK_MAKER}")
+        mockMakerFile.parentFile.mkdirs()
+        mockMakerFile.createNewFile()
+        mockMakerFile.write(System.env.MOCK_MAKER)
+    } else {
+        logger.info("Using default MockMaker")
+    }
 }
 
 dependencies {
@@ -24,7 +40,19 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta3'
+    compile 'com.android.support:appcompat-v7:25.4.0'
     testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:2.7.5'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "org.jetbrains.anko:anko-common:0.9.1a"
+    androidTestCompile 'com.android.support.test:runner:0.5'
+    androidTestCompile 'com.android.support.test:rules:0.5'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
+    androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.2'
+    androidTestCompile 'com.android.support:support-annotations:25.4.0'
+    testCompile "com.nhaarman:mockito-kotlin:1.4.0"
+
+    // Kotlin coroutines
+    compile 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.16'
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.16"
 }

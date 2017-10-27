@@ -1,12 +1,14 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+    ext.kotlin_version = '1.1.4'
     repositories {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0'
-
+        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlin_version"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -15,9 +17,23 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven {
+            url "https://maven.google.com"
+        }
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+subprojects {
+    configurations.all {
+        resolutionStrategy {
+            forcedModules = [
+                    "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
+                    "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+            ]
+        }
+    }
 }
