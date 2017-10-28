@@ -1,7 +1,6 @@
-package es.voghdev.chucknorrisjokes
+package es.voghdev.chucknorrisjokes.ui.presenter
 
 import es.voghdev.chucknorrisjokes.app.ResLocator
-import es.voghdev.chucknorrisjokes.ui.presenter.Presenter
 
 class MainPresenter(val resLocator: ResLocator) : Presenter<MainPresenter.MVPView, MainPresenter.Navigator>() {
 

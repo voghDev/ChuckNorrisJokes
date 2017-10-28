@@ -1,11 +1,12 @@
-package es.voghdev.chucknorrisjokes
+package es.voghdev.chucknorrisjokes.ui.activity
 
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
+import es.voghdev.chucknorrisjokes.R
 import es.voghdev.chucknorrisjokes.app.AndroidResLocator
-import es.voghdev.chucknorrisjokes.ui.activity.BaseActivity
 import es.voghdev.chucknorrisjokes.ui.adapter.MainPagerAdapter
+import es.voghdev.chucknorrisjokes.ui.presenter.MainPresenter
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(), MainPresenter.MVPView, MainPresenter.Navigator {
