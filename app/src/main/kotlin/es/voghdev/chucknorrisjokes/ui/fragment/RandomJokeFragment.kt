@@ -3,6 +3,7 @@ package es.voghdev.chucknorrisjokes.ui.fragment
 import android.os.Bundle
 import es.voghdev.chucknorrisjokes.R
 import es.voghdev.chucknorrisjokes.app.AndroidResLocator
+import es.voghdev.chucknorrisjokes.ui.presenter.RandomJokePresenter
 
 
 class RandomJokeFragment : BaseFragment(), RandomJokePresenter.MVPView, RandomJokePresenter.Navigator {

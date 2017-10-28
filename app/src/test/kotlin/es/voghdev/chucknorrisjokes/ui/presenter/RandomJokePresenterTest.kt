@@ -1,20 +1,14 @@
-package es.voghdev.chucknorrisjokes
+package es.voghdev.chucknorrisjokes.ui.presenter
 
-import es.voghdev.chucknorrisjokes.ui.presenter.Presenter
-import es.voghdev.chucknorrisjokes.repository.UserRepository
+import es.voghdev.chucknorrisjokes.app.ResLocator
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
-import org.mockito.Mockito.times
-import org.mockito.Mockito.verify
-import android.content.Context
 
-class RandomJokePresenterTest() {
-
-
-    @Mock lateinit var mockContext: Context
+class RandomJokePresenterTest {
+    @Mock lateinit var mockResLocator: ResLocator
 
     @Mock lateinit var mockNavigator: RandomJokePresenter.Navigator
 
@@ -25,8 +19,13 @@ class RandomJokePresenterTest() {
         MockitoAnnotations.initMocks(this)
     }
 
+    @Test
+    fun `should 1`() {
+        assertEquals(1, 1)
+    }
+
     private fun createMockedPresenter(): RandomJokePresenter {
-        val presenter = RandomJokePresenter(mockContext)
+        val presenter = RandomJokePresenter(mockResLocator)
         presenter.view = mockView
         presenter.navigator = mockNavigator
         return presenter
