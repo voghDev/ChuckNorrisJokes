@@ -1,6 +1,9 @@
 package es.voghdev.chucknorrisjokes.ui.fragment
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import es.voghdev.chucknorrisjokes.R
 import es.voghdev.chucknorrisjokes.app.AndroidResLocator
 import es.voghdev.chucknorrisjokes.datasource.api.GetRandomJokeApiImpl
@@ -12,8 +15,8 @@ import kotlinx.coroutines.experimental.runBlocking
 class RandomJokeFragment : BaseFragment(), RandomJokePresenter.MVPView, RandomJokePresenter.Navigator {
     var presenter: RandomJokePresenter? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val repository = ChuckNorrisRepository(GetRandomJokeApiImpl())
 
