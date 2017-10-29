@@ -16,4 +16,21 @@
         <item name="android:textStyle">italic</item>
     </style>
 
+    <style name="JokeCategorySpinner">
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginLeft">24dp</item>
+        <item name="android:layout_marginRight">24dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="SendButton">
+        <item name="android:text">@android:string/search_go</item>
+        <item name="text">@android:string/search_go</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginTop">36dp</item>
+    </style>
+
 </resources>
