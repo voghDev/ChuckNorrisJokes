@@ -1,4 +1,7 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt' // New version of the plugin to enable spaces in test names
 
 android {
     compileSdkVersion 25
@@ -45,7 +48,11 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:2.7.5'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile "org.jetbrains.anko:anko-common:0.9.1a"
+    compile "org.jetbrains.anko:anko-common:$ankoVersion"
+    compile "org.jetbrains.anko:anko-recyclerview-v7:$ankoVersion"
+    compile "org.jetbrains.anko:anko-support-v4:$ankoVersion"
+    compile "org.jetbrains.anko:anko-appcompat-v7:$ankoVersion"
+    compile "org.jetbrains.anko:anko-design:$ankoVersion"
     androidTestCompile 'com.android.support.test:runner:0.5'
     androidTestCompile 'com.android.support.test:rules:0.5'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'

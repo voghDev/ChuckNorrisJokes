@@ -39,9 +39,9 @@ class MainActivity : BaseActivity(), MainPresenter.MVPView, MainPresenter.Naviga
     }
 
     override fun configureTabs() {
-        tabLayout.addTab(tabLayout.newTab().setText("Random Joke"))
-        tabLayout.addTab(tabLayout.newTab().setText("Joke by Keyword"))
-        tabLayout.addTab(tabLayout.newTab().setText("Joke by category"))
+        tabLayout.addTab(tabLayout.newTab().setText("Random"))
+        tabLayout.addTab(tabLayout.newTab().setText("By Keyword"))
+        tabLayout.addTab(tabLayout.newTab().setText("By Category"))
 
         viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
         tabLayout.addOnTabSelectedListener(onTabSelectedListener)
