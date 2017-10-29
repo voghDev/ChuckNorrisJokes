@@ -2,6 +2,7 @@ package es.voghdev.chucknorrisjokes.ui.fragment
 
 import android.os.Bundle
 import android.view.View
+import com.squareup.picasso.Picasso
 import es.voghdev.chucknorrisjokes.R
 import es.voghdev.chucknorrisjokes.app.AndroidResLocator
 import es.voghdev.chucknorrisjokes.datasource.api.GetRandomJokeApiImpl
@@ -33,5 +34,11 @@ class RandomJokeFragment : BaseFragment(), RandomJokePresenter.MVPView, RandomJo
 
     override fun showJokeText(text: String) {
         tv_text.text = text
+    }
+
+    override fun loadJokeImage(url: String) {
+        Picasso.with(context)
+                .load(url)
+                .into(iv_image)
     }
 }

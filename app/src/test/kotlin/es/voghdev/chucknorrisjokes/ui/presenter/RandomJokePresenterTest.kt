@@ -10,6 +10,7 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mock
+import org.mockito.Mockito.times
 import org.mockito.MockitoAnnotations
 
 class RandomJokePresenterTest {
@@ -61,6 +62,30 @@ class RandomJokePresenterTest {
         }
 
         verify(mockView).showJokeText(anyString())
+    }
+
+    @Test
+    fun `should show the joke's image on screen when a random joke is received`() {
+        givenThereIsARandomJoke(exampleJoke)
+
+        runBlocking {
+            presenter.initialize()
+        }
+
+        verify(mockView).loadJokeImage("https://assets.chucknorris.host/img/avatar/chuck-norris.png")
+    }
+
+    @Test
+    fun `should not load the joke's image if it's empty`() {
+        val jokeWithoutImage = exampleJoke.copy(iconUrl = "")
+
+        givenThereIsARandomJoke(jokeWithoutImage)
+
+        runBlocking {
+            presenter.initialize()
+        }
+
+        verify(mockView, times(0)).loadJokeImage(anyString())
     }
 
     private fun createMockedPresenter(): RandomJokePresenter {
