@@ -4,6 +4,7 @@ import android.os.Bundle
 import es.voghdev.chucknorrisjokes.R
 import es.voghdev.chucknorrisjokes.app.AndroidResLocator
 import es.voghdev.chucknorrisjokes.ui.presenter.JokeByKeywordPresenter
+import kotlinx.coroutines.experimental.runBlocking
 
 
 class JokeByKeywordFragment : BaseFragment(), JokeByKeywordPresenter.MVPView, JokeByKeywordPresenter.Navigator {
@@ -18,7 +19,9 @@ class JokeByKeywordFragment : BaseFragment(), JokeByKeywordPresenter.MVPView, Jo
         presenter?.view = this
         presenter?.navigator = this
 
-        presenter?.initialize()
+        runBlocking {
+            presenter?.initialize()
+        }
     }
 
     override fun getLayoutId(): Int {

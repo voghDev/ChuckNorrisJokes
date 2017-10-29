@@ -8,6 +8,7 @@ import es.voghdev.chucknorrisjokes.app.AndroidResLocator
 import es.voghdev.chucknorrisjokes.ui.adapter.MainPagerAdapter
 import es.voghdev.chucknorrisjokes.ui.presenter.MainPresenter
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.experimental.runBlocking
 
 class MainActivity : BaseActivity(), MainPresenter.MVPView, MainPresenter.Navigator {
     var presenter: MainPresenter? = null
@@ -23,13 +24,17 @@ class MainActivity : BaseActivity(), MainPresenter.MVPView, MainPresenter.Naviga
 
         onTabSelectedListener = TabLayout.ViewPagerOnTabSelectedListener(viewPager)
 
-        presenter?.initialize()
+        runBlocking {
+            presenter?.initialize()
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
 
-        presenter?.destroy()
+        runBlocking {
+            presenter?.destroy()
+        }
 
         tabLayout.removeOnTabSelectedListener(onTabSelectedListener)
     }
