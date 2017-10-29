@@ -6,10 +6,9 @@ import es.voghdev.chucknorrisjokes.app.AndroidResLocator
 import es.voghdev.chucknorrisjokes.datasource.mock.GetRandomJokeMockImpl
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import es.voghdev.chucknorrisjokes.ui.presenter.RandomJokePresenter
-
+import kotlinx.android.synthetic.main.fragment_random_joke.*
 
 class RandomJokeFragment : BaseFragment(), RandomJokePresenter.MVPView, RandomJokePresenter.Navigator {
-
     var presenter: RandomJokePresenter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,5 +25,9 @@ class RandomJokeFragment : BaseFragment(), RandomJokePresenter.MVPView, RandomJo
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_random_joke
+    }
+
+    override fun showJokeText(text: String) {
+        tv_text.text = text
     }
 }

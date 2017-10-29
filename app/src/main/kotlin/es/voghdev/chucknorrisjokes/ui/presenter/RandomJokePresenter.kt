@@ -7,10 +7,14 @@ class RandomJokePresenter(val resLocator: ResLocator, val repository: ChuckNorri
         Presenter<RandomJokePresenter.MVPView, RandomJokePresenter.Navigator>() {
 
     override fun initialize() {
-
+        val result = repository.getRandomJoke()
+        when(result) {
+            success() -> println("")
+        }
     }
 
     interface MVPView {
+        fun showJokeText(text: String)
 
     }
 

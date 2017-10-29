@@ -1,9 +1,11 @@
 package es.voghdev.chucknorrisjokes.ui.presenter
 
+import com.nhaarman.mockito_kotlin.verify
 import es.voghdev.chucknorrisjokes.app.ResLocator
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import org.junit.Before
 import org.junit.Test
+import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 
@@ -28,6 +30,15 @@ class RandomJokePresenterTest {
     @Test
     fun `should request a random joke on start`() {
         presenter.initialize()
+
+        verify(mockChuckNorrisRepository).getRandomJoke()
+    }
+
+    @Test
+    fun `should show the joke's text on screen when a random joke is received`() {
+        presenter.initialize()
+
+        verify(mockView).showJokeText(anyString())
     }
 
     private fun createMockedPresenter(): RandomJokePresenter {
