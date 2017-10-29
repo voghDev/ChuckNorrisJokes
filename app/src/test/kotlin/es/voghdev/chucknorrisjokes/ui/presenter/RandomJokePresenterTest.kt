@@ -29,6 +29,13 @@ class RandomJokePresenterTest {
             value = "Chuck Norris knows how to say souffle in the French language."
     )
 
+    val exampleJoke = Joke(
+            id = "GdEH64AkS9qEQCmqMwM2Rg",
+            iconUrl = "https://assets.chucknorris.host/img/avatar/chuck-norris.png",
+            url = "http://api.chucknorris.io/jokes/GdEH64AkS9qEQCmqMwM2Rg",
+            value = "Chuck Norris knows how to say souffle in the French language."
+    )
+
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
