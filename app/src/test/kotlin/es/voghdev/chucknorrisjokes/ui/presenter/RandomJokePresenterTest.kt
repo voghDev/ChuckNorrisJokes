@@ -1,7 +1,9 @@
 package es.voghdev.chucknorrisjokes.ui.presenter
 
 import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.whenever
 import es.voghdev.chucknorrisjokes.app.ResLocator
+import es.voghdev.chucknorrisjokes.model.Joke
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import org.junit.Before
 import org.junit.Test
@@ -20,6 +22,13 @@ class RandomJokePresenterTest {
 
     lateinit var presenter: RandomJokePresenter
 
+    val exampleJoke = Joke(
+            id = "GdEH64AkS9qEQCmqMwM2Rg",
+            iconUrl = "https://assets.chucknorris.host/img/avatar/chuck-norris.png",
+            url = "http://api.chucknorris.io/jokes/GdEH64AkS9qEQCmqMwM2Rg",
+            value = "Chuck Norris knows how to say souffle in the French language."
+    )
+
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
@@ -29,13 +38,21 @@ class RandomJokePresenterTest {
 
     @Test
     fun `should request a random joke on start`() {
+        givenThereIsASampleJoke()
+
         presenter.initialize()
 
         verify(mockChuckNorrisRepository).getRandomJoke()
     }
 
+    private fun givenThereIsASampleJoke() {
+        whenever(mockChuckNorrisRepository.getRandomJoke()).thenReturn(Pair(exampleJoke, null))
+    }
+
     @Test
     fun `should show the joke's text on screen when a random joke is received`() {
+        givenThereIsASampleJoke()
+
         presenter.initialize()
 
         verify(mockView).showJokeText(anyString())

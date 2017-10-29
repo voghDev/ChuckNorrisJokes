@@ -10,7 +10,7 @@ class RandomJokePresenter(val resLocator: ResLocator, val repository: ChuckNorri
     override fun initialize() {
         val result = repository.getRandomJoke()
         if(result.success()) {
-
+            view?.showJokeText(result.first?.value ?: "")
         }
     }
 
