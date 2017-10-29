@@ -12,9 +12,13 @@ class JokeByCategoryPresenterTest() {
 
     @Mock lateinit var mockView: JokeByCategoryPresenter.MVPView
 
+    lateinit var presenter : JokeByCategoryPresenter
+
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
+
+        presenter = createMockedPresenter()
     }
 
     private fun createMockedPresenter(): JokeByCategoryPresenter {

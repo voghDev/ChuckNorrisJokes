@@ -12,9 +12,13 @@ class MainPresenterTest() {
 
     @Mock lateinit var mockView: MainPresenter.MVPView
 
+    lateinit var presenter : MainPresenter
+
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
+
+        presenter = createMockedPresenter()
     }
 
     private fun createMockedPresenter(): MainPresenter {
