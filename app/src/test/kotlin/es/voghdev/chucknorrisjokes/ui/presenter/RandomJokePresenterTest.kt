@@ -1,7 +1,7 @@
 package es.voghdev.chucknorrisjokes.ui.presenter
 
-import com.nhaarman.mockito_kotlin.verify
 import es.voghdev.chucknorrisjokes.app.ResLocator
+import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
@@ -14,13 +14,15 @@ class RandomJokePresenterTest {
 
     @Mock lateinit var mockView: RandomJokePresenter.MVPView
 
-    lateinit var presenter : RandomJokePresenter
+    @Mock lateinit var mockChuckNorrisRepository: ChuckNorrisRepository
+
+    lateinit var presenter: RandomJokePresenter
 
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
 
-        presenter = RandomJokePresenter(mockResLocator)
+        presenter = createMockedPresenter()
     }
 
     @Test
@@ -29,6 +31,7 @@ class RandomJokePresenterTest {
     }
 
     private fun createMockedPresenter(): RandomJokePresenter {
+        val presenter = RandomJokePresenter(mockResLocator, mockChuckNorrisRepository)
         presenter.view = mockView
         presenter.navigator = mockNavigator
         return presenter
