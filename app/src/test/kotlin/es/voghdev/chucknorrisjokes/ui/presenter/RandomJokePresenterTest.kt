@@ -1,7 +1,6 @@
 package es.voghdev.chucknorrisjokes.ui.presenter
 
 import es.voghdev.chucknorrisjokes.app.ResLocator
-import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
@@ -20,8 +19,8 @@ class RandomJokePresenterTest {
     }
 
     @Test
-    fun `should 1`() {
-        assertEquals(1, 1)
+    fun `should request a random joke on start`() {
+
     }
 
     private fun createMockedPresenter(): RandomJokePresenter {
