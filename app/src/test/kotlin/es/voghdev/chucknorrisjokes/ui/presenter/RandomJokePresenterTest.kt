@@ -38,20 +38,20 @@ class RandomJokePresenterTest {
 
     @Test
     fun `should request a random joke on start`() {
-        givenThereIsASampleJoke()
+        givenThereIsARandomJoke(exampleJoke)
 
         presenter.initialize()
 
         verify(mockChuckNorrisRepository).getRandomJoke()
     }
 
-    private fun givenThereIsASampleJoke() {
-        whenever(mockChuckNorrisRepository.getRandomJoke()).thenReturn(Pair(exampleJoke, null))
+    private fun givenThereIsARandomJoke(joke: Joke) {
+        whenever(mockChuckNorrisRepository.getRandomJoke()).thenReturn(Pair(joke, null))
     }
 
     @Test
     fun `should show the joke's text on screen when a random joke is received`() {
-        givenThereIsASampleJoke()
+        givenThereIsARandomJoke(exampleJoke)
 
         presenter.initialize()
 
