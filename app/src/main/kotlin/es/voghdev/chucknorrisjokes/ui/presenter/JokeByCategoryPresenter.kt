@@ -5,7 +5,7 @@ import es.voghdev.chucknorrisjokes.app.ResLocator
 class JokeByCategoryPresenter(val context: ResLocator) :
         Presenter<JokeByCategoryPresenter.MVPView, JokeByCategoryPresenter.Navigator>() {
 
-    override fun initialize() {
+    override suspend fun initialize() {
 
     }
 

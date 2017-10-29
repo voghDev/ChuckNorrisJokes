@@ -5,6 +5,7 @@ import com.nhaarman.mockito_kotlin.whenever
 import es.voghdev.chucknorrisjokes.app.ResLocator
 import es.voghdev.chucknorrisjokes.model.Joke
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
+import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Before
 import org.junit.Test
 import org.mockito.ArgumentMatchers.anyString
@@ -40,7 +41,9 @@ class RandomJokePresenterTest {
     fun `should request a random joke on start`() {
         givenThereIsARandomJoke(exampleJoke)
 
-        presenter.initialize()
+        runBlocking {
+            presenter.initialize()
+        }
 
         verify(mockChuckNorrisRepository).getRandomJoke()
     }
@@ -53,7 +56,9 @@ class RandomJokePresenterTest {
     fun `should show the joke's text on screen when a random joke is received`() {
         givenThereIsARandomJoke(exampleJoke)
 
-        presenter.initialize()
+        runBlocking {
+            presenter.initialize()
+        }
 
         verify(mockView).showJokeText(anyString())
     }

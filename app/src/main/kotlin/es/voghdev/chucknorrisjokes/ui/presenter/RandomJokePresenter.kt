@@ -8,7 +8,7 @@ import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 class RandomJokePresenter(val resLocator: ResLocator, val repository: ChuckNorrisRepository) :
         Presenter<RandomJokePresenter.MVPView, RandomJokePresenter.Navigator>() {
 
-    override fun initialize() {
+    override suspend fun initialize() {
         coroutine {
             repository.getRandomJoke()
         }.await().let { result ->

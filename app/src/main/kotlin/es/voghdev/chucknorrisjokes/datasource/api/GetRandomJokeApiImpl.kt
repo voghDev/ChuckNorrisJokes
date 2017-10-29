@@ -32,8 +32,8 @@ class GetRandomJokeApiImpl : GetRandomJoke, ApiRequest {
         try {
             val rsp: Response<JokeApiEntry>? = call.execute()
 
-            if (rsp?.body() ?: false is Joke) {
-                return Pair(rsp?.body() as Joke, null)
+            if (rsp?.body() ?: false is JokeApiEntry) {
+                return Pair(rsp?.body()?.map() ?: Joke(), null)
             } else if (rsp?.errorBody() != null) {
                 val error = rsp?.errorBody().string()
                 return Pair(null, CNError(error))
