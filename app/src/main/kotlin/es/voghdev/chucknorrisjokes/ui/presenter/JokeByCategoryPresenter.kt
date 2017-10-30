@@ -19,16 +19,16 @@ class JokeByCategoryPresenter(val context: ResLocator, val chuckNorrisRepository
         }
     }
 
+    suspend fun onSearchButtonClicked(position: Int) {
+
+    }
+
     interface MVPView {
         fun fillCategories(list: List<JokeCategory>)
 
     }
 
     interface Navigator {
-
-    }
-
-    fun onSearchButtonClicked(position: Int) {
 
     }
 }

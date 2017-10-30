@@ -18,7 +18,10 @@ class RandomJokeFragment : BaseFragment(), RandomJokePresenter.MVPView, RandomJo
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val repository = ChuckNorrisRepository(GetRandomJokeApiImpl(), GetJokeCategoriesApiImpl())
+        val repository = ChuckNorrisRepository(GetRandomJokeApiImpl(),
+                GetJokeCategoriesApiImpl(),
+                GetRandomJokeByCategoryApiImpl()
+        )
 
         presenter = RandomJokePresenter(AndroidResLocator(context), repository)
         presenter?.view = this
