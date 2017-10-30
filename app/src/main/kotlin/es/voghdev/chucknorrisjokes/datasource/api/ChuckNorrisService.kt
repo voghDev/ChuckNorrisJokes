@@ -15,10 +15,10 @@ interface ChuckNorrisService {
     fun getJokeCategories(): Call<List<String>>
 
     @FormUrlEncoded
-    @POST("jokes/search")
+    @GET("jokes/search")
     fun getRandomJokeByKeyword(@Query("query") keyword: String): Call<JokeByKeywordApiResponse>
 
     @FormUrlEncoded
-    @POST("jokes/random")
+    @GET("jokes/random")
     fun getRandomJokeByCategory(@Query("category") category: String): Call<JokeApiEntry>
 }
