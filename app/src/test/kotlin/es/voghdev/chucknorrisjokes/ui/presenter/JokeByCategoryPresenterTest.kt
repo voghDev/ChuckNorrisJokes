@@ -9,6 +9,7 @@ import es.voghdev.chucknorrisjokes.model.Joke
 import es.voghdev.chucknorrisjokes.model.JokeCategory
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import kotlinx.coroutines.experimental.runBlocking
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.mockito.ArgumentMatchers.anyList
@@ -32,11 +33,12 @@ class JokeByCategoryPresenterTest() {
     )
 
     val exampleJoke = Joke(id = "abc",
-            iconUrl = "http://chuck.io",
+            iconUrl = "http://chuck.image.url",
             url = "http://example.url",
             value = "We have our fears, fear has its Chuck Norris'es")
 
     val categoryCaptor = argumentCaptor<JokeCategory>()
+    val strCaptor = argumentCaptor<String>()
 
     @Before
     fun setUp() {
@@ -79,6 +81,38 @@ class JokeByCategoryPresenterTest() {
         }
 
         verify(mockChuckNorrisRepository).getRandomJokeByCategory(categoryCaptor.capture())
+    }
+
+    @Test
+    fun `should show the joke's text when a joke is receved`() {
+        givenThereAreSomeCategories(categories)
+        givenTheRepositoryHasAnExampleJoke(exampleJoke)
+
+        runBlocking {
+            presenter.initialize()
+
+            presenter.onSearchButtonClicked(0)
+        }
+
+        verify(mockView).showJokeText(strCaptor.capture())
+
+        assertEquals("We have our fears, fear has its Chuck Norris'es", strCaptor.firstValue)
+    }
+
+    @Test
+    fun `should show the joke's image when a joke is received`() {
+        givenThereAreSomeCategories(categories)
+        givenTheRepositoryHasAnExampleJoke(exampleJoke)
+
+        runBlocking {
+            presenter.initialize()
+
+            presenter.onSearchButtonClicked(0)
+        }
+
+        verify(mockView).showJokeImage(strCaptor.capture())
+
+        assertEquals("http://chuck.image.url", strCaptor.firstValue)
     }
 
     private fun givenTheRepositoryHasAnExampleJoke(exampleJoke: Joke) {

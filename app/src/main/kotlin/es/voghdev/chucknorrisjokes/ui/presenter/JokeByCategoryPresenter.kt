@@ -28,6 +28,7 @@ class JokeByCategoryPresenter(val context: ResLocator, val chuckNorrisRepository
         }.await().let { result ->
             if (result.success()) {
                 view?.showJokeText(result.first?.value ?: "")
+                view?.showJokeImage(result.first?.iconUrl ?: "")
             }
         }
     }
@@ -35,6 +36,7 @@ class JokeByCategoryPresenter(val context: ResLocator, val chuckNorrisRepository
     interface MVPView {
         fun fillCategories(list: List<JokeCategory>)
         fun showJokeText(text: String)
+        fun showJokeImage(url: String)
     }
 
     interface Navigator {
