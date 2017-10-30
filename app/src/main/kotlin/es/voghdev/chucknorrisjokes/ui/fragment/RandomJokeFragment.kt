@@ -5,6 +5,7 @@ import android.view.View
 import com.squareup.picasso.Picasso
 import es.voghdev.chucknorrisjokes.R
 import es.voghdev.chucknorrisjokes.app.AndroidResLocator
+import es.voghdev.chucknorrisjokes.datasource.api.GetJokeCategoriesApiImpl
 import es.voghdev.chucknorrisjokes.datasource.api.GetRandomJokeApiImpl
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import es.voghdev.chucknorrisjokes.ui.presenter.RandomJokePresenter
@@ -17,7 +18,7 @@ class RandomJokeFragment : BaseFragment(), RandomJokePresenter.MVPView, RandomJo
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val repository = ChuckNorrisRepository(GetRandomJokeApiImpl())
+        val repository = ChuckNorrisRepository(GetRandomJokeApiImpl(), GetJokeCategoriesApiImpl())
 
         presenter = RandomJokePresenter(AndroidResLocator(context), repository)
         presenter?.view = this
