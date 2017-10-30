@@ -7,6 +7,7 @@ import es.voghdev.chucknorrisjokes.R
 import es.voghdev.chucknorrisjokes.app.AndroidResLocator
 import es.voghdev.chucknorrisjokes.datasource.api.GetJokeCategoriesApiImpl
 import es.voghdev.chucknorrisjokes.datasource.api.GetRandomJokeApiImpl
+import es.voghdev.chucknorrisjokes.datasource.api.GetRandomJokeByCategoryApiImpl
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import es.voghdev.chucknorrisjokes.ui.presenter.RandomJokePresenter
 import kotlinx.android.synthetic.main.fragment_random_joke.*

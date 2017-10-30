@@ -7,6 +7,7 @@ import es.voghdev.chucknorrisjokes.app.AndroidResLocator
 import es.voghdev.chucknorrisjokes.app.configureDefaultAdapter
 import es.voghdev.chucknorrisjokes.datasource.api.GetJokeCategoriesApiImpl
 import es.voghdev.chucknorrisjokes.datasource.api.GetRandomJokeApiImpl
+import es.voghdev.chucknorrisjokes.datasource.api.GetRandomJokeByCategoryApiImpl
 import es.voghdev.chucknorrisjokes.model.JokeCategory
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import es.voghdev.chucknorrisjokes.ui.presenter.JokeByCategoryPresenter
@@ -41,5 +42,9 @@ class JokeByCategoryFragment : BaseFragment(), JokeByCategoryPresenter.MVPView, 
     override fun fillCategories(list: List<JokeCategory>) {
         val values = list.map { it.name }
         spn_categories.configureDefaultAdapter(values)
+    }
+
+    override fun showJokeText(text: String) {
+        tv_text.text = text
     }
 }
