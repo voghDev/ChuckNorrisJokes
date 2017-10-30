@@ -33,6 +33,12 @@ class JokeByCategoryFragment : BaseFragment(), JokeByCategoryPresenter.MVPView, 
         runBlocking {
             presenter?.initialize()
         }
+
+        btn_search.setOnClickListener {
+            runBlocking {
+                presenter?.onSearchButtonClicked(spn_categories.selectedItemPosition)
+            }
+        }
     }
 
     override fun getLayoutId(): Int {

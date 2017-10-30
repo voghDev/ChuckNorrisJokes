@@ -3,6 +3,7 @@ package es.voghdev.chucknorrisjokes.ui.presenter
 import com.nhaarman.mockito_kotlin.argumentCaptor
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
+import es.voghdev.chucknorrisjokes.anyCategory
 import es.voghdev.chucknorrisjokes.app.ResLocator
 import es.voghdev.chucknorrisjokes.model.Joke
 import es.voghdev.chucknorrisjokes.model.JokeCategory
@@ -29,6 +30,11 @@ class JokeByCategoryPresenterTest() {
             JokeCategory("Politics"),
             JokeCategory("Sports")
     )
+
+    val exampleJoke = Joke(id = "abc",
+            iconUrl = "http://chuck.io",
+            url = "http://example.url",
+            value = "We have our fears, fear has its Chuck Norris'es")
 
     val categoryCaptor = argumentCaptor<JokeCategory>()
 
@@ -64,7 +70,7 @@ class JokeByCategoryPresenterTest() {
     @Test
     fun `should perform search with selected category when "Search" button is clicked`() {
         givenThereAreSomeCategories(categories)
-        whenever(mockChuckNorrisRepository.getRandomJokeByCategory(anyCategory())).thenReturn(Pair(Joke(id = "abc", iconUrl = "", url = "", value = ""), null))
+        givenTheRepositoryHasAnExampleJoke(exampleJoke)
 
         runBlocking {
             presenter.initialize()
@@ -73,6 +79,10 @@ class JokeByCategoryPresenterTest() {
         }
 
         verify(mockChuckNorrisRepository).getRandomJokeByCategory(categoryCaptor.capture())
+    }
+
+    private fun givenTheRepositoryHasAnExampleJoke(exampleJoke: Joke) {
+        whenever(mockChuckNorrisRepository.getRandomJokeByCategory(anyCategory())).thenReturn(Pair(exampleJoke, null))
     }
 
     private fun givenThereAreSomeCategories(categories: List<JokeCategory>) {
