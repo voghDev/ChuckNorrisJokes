@@ -37,6 +37,7 @@ class JokeByCategoryFragment : BaseFragment(), JokeByCategoryPresenter.MVPView, 
     }
 
     override fun fillCategories(list: List<JokeCategory>) {
-        spn_categories.configureDefaultAdapter(list.map { it.name })
+        val values = list.map { it.name }
+        spn_categories.configureDefaultAdapter(values)
     }
 }
