@@ -7,4 +7,7 @@ import retrofit2.http.GET
 interface ChuckNorrisService {
     @GET("jokes/random")
     fun getRandomJoke(): Call<JokeApiEntry>
+
+    @GET("jokes/categories")
+    fun getJokeCategories(): Call<List<String>>
 }

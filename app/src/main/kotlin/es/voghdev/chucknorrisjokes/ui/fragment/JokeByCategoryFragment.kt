@@ -3,6 +3,7 @@ package es.voghdev.chucknorrisjokes.ui.fragment
 import android.os.Bundle
 import es.voghdev.chucknorrisjokes.R
 import es.voghdev.chucknorrisjokes.app.AndroidResLocator
+import es.voghdev.chucknorrisjokes.app.configureDefaultAdapter
 import es.voghdev.chucknorrisjokes.datasource.api.GetJokeCategoriesApiImpl
 import es.voghdev.chucknorrisjokes.datasource.api.GetRandomJokeApiImpl
 import es.voghdev.chucknorrisjokes.model.JokeCategory
@@ -36,6 +37,6 @@ class JokeByCategoryFragment : BaseFragment(), JokeByCategoryPresenter.MVPView, 
     }
 
     override fun fillCategories(list: List<JokeCategory>) {
-        spn_categories.configureDefaultAdapter(list)
+        spn_categories.configureDefaultAdapter(list.map { it.name })
     }
 }
