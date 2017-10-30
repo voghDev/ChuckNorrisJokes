@@ -35,7 +35,6 @@ class JokeByCategoryPresenter(val context: ResLocator, val chuckNorrisRepository
     interface MVPView {
         fun fillCategories(list: List<JokeCategory>)
         fun showJokeText(text: String)
-
     }
 
     interface Navigator {

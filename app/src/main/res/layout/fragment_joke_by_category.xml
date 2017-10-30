@@ -11,4 +11,10 @@
     <Button
         android:id="@+id/btn_search"
         style="@style/SearchByCategoryButton" />
+
+    <TextView
+        android:id="@+id/tv_text"
+        style="@style/ChuckNorrisText"
+        android:layout_marginTop="180dp"
+        />
 </FrameLayout>

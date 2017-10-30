@@ -4,6 +4,7 @@ import com.nhaarman.mockito_kotlin.argumentCaptor
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import es.voghdev.chucknorrisjokes.app.ResLocator
+import es.voghdev.chucknorrisjokes.model.Joke
 import es.voghdev.chucknorrisjokes.model.JokeCategory
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import kotlinx.coroutines.experimental.runBlocking
@@ -61,8 +62,9 @@ class JokeByCategoryPresenterTest() {
     }
 
     @Test
-    fun `should search without any category if "Search" button is clicked and no category has been selected`() {
+    fun `should perform search with selected category when "Search" button is clicked`() {
         givenThereAreSomeCategories(categories)
+        whenever(mockChuckNorrisRepository.getRandomJokeByCategory(anyCategory())).thenReturn(Pair(Joke(id = "abc", iconUrl = "", url = "", value = ""), null))
 
         runBlocking {
             presenter.initialize()
