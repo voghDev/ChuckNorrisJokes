@@ -1,3 +1,3 @@
 package es.voghdev.chucknorrisjokes.model
 
-class JokeCategory(val name : String = "")
+data class JokeCategory(val name : String = "")
