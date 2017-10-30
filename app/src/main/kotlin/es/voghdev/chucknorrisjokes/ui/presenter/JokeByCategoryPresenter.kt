@@ -27,4 +27,8 @@ class JokeByCategoryPresenter(val context: ResLocator, val chuckNorrisRepository
     interface Navigator {
 
     }
+
+    fun onSearchButtonClicked(position: Int) {
+
+    }
 }

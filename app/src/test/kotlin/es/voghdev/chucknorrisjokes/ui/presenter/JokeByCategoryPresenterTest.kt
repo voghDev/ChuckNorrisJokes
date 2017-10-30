@@ -1,5 +1,6 @@
 package es.voghdev.chucknorrisjokes.ui.presenter
 
+import com.nhaarman.mockito_kotlin.argumentCaptor
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import es.voghdev.chucknorrisjokes.app.ResLocator
@@ -10,7 +11,6 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.ArgumentMatchers.anyList
 import org.mockito.Mock
-import org.mockito.Mockito.times
 import org.mockito.MockitoAnnotations
 
 class JokeByCategoryPresenterTest() {
@@ -28,6 +28,8 @@ class JokeByCategoryPresenterTest() {
             JokeCategory("Politics"),
             JokeCategory("Sports")
     )
+
+    val categoryCaptor = argumentCaptor<JokeCategory>()
 
     @Before
     fun setUp() {
@@ -56,6 +58,19 @@ class JokeByCategoryPresenterTest() {
         }
 
         verify(mockView).fillCategories(anyList())
+    }
+
+    @Test
+    fun `should search without any category if "Search" button is clicked and no category has been selected`() {
+        givenThereAreSomeCategories(categories)
+
+        runBlocking {
+            presenter.initialize()
+
+            presenter.onSearchButtonClicked(0)
+        }
+
+        verify(mockChuckNorrisRepository).getRandomJokeByCategory(categoryCaptor.capture())
     }
 
     private fun givenThereAreSomeCategories(categories: List<JokeCategory>) {
