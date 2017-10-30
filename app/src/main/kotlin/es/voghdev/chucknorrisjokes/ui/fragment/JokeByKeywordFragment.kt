@@ -1,6 +1,7 @@
 package es.voghdev.chucknorrisjokes.ui.fragment
 
 import android.os.Bundle
+import android.view.View
 import es.voghdev.chucknorrisjokes.R
 import es.voghdev.chucknorrisjokes.app.AndroidResLocator
 import es.voghdev.chucknorrisjokes.ui.presenter.JokeByKeywordPresenter
@@ -11,8 +12,8 @@ class JokeByKeywordFragment : BaseFragment(), JokeByKeywordPresenter.MVPView, Jo
 
     var presenter: JokeByKeywordPresenter? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         presenter = JokeByKeywordPresenter(AndroidResLocator(context))
         presenter?.view = this
