@@ -2,7 +2,6 @@ package es.voghdev.chucknorrisjokes.ui.fragment
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import com.squareup.picasso.Picasso
 import es.voghdev.chucknorrisjokes.R
 import es.voghdev.chucknorrisjokes.app.AndroidResLocator
@@ -14,7 +13,6 @@ import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import es.voghdev.chucknorrisjokes.ui.presenter.JokeByKeywordPresenter
 import kotlinx.android.synthetic.main.fragment_joke_by_keyword.*
 import kotlinx.coroutines.experimental.runBlocking
-import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.toast
 
 class JokeByKeywordFragment : BaseFragment(), JokeByKeywordPresenter.MVPView, JokeByKeywordPresenter.Navigator {

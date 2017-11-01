@@ -31,6 +31,6 @@
         android:id="@+id/tv_text"
         style="@style/ChuckNorrisText"
         android:layout_marginTop="380dp"
-        android:text="Hello World! This is JokeByKeywordFragment" />
+        android:text="" />
 
 </FrameLayout>
