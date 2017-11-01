@@ -24,6 +24,7 @@ class JokeByCategoryFragment : BaseFragment(), JokeByCategoryPresenter.MVPView, 
         val chuckNorrisRepository = ChuckNorrisRepository(
                 GetRandomJokeApiImpl(),
                 GetJokeCategoriesApiImpl(),
+                GetRandomJokeByKeywordApiImpl(),
                 GetRandomJokeByCategoryApiImpl()
         )
 
