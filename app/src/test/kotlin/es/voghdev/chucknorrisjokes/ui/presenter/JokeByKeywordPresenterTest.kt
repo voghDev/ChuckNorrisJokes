@@ -1,11 +1,14 @@
 package es.voghdev.chucknorrisjokes.ui.presenter
 
 import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.whenever
 import es.voghdev.chucknorrisjokes.app.ResLocator
+import es.voghdev.chucknorrisjokes.model.Joke
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Before
 import org.junit.Test
+import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 
@@ -16,7 +19,7 @@ class JokeByKeywordPresenterTest() {
 
     @Mock lateinit var mockView: JokeByKeywordPresenter.MVPView
 
-    @Mock lateinit var mockChuckNorrisRepository : ChuckNorrisRepository
+    @Mock lateinit var mockChuckNorrisRepository: ChuckNorrisRepository
 
     lateinit var presenter: JokeByKeywordPresenter
 
@@ -47,6 +50,23 @@ class JokeByKeywordPresenterTest() {
         presenter.onSearchButtonClicked("lee")
 
         verify(mockChuckNorrisRepository).getRandomJokeByKeyword("lee")
+    }
+
+    @Test
+    fun `should show an empty case when an empty list is returned by the API`() {
+        givenTheApiReturnsNoResults()
+
+        runBlocking {
+            presenter.initialize()
+        }
+
+        presenter.onSearchButtonClicked("this query returns no results")
+
+        verify(mockView).showEmptyCase()
+    }
+
+    private fun givenTheApiReturnsNoResults() {
+        whenever(mockChuckNorrisRepository.getRandomJokeByKeyword(anyString())).thenReturn(Pair(emptyList<Joke>(), null))
     }
 
     private fun createMockedPresenter(): JokeByKeywordPresenter {

@@ -2,20 +2,19 @@ package es.voghdev.chucknorrisjokes.ui.fragment
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import es.voghdev.chucknorrisjokes.R
 import es.voghdev.chucknorrisjokes.app.AndroidResLocator
 import es.voghdev.chucknorrisjokes.datasource.api.GetJokeCategoriesApiImpl
 import es.voghdev.chucknorrisjokes.datasource.api.GetRandomJokeApiImpl
 import es.voghdev.chucknorrisjokes.datasource.api.GetRandomJokeByCategoryApiImpl
+import es.voghdev.chucknorrisjokes.datasource.api.GetRandomJokeByKeywordApiImpl
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import es.voghdev.chucknorrisjokes.ui.presenter.JokeByKeywordPresenter
-import es.voghdev.chucknorrisjokes.usecase.GetRandomJokeByKeyword
+import kotlinx.android.synthetic.main.fragment_joke_by_keyword.*
 import kotlinx.coroutines.experimental.runBlocking
-
+import org.jetbrains.anko.support.v4.toast
 
 class JokeByKeywordFragment : BaseFragment(), JokeByKeywordPresenter.MVPView, JokeByKeywordPresenter.Navigator {
-
     var presenter: JokeByKeywordPresenter? = null
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -42,6 +41,10 @@ class JokeByKeywordFragment : BaseFragment(), JokeByKeywordPresenter.MVPView, Jo
     }
 
     override fun showKeywordError(msg: String) {
-        Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+        toast(msg)
+    }
+
+    override fun showEmptyCase() {
+        tv_text.text = "This search returned no results"
     }
 }

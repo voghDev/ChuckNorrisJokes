@@ -9,6 +9,7 @@ import es.voghdev.chucknorrisjokes.app.configureDefaultAdapter
 import es.voghdev.chucknorrisjokes.datasource.api.GetJokeCategoriesApiImpl
 import es.voghdev.chucknorrisjokes.datasource.api.GetRandomJokeApiImpl
 import es.voghdev.chucknorrisjokes.datasource.api.GetRandomJokeByCategoryApiImpl
+import es.voghdev.chucknorrisjokes.datasource.api.GetRandomJokeByKeywordApiImpl
 import es.voghdev.chucknorrisjokes.model.JokeCategory
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import es.voghdev.chucknorrisjokes.ui.presenter.JokeByCategoryPresenter

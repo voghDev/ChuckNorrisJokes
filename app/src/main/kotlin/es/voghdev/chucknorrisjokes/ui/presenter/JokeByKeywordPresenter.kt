@@ -12,6 +12,7 @@ class JokeByKeywordPresenter(val context: ResLocator, val chuckNorrisRepository:
 
     interface MVPView {
         fun showKeywordError(msg: String)
+        fun showEmptyCase()
 
     }
 
@@ -21,7 +22,7 @@ class JokeByKeywordPresenter(val context: ResLocator, val chuckNorrisRepository:
 
     fun onSearchButtonClicked(text: String) {
         if(text.isNotEmpty()) {
-
+            chuckNorrisRepository.getRandomJokeByKeyword(text)
         } else {
             view?.showKeywordError("You must enter a keyword")
         }
