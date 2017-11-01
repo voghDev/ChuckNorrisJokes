@@ -51,9 +51,9 @@ class JokeByKeywordPresenterTest() {
     fun `should not accept an empty text as search keyword`() {
         runBlocking {
             presenter.initialize()
-        }
 
-        presenter.onSearchButtonClicked("")
+            presenter.onSearchButtonClicked("")
+        }
 
         verify(mockView).showKeywordError("You must enter a keyword")
     }
@@ -64,9 +64,9 @@ class JokeByKeywordPresenterTest() {
 
         runBlocking {
             presenter.initialize()
-        }
 
-        presenter.onSearchButtonClicked("lee")
+            presenter.onSearchButtonClicked("lee")
+        }
 
         verify(mockChuckNorrisRepository).getRandomJokeByKeyword("lee")
     }
@@ -77,9 +77,9 @@ class JokeByKeywordPresenterTest() {
 
         runBlocking {
             presenter.initialize()
-        }
 
-        presenter.onSearchButtonClicked("this query returns no results")
+            presenter.onSearchButtonClicked("this query returns no results")
+        }
 
         verify(mockView).showEmptyCase()
     }
@@ -90,9 +90,9 @@ class JokeByKeywordPresenterTest() {
 
         runBlocking {
             presenter.initialize()
-        }
 
-        presenter.onSearchButtonClicked("chan")
+            presenter.onSearchButtonClicked("chan")
+        }
 
         verify(mockView).showJokeText("Chuck Norris knows how to say souffle in the French language.")
     }
@@ -103,9 +103,9 @@ class JokeByKeywordPresenterTest() {
 
         runBlocking {
             presenter.initialize()
-        }
 
-        presenter.onSearchButtonClicked("chan")
+            presenter.onSearchButtonClicked("chan")
+        }
 
         verify(mockView).showJokeImage("https://assets.chucknorris.host/img/avatar/chuck-norris.png")
     }
