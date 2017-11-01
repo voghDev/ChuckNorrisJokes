@@ -2,6 +2,7 @@ package es.voghdev.chucknorrisjokes.ui.fragment
 
 import android.os.Bundle
 import android.view.View
+import com.squareup.picasso.Picasso
 import es.voghdev.chucknorrisjokes.R
 import es.voghdev.chucknorrisjokes.app.AndroidResLocator
 import es.voghdev.chucknorrisjokes.datasource.api.GetJokeCategoriesApiImpl
@@ -34,6 +35,10 @@ class JokeByKeywordFragment : BaseFragment(), JokeByKeywordPresenter.MVPView, Jo
         runBlocking {
             presenter?.initialize()
         }
+
+        btn_search.setOnClickListener {
+            presenter?.onSearchButtonClicked(et_keyword.text?.toString()?.trim() ?: "")
+        }
     }
 
     override fun getLayoutId(): Int {
@@ -46,5 +51,15 @@ class JokeByKeywordFragment : BaseFragment(), JokeByKeywordPresenter.MVPView, Jo
 
     override fun showEmptyCase() {
         tv_text.text = "This search returned no results"
+    }
+
+    override fun showJokeText(text: String) {
+        tv_text.text = text
+    }
+
+    override fun showJokeImage(url: String) {
+        Picasso.with(context)
+                .load(url)
+                .into(iv_image)
     }
 }

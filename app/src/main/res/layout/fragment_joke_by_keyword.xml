@@ -6,28 +6,26 @@
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/til_keyword"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/et_keyword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Search by keyword"
-            />
+            android:hint="Search by keyword" />
     </android.support.design.widget.TextInputLayout>
 
     <Button
-            android:id="@+id/btn_search"
-            style="@style/SearchByCategoryButton"
-            />
+        android:id="@+id/btn_search"
+        style="@style/SearchByCategoryButton" />
 
     <ImageView
         android:id="@+id/iv_image"
-        android:layout_marginTop="160dp"
-        style="@style/ChuckNorrisImage" />
+        style="@style/ChuckNorrisImage"
+        android:layout_marginTop="160dp" />
 
     <TextView
         android:id="@+id/tv_text"
