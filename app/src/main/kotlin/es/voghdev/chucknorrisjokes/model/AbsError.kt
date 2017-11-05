@@ -1,4 +1,8 @@
 package es.voghdev.chucknorrisjokes.model
 
 
-interface AbsError
+interface AbsError {
+    fun message() : String {
+        return ""
+    }
+}
