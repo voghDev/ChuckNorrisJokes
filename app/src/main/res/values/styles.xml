@@ -63,4 +63,8 @@
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:layout_marginTop">24dp</item>
     </style>
+
+    <style name="ChuckNorrisText.JokeByCategory">
+        <item name="android:layout_marginTop">400dp</item>
+    </style>
 </resources>
