@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import es.voghdev.chucknorrisjokes.R
 import es.voghdev.chucknorrisjokes.app.AndroidResLocator
+import es.voghdev.chucknorrisjokes.datasource.api.GetRandomJokeApiImpl
+import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import es.voghdev.chucknorrisjokes.ui.presenter.JokeByCategoryPresenter
 import kotlinx.coroutines.experimental.runBlocking
 
@@ -14,7 +16,9 @@ class JokeByCategoryFragment : BaseFragment(), JokeByCategoryPresenter.MVPView, 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        presenter = JokeByCategoryPresenter(AndroidResLocator(context))
+        val repository = ChuckNorrisRepository(GetRandomJokeApiImpl())
+
+        presenter = JokeByCategoryPresenter(AndroidResLocator(context), repository)
         presenter?.view = this
         presenter?.navigator = this
 
