@@ -9,7 +9,6 @@ class ChuckNorrisRepository(
         val getRandomJokeDataSource: GetRandomJoke,
         val getJokeCategoriesDataSource: GetJokeCategories,
         val getRandomJokeByKeywordDataSource: GetRandomJokeByKeyword,
-
         val getRandomJokeByCategoryDataSource: GetRandomJokeByCategory
 ) : GetRandomJoke by getRandomJokeDataSource,
         GetRandomJokeByCategory by getRandomJokeByCategoryDataSource,
