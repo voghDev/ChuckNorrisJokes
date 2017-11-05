@@ -6,6 +6,7 @@ import es.voghdev.chucknorrisjokes.datasource.api.model.ChuckNorrisService
 import es.voghdev.chucknorrisjokes.model.AbsError
 import es.voghdev.chucknorrisjokes.model.CNError
 import es.voghdev.chucknorrisjokes.model.JokeCategory
+import es.voghdev.chucknorrisjokes.usecase.GetJokeCategories
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Response
@@ -13,9 +14,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-class GetJokeCategoriesApiImpl : ApiRequest // ,GetJokeCategories
+class GetJokeCategoriesApiImpl : ApiRequest, GetJokeCategories
 {
-    fun getJokeCategories() : Pair<List<JokeCategory>?, AbsError?> {
+    override fun getJokeCategories() : Pair<List<JokeCategory>?, AbsError?> {
         val builder: OkHttpClient.Builder = OkHttpClient.Builder()
         if (BuildConfig.DEBUG)
             builder.addInterceptor(LogJsonInterceptor())
