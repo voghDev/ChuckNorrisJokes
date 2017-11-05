@@ -20,6 +20,14 @@ fun Pair<Any?, AbsError?>.failure(): Boolean {
     return second != null
 }
 
+fun Pair<List<Any>?, AbsError?>.hasResults(): Boolean {
+    return first != null && first?.isNotEmpty() ?: false
+}
+
+fun Pair<List<Any>?, AbsError?>.hasNoResults(): Boolean {
+    return first != null && first?.isEmpty() ?: false
+}
+
 fun Spinner.configureDefaultAdapter(values: List<String>) {
     adapter = ArrayAdapter<String>(context, R.layout.simple_spinner_item, values)
 }
