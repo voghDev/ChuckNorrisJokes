@@ -48,4 +48,16 @@
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:layout_marginTop">160dp</item>
     </style>
+
+    <style name="ChuckNorrisText.RandomJoke">
+        <item name="android:layout_marginTop">348dp</item>
+        <item name="android:text">""</item>
+    </style>
+
+    <style name="ChuckNorrisImage.RandomJoke">
+        <item name="android:layout_width">300dp</item>
+        <item name="android:layout_height">300dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginTop">24dp</item>
+    </style>
 </resources>
