@@ -67,4 +67,17 @@
     <style name="ChuckNorrisText.JokeByCategory">
         <item name="android:layout_marginTop">400dp</item>
     </style>
+
+    <style name="KeywordTextInputLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+    </style>
+
+    <style name="KeywordEditText">
+        <item name="android:hint">Search by keyword</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 </resources>
