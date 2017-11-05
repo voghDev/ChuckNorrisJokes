@@ -5,7 +5,7 @@ import es.voghdev.chucknorrisjokes.app.coroutine
 import es.voghdev.chucknorrisjokes.app.success
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 
-class JokeByKeywordPresenter(val context: ResLocator, val chuckNorrisRepository: ChuckNorrisRepository) :
+class JokeByKeywordPresenter(val context: ResLocator, val repository: ChuckNorrisRepository) :
         Presenter<JokeByKeywordPresenter.MVPView, JokeByKeywordPresenter.Navigator>() {
 
     override suspend fun initialize() {
@@ -15,7 +15,7 @@ class JokeByKeywordPresenter(val context: ResLocator, val chuckNorrisRepository:
     suspend fun onSearchButtonClicked(text: String) {
         if (text.isNotEmpty()) {
             coroutine {
-                chuckNorrisRepository.getRandomJokeByKeyword(text)
+                repository.getRandomJokeByKeyword(text)
             }.await().let { result ->
                 if (result.success()) {
                     if (result.first?.isNotEmpty() ?: false) {

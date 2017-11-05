@@ -13,8 +13,9 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class GetJokeCategoriesApiImpl : GetJokeCategories, ApiRequest {
-    override fun getJokeCategories(): Pair<List<JokeCategory>?, AbsError?> {
+class GetJokeCategoriesApiImpl : ApiRequest, GetJokeCategories
+{
+    override fun getJokeCategories() : Pair<List<JokeCategory>?, AbsError?> {
         val builder: OkHttpClient.Builder = OkHttpClient.Builder()
         if (BuildConfig.DEBUG)
             builder.addInterceptor(LogJsonInterceptor())
