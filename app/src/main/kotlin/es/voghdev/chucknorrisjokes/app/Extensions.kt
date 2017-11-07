@@ -4,6 +4,7 @@ import android.R
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import es.voghdev.chucknorrisjokes.model.AbsError
+import es.voghdev.chucknorrisjokes.model.Joke
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.Deferred
 import kotlinx.coroutines.experimental.async
@@ -18,6 +19,14 @@ fun Pair<Any?, AbsError?>.success(): Boolean {
 
 fun Pair<Any?, AbsError?>.failure(): Boolean {
     return second != null
+}
+
+fun Pair<List<Joke>?, AbsError?>.firstJoke() : Joke {
+    return first?.elementAt(0) ?: Joke()
+}
+
+fun Pair<Joke?, AbsError?>.hasImage() : Boolean {
+    return success() && first?.iconUrl?.isNotEmpty() ?: false
 }
 
 fun Pair<List<Any>?, AbsError?>.hasResults(): Boolean {

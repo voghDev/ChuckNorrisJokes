@@ -6,19 +6,20 @@ import es.voghdev.chucknorrisjokes.app.success
 import es.voghdev.chucknorrisjokes.model.JokeCategory
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 
-class JokeByCategoryPresenter(val context: ResLocator, val repository: ChuckNorrisRepository) :
+class JokeByCategoryPresenter(val resLocator: ResLocator, val repository: ChuckNorrisRepository) :
         Presenter<JokeByCategoryPresenter.MVPView, JokeByCategoryPresenter.Navigator>() {
 
     var categories: List<JokeCategory> = emptyList()
 
     override suspend fun initialize() {
-        coroutine {
+        val task = coroutine {
             repository.getJokeCategories()
-        }.await().let { result ->
-            if (result.success()) {
-                categories = result.first ?: emptyList()
-                view?.fillCategories(categories)
-            }
+        }
+        val result = task.await()
+
+        if (result.success()) {
+            categories = result.first ?: emptyList()
+            view?.fillCategories(categories)
         }
     }
 
