@@ -37,6 +37,7 @@ class JokeByCategoryFragment : BaseFragment(), JokeByCategoryPresenter.MVPView, 
             presenter?.initialize()
         }
 
+
         btn_search.setOnClickListener {
             runBlocking {
                 presenter?.onSearchButtonClicked(spn_categories.selectedItemPosition)
