@@ -9,6 +9,7 @@ import es.voghdev.chucknorrisjokes.datasource.api.GetJokeCategoriesApiImpl
 import es.voghdev.chucknorrisjokes.datasource.api.GetRandomJokeApiImpl
 import es.voghdev.chucknorrisjokes.datasource.api.GetRandomJokeByCategoryApiImpl
 import es.voghdev.chucknorrisjokes.datasource.api.GetRandomJokeByKeywordApiImpl
+import es.voghdev.chucknorrisjokes.model.Joke
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import es.voghdev.chucknorrisjokes.ui.presenter.JokeByKeywordPresenter
 import kotlinx.android.synthetic.main.fragment_joke_by_keyword.*
@@ -64,5 +65,8 @@ class JokeByKeywordFragment : BaseFragment(), JokeByKeywordPresenter.MVPView, Jo
         Picasso.with(context)
                 .load(url)
                 .into(iv_image)
+    }
+
+    override fun addJoke(joke: Joke) {
     }
 }

@@ -1,6 +1,7 @@
 package es.voghdev.chucknorrisjokes.ui.presenter
 
 import es.voghdev.chucknorrisjokes.app.*
+import es.voghdev.chucknorrisjokes.model.Joke
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 
 class JokeByKeywordPresenter(val resLocator: ResLocator, val repository: ChuckNorrisRepository) :
@@ -21,8 +22,7 @@ class JokeByKeywordPresenter(val resLocator: ResLocator, val repository: ChuckNo
         }
         val result = task.await()
         if (result.hasResults()) {
-            view?.showJokeText(result.firstJoke().value)
-            view?.showJokeImage(result.firstJoke().iconUrl)
+
         } else if (result.success()) {
             view?.showEmptyCase()
         }
@@ -33,6 +33,7 @@ class JokeByKeywordPresenter(val resLocator: ResLocator, val repository: ChuckNo
         fun showEmptyCase()
         fun showJokeText(text: String)
         fun showJokeImage(url: String)
+        fun addJoke(joke: Joke)
     }
 
     interface Navigator {
