@@ -11,7 +11,7 @@ import es.voghdev.chucknorrisjokes.ui.fragment.JokeByKeywordFragment
 import es.voghdev.chucknorrisjokes.ui.fragment.RandomJokeFragment
 
 class MainPagerAdapter(val context: Context) : FragmentStatePagerAdapter((context as AppCompatActivity).supportFragmentManager) {
-    var listener : Listener? = null
+    var listener: Listener? = null
 
     val classes = listOf(
             RandomJokeFragment::class.java.name,

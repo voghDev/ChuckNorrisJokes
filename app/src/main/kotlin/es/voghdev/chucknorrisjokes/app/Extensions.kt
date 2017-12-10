@@ -24,11 +24,11 @@ fun Pair<Any?, AbsError?>.failure(): Boolean {
     return second != null
 }
 
-fun Pair<List<Joke>?, AbsError?>.firstJoke() : Joke {
+fun Pair<List<Joke>?, AbsError?>.firstJoke(): Joke {
     return first?.elementAt(0) ?: Joke()
 }
 
-fun Pair<Joke?, AbsError?>.hasImage() : Boolean {
+fun Pair<Joke?, AbsError?>.hasImage(): Boolean {
     return success() && first?.iconUrl?.isNotEmpty() ?: false
 }
 

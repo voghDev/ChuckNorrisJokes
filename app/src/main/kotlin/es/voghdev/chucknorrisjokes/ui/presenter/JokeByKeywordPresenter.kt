@@ -1,6 +1,9 @@
 package es.voghdev.chucknorrisjokes.ui.presenter
 
-import es.voghdev.chucknorrisjokes.app.*
+import es.voghdev.chucknorrisjokes.app.ResLocator
+import es.voghdev.chucknorrisjokes.app.coroutine
+import es.voghdev.chucknorrisjokes.app.hasResults
+import es.voghdev.chucknorrisjokes.app.success
 import es.voghdev.chucknorrisjokes.model.Joke
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 
@@ -22,7 +25,9 @@ class JokeByKeywordPresenter(val resLocator: ResLocator, val repository: ChuckNo
         }
         val result = task.await()
         if (result.hasResults()) {
-
+            result.first?.forEach { joke ->
+                view?.addJoke(joke)
+            }
         } else if (result.success()) {
             view?.showEmptyCase()
         }
@@ -31,8 +36,6 @@ class JokeByKeywordPresenter(val resLocator: ResLocator, val repository: ChuckNo
     interface MVPView {
         fun showKeywordError(msg: String)
         fun showEmptyCase()
-        fun showJokeText(text: String)
-        fun showJokeImage(url: String)
         fun addJoke(joke: Joke)
     }
 

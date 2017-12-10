@@ -22,6 +22,12 @@
         android:id="@+id/btn_search"
         style="@style/SearchByCategoryButton" />
 
+    <TextView
+        android:id="@+id/tv_empty_case"
+        style="@style/ChuckNorrisText"
+        android:visibility="invisible"
+        />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         style="@style/JokesRecycler" />

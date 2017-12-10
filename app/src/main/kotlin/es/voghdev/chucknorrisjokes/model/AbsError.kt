@@ -2,7 +2,7 @@ package es.voghdev.chucknorrisjokes.model
 
 
 interface AbsError {
-    fun message() : String {
+    fun message(): String {
         return ""
     }
 }
