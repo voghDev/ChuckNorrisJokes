@@ -103,12 +103,22 @@ class JokeByKeywordPresenterTest() {
 
         assertEquals("Chuck Norris knows how to say souffle in the French language.", captor.firstValue.value)
         assertEquals("https://assets.chucknorris.host/img/avatar/chuck-norris.png", captor.firstValue.iconUrl)
+        assertEquals("We have our fears, fear has its Chuck Norris'es", captor.secondValue.value)
+        assertEquals("http://chuck.image.url", captor.secondValue.iconUrl)
     }
 
-    // TODO 0: Move styles to master branch, adapter, viewholder, layout for the row
-    // TODO 1: Should hide empty case when there are results
-    // TODO 2: Should show the number of results when search return a positive number of results
-    // TODO 3: Assert the two mocked results in the first test
+    @Test
+    fun `should hide empty case when there are results`() {
+        givenTheApiReturns(someJokes)
+
+        runBlocking {
+            presenter.initialize()
+
+            presenter.onSearchButtonClicked("Jackie")
+        }
+
+        verify(mockView).hideEmptyCase()
+    }
 
     private fun givenTheApiReturns(jokes: List<Joke>) {
         whenever(mockChuckNorrisRepository.getRandomJokeByKeyword(anyString())).thenReturn(Pair(jokes, null))

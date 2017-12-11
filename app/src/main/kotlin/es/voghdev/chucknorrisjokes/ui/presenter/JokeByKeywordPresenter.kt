@@ -25,6 +25,7 @@ class JokeByKeywordPresenter(val resLocator: ResLocator, val repository: ChuckNo
         }
         val result = task.await()
         if (result.hasResults()) {
+            view?.hideEmptyCase()
             result.first?.forEach { joke ->
                 view?.addJoke(joke)
             }
@@ -36,6 +37,7 @@ class JokeByKeywordPresenter(val resLocator: ResLocator, val repository: ChuckNo
     interface MVPView {
         fun showKeywordError(msg: String)
         fun showEmptyCase()
+        fun hideEmptyCase()
         fun addJoke(joke: Joke)
     }
 

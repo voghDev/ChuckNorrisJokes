@@ -3,6 +3,7 @@ package es.voghdev.chucknorrisjokes.ui.fragment
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import es.voghdev.chucknorrisjokes.R
 import es.voghdev.chucknorrisjokes.app.AndroidResLocator
@@ -63,6 +64,14 @@ class JokeByKeywordFragment : BaseFragment(), JokeByKeywordPresenter.MVPView, Jo
     override fun showEmptyCase() {
         tv_empty_case.visibility = VISIBLE
         tv_empty_case.text = "This search returned no results"
+
+        recyclerView.visibility = INVISIBLE
+    }
+
+    override fun hideEmptyCase() {
+        tv_empty_case.visibility = INVISIBLE
+
+        recyclerView.visibility = VISIBLE
     }
 
     override fun addJoke(joke: Joke) {
