@@ -45,6 +45,19 @@ class JokeByKeywordFragment : BaseFragment(), JokeByKeywordPresenter.MVPView, Jo
         return R.layout.fragment_joke_by_keyword
     }
 
+//    override fun showEmptyCase() {
+//        tv_empty_case.visibility = VISIBLE
+//        tv_empty_case.text = "This search returned no results"
+//
+//        recyclerView.visibility = INVISIBLE
+//    }
+
+//    override fun hideEmptyCase() {
+//        tv_empty_case.visibility = INVISIBLE
+//
+//        recyclerView.visibility = VISIBLE
+//    }
+
 //    override fun addJoke(joke: Joke) {
 //        adapter?.add(joke)
 //
