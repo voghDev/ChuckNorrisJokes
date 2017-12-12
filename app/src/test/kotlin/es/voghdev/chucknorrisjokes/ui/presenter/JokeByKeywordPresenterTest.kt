@@ -88,7 +88,7 @@ class JokeByKeywordPresenterTest() {
     }
 
     @Test
-    fun `should add the first joke to the list when a list of two jokes is returned by the API`() {
+    fun `should add the first two jokes to the list when a list of two jokes is returned by the API`() {
         givenTheApiReturns(someJokes)
 
         runBlocking {
