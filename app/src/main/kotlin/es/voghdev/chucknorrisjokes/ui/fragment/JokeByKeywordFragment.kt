@@ -65,4 +65,5 @@ class JokeByKeywordFragment : BaseFragment(), JokeByKeywordPresenter.MVPView, Jo
                 .load(url)
                 .into(iv_image)
     }
+
 }
