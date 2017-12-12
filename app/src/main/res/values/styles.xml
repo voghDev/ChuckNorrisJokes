@@ -105,4 +105,8 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">normal</item>
     </style>
+
+    <style name="EmptyCaseLabel" parent="ChuckNorrisText">
+        <item name="android:visibility">invisible</item>
+    </style>
 </resources>
