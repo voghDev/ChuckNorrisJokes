@@ -39,6 +39,13 @@ class JokeByKeywordFragment : BaseFragment(), JokeByKeywordPresenter.MVPView, Jo
         runBlocking {
             presenter?.initialize()
         }
+
+//        btn_search.setOnClickListener {
+//            val keyword = et_keyword.text?.toString()?.trim() ?: ""
+//            runBlocking {
+//                presenter?.onSearchButtonClicked(keyword)
+//            }
+//        }
     }
 
     override fun getLayoutId(): Int {
