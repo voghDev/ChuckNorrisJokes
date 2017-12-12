@@ -24,9 +24,7 @@
 
     <TextView
         android:id="@+id/tv_empty_case"
-        style="@style/ChuckNorrisText"
-        android:visibility="invisible"
-        />
+        style="@style/EmptyCaseLabel" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
