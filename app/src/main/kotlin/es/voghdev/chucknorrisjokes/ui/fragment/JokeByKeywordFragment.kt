@@ -25,7 +25,8 @@ import es.voghdev.chucknorrisjokes.datasource.api.GetRandomJokeByCategoryApiImpl
 import es.voghdev.chucknorrisjokes.datasource.api.GetRandomJokeByKeywordApiImpl
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import es.voghdev.chucknorrisjokes.ui.presenter.JokeByKeywordPresenter
-import kotlinx.coroutines.experimental.runBlocking
+import kotlinx.coroutines.experimental.CommonPool
+import kotlinx.coroutines.experimental.launch
 
 class JokeByKeywordFragment : BaseFragment(), JokeByKeywordPresenter.MVPView, JokeByKeywordPresenter.Navigator {
 
@@ -49,13 +50,13 @@ class JokeByKeywordFragment : BaseFragment(), JokeByKeywordPresenter.MVPView, Jo
 //        recyclerView.adapter = adapter
 //        recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-        runBlocking {
+        launch(CommonPool) {
             presenter?.initialize()
         }
 
 //        btn_search.setOnClickListener {
 //            val keyword = et_keyword.text?.toString()?.trim() ?: ""
-//            runBlocking {
+//            launch(CommonPool {
 //                presenter?.onSearchButtonClicked(keyword)
 //            }
 //        }
