@@ -62,4 +62,3 @@ class GetJokeCategoriesApiImpl : ApiRequest, GetJokeCategories {
         return Pair(null, CNError("Unknown error"))
     }
 }
-
