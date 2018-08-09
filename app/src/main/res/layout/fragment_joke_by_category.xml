@@ -4,9 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <Spinner
+        android:id="@+id/spn_categories"
+        style="@style/JokeCategorySpinner" />
+
+    <Button
+        android:id="@+id/btn_search"
+        style="@style/SearchByCategoryButton" />
+
     <TextView
         android:id="@+id/tv_text"
         style="@style/ChuckNorrisText.JokeByCategory"
         android:text="Hello World! This is JokeByCategoryFragment" />
+
+    <ImageView
+        android:id="@+id/iv_image"
+        style="@style/ChuckNorrisImage" />
 
 </FrameLayout>

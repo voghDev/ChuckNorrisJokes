@@ -4,10 +4,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_text"
-        android:layout_width="wrap_content"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_keyword"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World! This is JokeByKeywordFragment" />
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/et_keyword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Search by keyword" />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/btn_search"
+        style="@style/SearchByCategoryButton" />
+
+    <TextView
+        android:id="@+id/tv_empty_case"
+        style="@style/EmptyCaseLabel" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        style="@style/JokesRecycler" />
 
 </FrameLayout>
