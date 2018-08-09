@@ -134,10 +134,23 @@ class JokeByKeywordPresenterTest() {
         runBlocking {
             presenter.initialize()
 
-            presenter.onSearchButtonClicked("v")
+            presenter.onSearchButtonClicked("erroneous search")
         }
 
         verify(mockView).showError("422 unprocessable Entity")
+    }
+
+    @Test
+    fun `should not allow searches with less than two characters`() {
+        givenTheApiReturnsAnError("422 unprocessable Entity")
+
+        runBlocking {
+            presenter.initialize()
+
+            presenter.onSearchButtonClicked("tr")
+        }
+
+        verify(mockView).showKeywordError("Keyword must have 2 characters at least")
     }
 
     private fun givenTheApiReturnsAnError(message: String) {

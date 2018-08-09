@@ -36,10 +36,13 @@ class JokeByKeywordPresenter(val resLocator: ResLocator, val repository: ChuckNo
             return
         }
 
-        val task = coroutine {
-            repository.getRandomJokeByKeyword(text)
+        if (text.length <= 2) {
+            view?.showKeywordError("Keyword must have 2 characters at least")
+            return
         }
-        val result = task.await()
+
+        val result = coroutine { repository.getRandomJokeByKeyword(text) }.await()
+
         if (result.hasResults()) {
             view?.hideEmptyCase()
             (result as Either.Right).b.forEach { joke ->
