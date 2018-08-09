@@ -22,15 +22,12 @@
         android:id="@+id/btn_search"
         style="@style/SearchByCategoryButton" />
 
-    <ImageView
-        android:id="@+id/iv_image"
-        style="@style/ChuckNorrisImage"
-        android:layout_marginTop="160dp" />
-
     <TextView
-        android:id="@+id/tv_text"
-        style="@style/ChuckNorrisText"
-        android:layout_marginTop="380dp"
-        android:text="" />
+        android:id="@+id/tv_empty_case"
+        style="@style/EmptyCaseLabel" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        style="@style/JokesRecycler" />
 
 </FrameLayout>

@@ -15,6 +15,7 @@
  */
 package es.voghdev.chucknorrisjokes.datasource.api
 
+import arrow.core.Either
 import com.google.gson.JsonSyntaxException
 import es.voghdev.chucknorrisjokes.BuildConfig
 import es.voghdev.chucknorrisjokes.datasource.api.model.ChuckNorrisService
@@ -30,7 +31,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class GetRandomJokeByKeywordApiImpl : GetRandomJokeByKeyword, ApiRequest {
-    override fun getRandomJokeByKeyword(keyword: String): Pair<List<Joke>?, AbsError?> {
+    override fun getRandomJokeByKeyword(keyword: String): Either<AbsError, List<Joke>> {
         val builder: OkHttpClient.Builder = OkHttpClient.Builder()
         if (BuildConfig.DEBUG)
             builder.addInterceptor(LogJsonInterceptor())
@@ -49,15 +50,15 @@ class GetRandomJokeByKeywordApiImpl : GetRandomJokeByKeyword, ApiRequest {
             val rsp: Response<JokeByKeywordApiResponse>? = call.execute()
 
             if (rsp?.body() ?: false is JokeByKeywordApiResponse) {
-                return Pair(rsp?.body()?.map() ?: emptyList<Joke>(), null)
+                return Either.right(rsp?.body()?.map() ?: emptyList<Joke>())
             } else if (rsp?.errorBody() != null) {
                 val error = (rsp.errorBody())?.string() ?: ""
-                return Pair(null, CNError(error))
+                return Either.left(CNError(error))
             }
         } catch (e: JsonSyntaxException) {
-            return Pair(null, CNError(e.message ?: "Unknown error parsing JSON"))
+            return Either.left(CNError(e.message ?: "Unknown error parsing JSON"))
         }
 
-        return Pair(null, CNError("Unknown error"))
+        return Either.left(CNError("Unknown error"))
     }
 }

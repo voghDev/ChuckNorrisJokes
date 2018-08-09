@@ -15,6 +15,7 @@
  */
 package es.voghdev.chucknorrisjokes.ui.presenter
 
+import arrow.core.Either
 import es.voghdev.chucknorrisjokes.app.ResLocator
 import es.voghdev.chucknorrisjokes.app.coroutine
 import es.voghdev.chucknorrisjokes.app.hasImage
@@ -31,11 +32,11 @@ class RandomJokePresenter(val resLocator: ResLocator, val repository: ChuckNorri
 
         val result = task.await()
         if (result.success()) {
-            view?.showJokeText(result.first?.value ?: "")
+            view?.showJokeText((result as Either.Right).b.value)
         }
 
         if (result.hasImage()) {
-            view?.loadJokeImage(result.first?.iconUrl ?: "")
+            view?.loadJokeImage((result as Either.Right).b.iconUrl)
         }
     }
 

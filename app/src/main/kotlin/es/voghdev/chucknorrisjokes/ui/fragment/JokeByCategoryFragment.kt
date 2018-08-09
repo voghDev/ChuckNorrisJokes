@@ -21,6 +21,7 @@ import com.squareup.picasso.Picasso
 import es.voghdev.chucknorrisjokes.R
 import es.voghdev.chucknorrisjokes.app.AndroidResLocator
 import es.voghdev.chucknorrisjokes.app.configureDefaultAdapter
+import es.voghdev.chucknorrisjokes.app.ui
 import es.voghdev.chucknorrisjokes.datasource.api.GetJokeCategoriesApiImpl
 import es.voghdev.chucknorrisjokes.datasource.api.GetRandomJokeApiImpl
 import es.voghdev.chucknorrisjokes.datasource.api.GetRandomJokeByCategoryApiImpl
@@ -53,27 +54,27 @@ class JokeByCategoryFragment : BaseFragment(), JokeByCategoryPresenter.MVPView, 
             presenter?.initialize()
         }
 
-//        btn_search.setOnClickListener {
-//            launch(CommonPool {
-//                presenter?.onSearchButtonClicked(spn_categories.selectedItemPosition)
-//            }
-//        }
+        btn_search.setOnClickListener {
+            launch(CommonPool) {
+                presenter?.onSearchButtonClicked(spn_categories.selectedItemPosition)
+            }
+        }
     }
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_joke_by_category
     }
 
-    override fun fillCategories(list: List<JokeCategory>) {
+    override fun fillCategories(list: List<JokeCategory>) = ui {
         val values = list.map { it.name }
         spn_categories.configureDefaultAdapter(values)
     }
 
-    override fun showJokeText(text: String) {
+    override fun showJokeText(text: String) = ui {
         tv_text.text = text
     }
 
-    override fun showJokeImage(url: String) {
+    override fun showJokeImage(url: String) = ui {
         Picasso.with(context)
                 .load(url)
                 .into(iv_image)

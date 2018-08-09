@@ -1,5 +1,6 @@
 package es.voghdev.chucknorrisjokes.ui.presenter
 
+import arrow.core.Right
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import es.voghdev.chucknorrisjokes.app.ResLocator
@@ -54,7 +55,7 @@ class RandomJokePresenterTest {
     }
 
     private fun givenThereIsARandomJoke(joke: Joke) {
-        whenever(mockChuckNorrisRepository.getRandomJoke()).thenReturn(Pair(joke, null))
+        whenever(mockChuckNorrisRepository.getRandomJoke()).thenReturn(Right(joke))
     }
 
     @Test

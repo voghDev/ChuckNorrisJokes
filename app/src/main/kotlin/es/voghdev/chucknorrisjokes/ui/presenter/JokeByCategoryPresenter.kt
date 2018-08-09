@@ -15,6 +15,7 @@
  */
 package es.voghdev.chucknorrisjokes.ui.presenter
 
+import arrow.core.Either
 import es.voghdev.chucknorrisjokes.app.ResLocator
 import es.voghdev.chucknorrisjokes.app.coroutine
 import es.voghdev.chucknorrisjokes.app.success
@@ -22,7 +23,7 @@ import es.voghdev.chucknorrisjokes.model.JokeCategory
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 
 class JokeByCategoryPresenter(val resLocator: ResLocator, val repository: ChuckNorrisRepository) :
-        Presenter<JokeByCategoryPresenter.MVPView, JokeByCategoryPresenter.Navigator>() {
+    Presenter<JokeByCategoryPresenter.MVPView, JokeByCategoryPresenter.Navigator>() {
 
     var categories: List<JokeCategory> = emptyList()
 
@@ -33,7 +34,7 @@ class JokeByCategoryPresenter(val resLocator: ResLocator, val repository: ChuckN
         val result = task.await()
 
         if (result.success()) {
-            categories = result.first ?: emptyList()
+            categories = (result as Either.Right).b
             view?.fillCategories(categories)
         }
     }
@@ -43,8 +44,8 @@ class JokeByCategoryPresenter(val resLocator: ResLocator, val repository: ChuckN
             repository.getRandomJokeByCategory(categories[position])
         }.await().let { result ->
             if (result.success()) {
-                view?.showJokeText(result.first?.value ?: "")
-                view?.showJokeImage(result.first?.iconUrl ?: "")
+                view?.showJokeText((result as Either.Right).b.value)
+                view?.showJokeImage((result as Either.Right).b.iconUrl)
             }
         }
     }

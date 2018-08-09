@@ -1,5 +1,7 @@
 package es.voghdev.chucknorrisjokes.ui.presenter
 
+import arrow.core.Either
+import arrow.core.Right
 import com.nhaarman.mockito_kotlin.argumentCaptor
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
@@ -26,9 +28,10 @@ class JokeByCategoryPresenterTest() {
     @Mock
     lateinit var mockView: JokeByCategoryPresenter.MVPView
 
-    @Mock lateinit var mockChuckNorrisRepository: ChuckNorrisRepository
-
     lateinit var presenter: JokeByCategoryPresenter
+
+    @Mock
+    lateinit var mockChuckNorrisRepository: ChuckNorrisRepository
 
     val categories = listOf(
         JokeCategory("Politics"),
@@ -119,11 +122,11 @@ class JokeByCategoryPresenterTest() {
     }
 
     private fun givenTheRepositoryHasAnExampleJoke(exampleJoke: Joke) {
-        whenever(mockChuckNorrisRepository.getRandomJokeByCategory(anyCategory())).thenReturn(Pair(exampleJoke, null))
+        whenever(mockChuckNorrisRepository.getRandomJokeByCategory(anyCategory())).thenReturn(Either.Right(exampleJoke))
     }
 
     private fun givenThereAreSomeCategories(categories: List<JokeCategory>) {
-        whenever(mockChuckNorrisRepository.getJokeCategories()).thenReturn(Pair(categories, null))
+        whenever(mockChuckNorrisRepository.getJokeCategories()).thenReturn(Right(categories))
     }
 
     private fun createMockedPresenter(): JokeByCategoryPresenter {
