@@ -24,7 +24,7 @@ import es.voghdev.chucknorrisjokes.model.Joke
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 
 class JokeByKeywordPresenter(val resLocator: ResLocator, val repository: ChuckNorrisRepository) :
-        Presenter<JokeByKeywordPresenter.MVPView, JokeByKeywordPresenter.Navigator>() {
+    Presenter<JokeByKeywordPresenter.MVPView, JokeByKeywordPresenter.Navigator>() {
 
     override suspend fun initialize() {
 
@@ -47,6 +47,8 @@ class JokeByKeywordPresenter(val resLocator: ResLocator, val repository: ChuckNo
             }
         } else if (result.success()) {
             view?.showEmptyCase()
+        } else {
+            view?.showError((result as? Either.Left)?.a?.message() ?: "Unknown error")
         }
     }
 
@@ -55,6 +57,7 @@ class JokeByKeywordPresenter(val resLocator: ResLocator, val repository: ChuckNo
         fun showEmptyCase()
         fun hideEmptyCase()
         fun addJoke(joke: Joke)
+        fun showError(msg: String)
     }
 
     interface Navigator {

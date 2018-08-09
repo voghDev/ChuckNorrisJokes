@@ -76,17 +76,23 @@ class JokeByKeywordFragment : BaseFragment(), JokeByKeywordPresenter.MVPView, Jo
         requireActivity().toast(msg)
     }
 
+    override fun showError(msg: String) = ui {
+        requireActivity().toast(msg)
+    }
+
     override fun showEmptyCase() = ui {
         tv_empty_case.visibility = VISIBLE
         tv_empty_case.text = "This search returned no results"
 
         recyclerView.visibility = INVISIBLE
+        v_separator.visibility = INVISIBLE
     }
 
     override fun hideEmptyCase() = ui {
         tv_empty_case.visibility = INVISIBLE
 
         recyclerView.visibility = VISIBLE
+        v_separator.visibility = VISIBLE
     }
 
     override fun addJoke(joke: Joke) = ui {

@@ -1,10 +1,12 @@
 package es.voghdev.chucknorrisjokes.ui.presenter
 
+import arrow.core.Either
 import arrow.core.Right
 import com.nhaarman.mockito_kotlin.argumentCaptor
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import es.voghdev.chucknorrisjokes.app.ResLocator
+import es.voghdev.chucknorrisjokes.model.CNError
 import es.voghdev.chucknorrisjokes.model.Joke
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import kotlinx.coroutines.experimental.runBlocking
@@ -123,6 +125,23 @@ class JokeByKeywordPresenterTest() {
         }
 
         verify(mockView).hideEmptyCase()
+    }
+
+    @Test
+    fun `should show an error when Api returns an error`() {
+        givenTheApiReturnsAnError("422 unprocessable Entity")
+
+        runBlocking {
+            presenter.initialize()
+
+            presenter.onSearchButtonClicked("v")
+        }
+
+        verify(mockView).showError("422 unprocessable Entity")
+    }
+
+    private fun givenTheApiReturnsAnError(message: String) {
+        whenever(mockChuckNorrisRepository.getRandomJokeByKeyword(anyString())).thenReturn(Either.Left(CNError(message)))
     }
 
     private fun givenTheApiReturns(jokes: List<Joke>) {
