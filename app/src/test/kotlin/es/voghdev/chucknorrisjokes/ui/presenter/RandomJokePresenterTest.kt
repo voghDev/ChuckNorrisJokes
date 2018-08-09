@@ -8,21 +8,25 @@ import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 
 class RandomJokePresenterTest {
-    @Mock lateinit var mockResLocator: ResLocator
+    @Mock
+    lateinit var mockResLocator: ResLocator
 
-    @Mock lateinit var mockNavigator: RandomJokePresenter.Navigator
+    @Mock
+    lateinit var mockNavigator: RandomJokePresenter.Navigator
 
-    @Mock lateinit var mockView: RandomJokePresenter.MVPView
+    @Mock
+    lateinit var mockView: RandomJokePresenter.MVPView
 
-    @Mock lateinit var mockChuckNorrisRepository : ChuckNorrisRepository
+    @Mock
+    lateinit var mockChuckNorrisRepository: ChuckNorrisRepository
 
-    lateinit var presenter : RandomJokePresenter
+    lateinit var presenter: RandomJokePresenter
 
     val exampleJoke = Joke(
-            id = "GdEH64AkS9qEQCmqMwM2Rg",
-            iconUrl = "https://assets.chucknorris.host/img/avatar/chuck-norris.png",
-            url = "http://api.chucknorris.io/jokes/GdEH64AkS9qEQCmqMwM2Rg",
-            value = "Chuck Norris knows how to say souffle in the French language."
+        id = "GdEH64AkS9qEQCmqMwM2Rg",
+        iconUrl = "https://assets.chucknorris.host/img/avatar/chuck-norris.png",
+        url = "http://api.chucknorris.io/jokes/GdEH64AkS9qEQCmqMwM2Rg",
+        value = "Chuck Norris knows how to say souffle in the French language."
     )
 
     @Before

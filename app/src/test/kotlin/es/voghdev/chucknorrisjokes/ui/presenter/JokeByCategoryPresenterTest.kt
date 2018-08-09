@@ -10,25 +10,29 @@ import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 
 class JokeByCategoryPresenterTest() {
-    @Mock lateinit var mockResLocator: ResLocator
+    @Mock
+    lateinit var mockResLocator: ResLocator
 
-    @Mock lateinit var mockNavigator: JokeByCategoryPresenter.Navigator
+    @Mock
+    lateinit var mockNavigator: JokeByCategoryPresenter.Navigator
 
-    @Mock lateinit var mockView: JokeByCategoryPresenter.MVPView
+    @Mock
+    lateinit var mockView: JokeByCategoryPresenter.MVPView
 
-    lateinit var presenter : JokeByCategoryPresenter
+    lateinit var presenter: JokeByCategoryPresenter
 
-    @Mock lateinit var mockChuckNorrisRepository : ChuckNorrisRepository
+    @Mock
+    lateinit var mockChuckNorrisRepository: ChuckNorrisRepository
 
     val categories = listOf(
-            JokeCategory("Politics"),
-            JokeCategory("Sports")
+        JokeCategory("Politics"),
+        JokeCategory("Sports")
     )
 
     val exampleJoke = Joke(id = "abc",
-            iconUrl = "http://chuck.image.url",
-            url = "http://example.url",
-            value = "We have our fears, fear has its Chuck Norris'es")
+                           iconUrl = "http://chuck.image.url",
+                           url = "http://example.url",
+                           value = "We have our fears, fear has its Chuck Norris'es")
 
     val categoryCaptor = argumentCaptor<JokeCategory>()
     val strCaptor = argumentCaptor<String>()

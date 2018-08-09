@@ -20,10 +20,10 @@ class GetRandomJokeApiImpl : GetRandomJoke, ApiRequest {
             builder.addInterceptor(LogJsonInterceptor())
 
         val retrofit: Retrofit = Retrofit.Builder()
-                .baseUrl(getEndPoint())
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(builder.build())
-                .build()
+            .baseUrl(getEndPoint())
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(builder.build())
+            .build()
 
         val service: ChuckNorrisService = retrofit.create(ChuckNorrisService::class.java)
 
@@ -35,10 +35,10 @@ class GetRandomJokeApiImpl : GetRandomJoke, ApiRequest {
             if (rsp?.body() ?: false is JokeApiEntry) {
                 return Pair(rsp?.body()?.map() ?: Joke(), null)
             } else if (rsp?.errorBody() != null) {
-                val error = rsp?.errorBody().string()
+                val error = (rsp.errorBody())?.string() ?: ""
                 return Pair(null, CNError(error))
             }
-        } catch(e: JsonSyntaxException) {
+        } catch (e: JsonSyntaxException) {
             return Pair(null, CNError(e.message ?: "Unknown error parsing JSON"))
         }
 

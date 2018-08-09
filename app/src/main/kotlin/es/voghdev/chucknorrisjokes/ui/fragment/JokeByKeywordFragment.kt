@@ -32,16 +32,16 @@ class JokeByKeywordFragment : BaseFragment(), JokeByKeywordPresenter.MVPView, Jo
     var presenter: JokeByKeywordPresenter? = null
 //    var adapter: JokeAdapter? = null
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val chuckNorrisRepository = ChuckNorrisRepository(
-                GetRandomJokeApiImpl(),
-                GetJokeCategoriesApiImpl(),
-                GetRandomJokeByKeywordApiImpl(),
-                GetRandomJokeByCategoryApiImpl())
+            GetRandomJokeApiImpl(),
+            GetJokeCategoriesApiImpl(),
+            GetRandomJokeByKeywordApiImpl(),
+            GetRandomJokeByCategoryApiImpl())
 
-        presenter = JokeByKeywordPresenter(AndroidResLocator(context), chuckNorrisRepository)
+        presenter = JokeByKeywordPresenter(AndroidResLocator(requireContext()), chuckNorrisRepository)
         presenter?.view = this
         presenter?.navigator = this
 

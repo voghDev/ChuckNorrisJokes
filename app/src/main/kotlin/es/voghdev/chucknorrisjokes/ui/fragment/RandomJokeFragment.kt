@@ -31,16 +31,16 @@ class RandomJokeFragment : BaseFragment(), RandomJokePresenter.MVPView, RandomJo
 
     var presenter: RandomJokePresenter? = null
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val chuckNorrisRepository = ChuckNorrisRepository(
-                GetRandomJokeApiImpl(),
-                GetJokeCategoriesApiImpl(),
-                GetRandomJokeByKeywordApiImpl(),
-                GetRandomJokeByCategoryApiImpl())
+            GetRandomJokeApiImpl(),
+            GetJokeCategoriesApiImpl(),
+            GetRandomJokeByKeywordApiImpl(),
+            GetRandomJokeByCategoryApiImpl())
 
-        presenter = RandomJokePresenter(AndroidResLocator(context), chuckNorrisRepository)
+        presenter = RandomJokePresenter(AndroidResLocator(requireContext()), chuckNorrisRepository)
         presenter?.view = this
         presenter?.navigator = this
 

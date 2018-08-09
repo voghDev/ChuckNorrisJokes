@@ -28,7 +28,6 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-
 class GetJokeCategoriesApiImpl : ApiRequest, GetJokeCategories {
     override fun getJokeCategories(): Pair<List<JokeCategory>?, AbsError?> {
         val builder: OkHttpClient.Builder = OkHttpClient.Builder()
@@ -36,10 +35,10 @@ class GetJokeCategoriesApiImpl : ApiRequest, GetJokeCategories {
             builder.addInterceptor(LogJsonInterceptor())
 
         val retrofit: Retrofit = Retrofit.Builder()
-                .baseUrl(getEndPoint())
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(builder.build())
-                .build()
+            .baseUrl(getEndPoint())
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(builder.build())
+            .build()
 
         val service: ChuckNorrisService = retrofit.create(ChuckNorrisService::class.java)
 
@@ -49,12 +48,14 @@ class GetJokeCategoriesApiImpl : ApiRequest, GetJokeCategories {
             val rsp: Response<List<String>>? = call.execute()
 
             if (rsp?.body()?.size ?: 0 > 0) {
-                return Pair(rsp?.body()?.map { JokeCategory(name = it) } ?: emptyList<JokeCategory>(), null)
+                return Pair(rsp?.body()
+                                ?.map { JokeCategory(name = it) }
+                                ?: emptyList<JokeCategory>(), null)
             } else if (rsp?.errorBody() != null) {
-                val error = rsp?.errorBody().string()
+                val error = (rsp.errorBody())?.string() ?: ""
                 return Pair(null, CNError(error))
             }
-        } catch(e: JsonSyntaxException) {
+        } catch (e: JsonSyntaxException) {
             return Pair(null, CNError(e.message ?: "Unknown error parsing JSON"))
         }
 

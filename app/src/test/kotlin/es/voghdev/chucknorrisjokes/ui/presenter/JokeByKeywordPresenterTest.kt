@@ -7,15 +7,19 @@ import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 
 class JokeByKeywordPresenterTest() {
-    @Mock lateinit var mockResLocator: ResLocator
+    @Mock
+    lateinit var mockResLocator: ResLocator
 
-    @Mock lateinit var mockNavigator: JokeByKeywordPresenter.Navigator
+    @Mock
+    lateinit var mockNavigator: JokeByKeywordPresenter.Navigator
 
-    @Mock lateinit var mockView: JokeByKeywordPresenter.MVPView
+    @Mock
+    lateinit var mockView: JokeByKeywordPresenter.MVPView
 
-    @Mock lateinit var mockChuckNorrisRepository : ChuckNorrisRepository
+    @Mock
+    lateinit var mockChuckNorrisRepository: ChuckNorrisRepository
 
-    lateinit var presenter : JokeByKeywordPresenter
+    lateinit var presenter: JokeByKeywordPresenter
 
     @Before
     fun setUp() {

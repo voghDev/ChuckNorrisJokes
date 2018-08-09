@@ -6,13 +6,16 @@ import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 
 class MainPresenterTest() {
-    @Mock lateinit var mockResLocator: ResLocator
+    @Mock
+    lateinit var mockResLocator: ResLocator
 
-    @Mock lateinit var mockNavigator: MainPresenter.Navigator
+    @Mock
+    lateinit var mockNavigator: MainPresenter.Navigator
 
-    @Mock lateinit var mockView: MainPresenter.MVPView
+    @Mock
+    lateinit var mockView: MainPresenter.MVPView
 
-    lateinit var presenter : MainPresenter
+    lateinit var presenter: MainPresenter
 
     @Before
     fun setUp() {
