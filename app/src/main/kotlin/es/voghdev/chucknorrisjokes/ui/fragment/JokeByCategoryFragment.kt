@@ -61,9 +61,7 @@ class JokeByCategoryFragment : BaseFragment(), JokeByCategoryPresenter.MVPView, 
         }
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_joke_by_category
-    }
+    override fun getLayoutId(): Int = R.layout.fragment_joke_by_category
 
     override fun fillCategories(list: List<JokeCategory>) = ui {
         val values = list.map { it.name }

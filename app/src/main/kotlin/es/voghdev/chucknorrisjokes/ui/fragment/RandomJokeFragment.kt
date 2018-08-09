@@ -52,9 +52,7 @@ class RandomJokeFragment : BaseFragment(), RandomJokePresenter.MVPView, RandomJo
         }
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_random_joke
-    }
+    override fun getLayoutId(): Int = R.layout.fragment_random_joke
 
     override fun showJokeText(text: String) = ui {
         tv_text.text = text

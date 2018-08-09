@@ -56,9 +56,7 @@ class MainActivity : BaseActivity(), MainPresenter.MVPView, MainPresenter.Naviga
         tabLayout.removeOnTabSelectedListener(onTabSelectedListener)
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.activity_main
-    }
+    override fun getLayoutId(): Int = R.layout.activity_main
 
     override fun configureTabs() = ui {
         tabLayout.addTab(tabLayout.newTab().setText("Random"))

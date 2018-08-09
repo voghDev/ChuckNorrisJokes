@@ -70,9 +70,7 @@ class JokeByKeywordFragment : BaseFragment(), JokeByKeywordPresenter.MVPView, Jo
         }
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_joke_by_keyword
-    }
+    override fun getLayoutId(): Int = R.layout.fragment_joke_by_keyword
 
     override fun showKeywordError(msg: String) = ui {
         requireActivity().toast(msg)
