@@ -21,8 +21,9 @@ Android ecosystem has improved, Kotlin has improved, a lot of valuable resources
 
 One of these tools is [arrow-kt](https://github.com/arrow-kt/arrow), a functional companion to Kotlin standard library. So the codebase for this entire project has been refactored to [arrow-kt](https://github.com/arrow-kt/arrow), replacing the good-old homemade `Disjunction` using a `Pair` of values.
 
-Also, [KotlinTest][kotlinTest] brings some fresh air to the good old `JUnit` for naming Tests. Its nomenclature is probably the sweetest one made until now. Tests can be named with Strings that can be as long as the developer needs, and can also be splitted in various lines. Any requirement can be specified with as much detail as one may need.
+Also, [KotlinTest][kotlinTest] brings some fresh air to the good old `JUnit` for naming Tests. Its nomenclature is probably the sweetest one ever made. Tests can be named with Strings that can be as long as we want, and can also be splitted in various lines. Any requirement can be specified in as much depth as one may need.
 [mockito][mockito] and [mockito_kotlin][mockitoKotlin] make the mix even tastier.
+
 All the codebase has been refactored to [KotlinTest][kotlinTest], improving readability as well as removing some non-elegant hacks like `lateinit var`s.
 
 And best of all, without losing the green :-)
