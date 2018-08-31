@@ -1,33 +1,24 @@
 package es.voghdev.chucknorrisjokes.ui.presenter
 
+import com.nhaarman.mockito_kotlin.mock
 import es.voghdev.chucknorrisjokes.app.ResLocator
-import org.junit.Before
-import org.mockito.Mock
-import org.mockito.MockitoAnnotations
+import io.kotlintest.specs.StringSpec
 
-class MainPresenterTest() {
-    @Mock
-    lateinit var mockResLocator: ResLocator
+class MainPresenterTest : StringSpec(
+    {
+        val mockResLocator: ResLocator = mock()
 
-    @Mock
-    lateinit var mockNavigator: MainPresenter.Navigator
+        val mockNavigator: MainPresenter.Navigator = mock()
 
-    @Mock
-    lateinit var mockView: MainPresenter.MVPView
+        val mockView: MainPresenter.MVPView = mock()
 
-    lateinit var presenter: MainPresenter
+        fun createMockedPresenter(): MainPresenter {
+            val presenter = MainPresenter(mockResLocator)
+            presenter.view = mockView
+            presenter.navigator = mockNavigator
+            return presenter
+        }
 
-    @Before
-    fun setUp() {
-        MockitoAnnotations.initMocks(this)
-
-        presenter = createMockedPresenter()
+        val presenter = createMockedPresenter()
     }
-
-    private fun createMockedPresenter(): MainPresenter {
-        val presenter = MainPresenter(mockResLocator)
-        presenter.view = mockView
-        presenter.navigator = mockNavigator
-        return presenter
-    }
-}
+)

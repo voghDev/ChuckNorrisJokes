@@ -1,45 +1,35 @@
 package es.voghdev.chucknorrisjokes.ui.presenter
 
+import com.nhaarman.mockito_kotlin.mock
 import es.voghdev.chucknorrisjokes.app.ResLocator
 import es.voghdev.chucknorrisjokes.model.Joke
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
-import org.junit.Before
-import org.mockito.Mock
-import org.mockito.MockitoAnnotations
+import io.kotlintest.specs.StringSpec
 
-class RandomJokePresenterTest {
-    @Mock
-    lateinit var mockResLocator: ResLocator
+class RandomJokePresenterTest : StringSpec(
+    {
+        val mockResLocator: ResLocator = mock()
 
-    @Mock
-    lateinit var mockNavigator: RandomJokePresenter.Navigator
+        val mockNavigator: RandomJokePresenter.Navigator = mock()
 
-    @Mock
-    lateinit var mockView: RandomJokePresenter.MVPView
+        val mockView: RandomJokePresenter.MVPView = mock()
 
-    @Mock
-    lateinit var mockChuckNorrisRepository: ChuckNorrisRepository
+        val mockChuckNorrisRepository: ChuckNorrisRepository = mock()
 
-    lateinit var presenter: RandomJokePresenter
+        fun createMockedPresenter(): RandomJokePresenter {
+            val presenter = RandomJokePresenter(mockResLocator, mockChuckNorrisRepository)
+            presenter.view = mockView
+            presenter.navigator = mockNavigator
+            return presenter
+        }
 
-    val exampleJoke = Joke(
-        id = "GdEH64AkS9qEQCmqMwM2Rg",
-        iconUrl = "https://assets.chucknorris.host/img/avatar/chuck-norris.png",
-        url = "http://api.chucknorris.io/jokes/GdEH64AkS9qEQCmqMwM2Rg",
-        value = "Chuck Norris knows how to say souffle in the French language."
-    )
+        val presenter = createMockedPresenter()
 
-    @Before
-    fun setUp() {
-        MockitoAnnotations.initMocks(this)
-
-        presenter = createMockedPresenter()
+        val exampleJoke = Joke(
+            id = "GdEH64AkS9qEQCmqMwM2Rg",
+            iconUrl = "https://assets.chucknorris.host/img/avatar/chuck-norris.png",
+            url = "http://api.chucknorris.io/jokes/GdEH64AkS9qEQCmqMwM2Rg",
+            value = "Chuck Norris knows how to say souffle in the French language."
+        )
     }
-
-    private fun createMockedPresenter(): RandomJokePresenter {
-        val presenter = RandomJokePresenter(mockResLocator, mockChuckNorrisRepository)
-        presenter.view = mockView
-        presenter.navigator = mockNavigator
-        return presenter
-    }
-}
+)

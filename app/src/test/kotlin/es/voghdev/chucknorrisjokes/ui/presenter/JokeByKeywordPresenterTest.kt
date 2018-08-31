@@ -1,37 +1,29 @@
 package es.voghdev.chucknorrisjokes.ui.presenter
 
+import com.nhaarman.mockito_kotlin.mock
 import es.voghdev.chucknorrisjokes.app.ResLocator
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
+import io.kotlintest.specs.StringSpec
 import org.junit.Before
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 
-class JokeByKeywordPresenterTest() {
-    @Mock
-    lateinit var mockResLocator: ResLocator
+class JokeByKeywordPresenterTest : StringSpec(
+    {
+        val mockResLocator: ResLocator = mock()
 
-    @Mock
-    lateinit var mockNavigator: JokeByKeywordPresenter.Navigator
+        val mockNavigator: JokeByKeywordPresenter.Navigator = mock()
 
-    @Mock
-    lateinit var mockView: JokeByKeywordPresenter.MVPView
+        val mockView: JokeByKeywordPresenter.MVPView = mock()
 
-    @Mock
-    lateinit var mockChuckNorrisRepository: ChuckNorrisRepository
+        val mockChuckNorrisRepository: ChuckNorrisRepository = mock()
 
-    lateinit var presenter: JokeByKeywordPresenter
+        fun createMockedPresenter(): JokeByKeywordPresenter {
+            val presenter = JokeByKeywordPresenter(mockResLocator, mockChuckNorrisRepository)
+            presenter.view = mockView
+            presenter.navigator = mockNavigator
+            return presenter
+        }
 
-    @Before
-    fun setUp() {
-        MockitoAnnotations.initMocks(this)
-
-        presenter = createMockedPresenter()
-    }
-
-    private fun createMockedPresenter(): JokeByKeywordPresenter {
-        val presenter = JokeByKeywordPresenter(mockResLocator, mockChuckNorrisRepository)
-        presenter.view = mockView
-        presenter.navigator = mockNavigator
-        return presenter
-    }
-}
+        val presenter = createMockedPresenter()
+    })
