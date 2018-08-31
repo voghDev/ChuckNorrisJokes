@@ -56,12 +56,10 @@ class JokeByCategoryFragment : BaseFragment(), JokeByCategoryPresenter.MVPView, 
 //        }
     }
 
-//    override fun fillCategoriesSpinner(categories: List<JokeCategory>) {
+//    override fun fillCategoriesSpinner(categories: List<JokeCategory>) = ui {
 //        val names = categories.map { c -> c.name }
 //        spn_categories.configureDefaultAdapter(names)
 //    }
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_joke_by_category
-    }
+    override fun getLayoutId(): Int = R.layout.fragment_joke_by_category
 }

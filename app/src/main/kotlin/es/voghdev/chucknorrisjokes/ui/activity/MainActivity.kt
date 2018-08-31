@@ -20,6 +20,7 @@ import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import es.voghdev.chucknorrisjokes.R
 import es.voghdev.chucknorrisjokes.app.AndroidResLocator
+import es.voghdev.chucknorrisjokes.app.ui
 import es.voghdev.chucknorrisjokes.ui.adapter.MainPagerAdapter
 import es.voghdev.chucknorrisjokes.ui.presenter.MainPresenter
 import kotlinx.android.synthetic.main.activity_main.*
@@ -55,11 +56,9 @@ class MainActivity : BaseActivity(), MainPresenter.MVPView, MainPresenter.Naviga
         tabLayout.removeOnTabSelectedListener(onTabSelectedListener)
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.activity_main
-    }
+    override fun getLayoutId(): Int = R.layout.activity_main
 
-    override fun configureTabs() {
+    override fun configureTabs() = ui {
         tabLayout.addTab(tabLayout.newTab().setText("Random"))
         tabLayout.addTab(tabLayout.newTab().setText("By Keyword"))
         tabLayout.addTab(tabLayout.newTab().setText("By Category"))

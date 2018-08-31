@@ -62,24 +62,22 @@ class JokeByKeywordFragment : BaseFragment(), JokeByKeywordPresenter.MVPView, Jo
 //        }
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_joke_by_keyword
-    }
+    override fun getLayoutId(): Int = R.layout.fragment_joke_by_keyword
 
-//    override fun showEmptyCase() {
+//    override fun showEmptyCase() = ui {
 //        tv_empty_case.visibility = VISIBLE
 //        tv_empty_case.text = "This search returned no results"
 //
 //        recyclerView.visibility = INVISIBLE
 //    }
 
-//    override fun hideEmptyCase() {
+//    override fun hideEmptyCase() = ui {
 //        tv_empty_case.visibility = INVISIBLE
 //
 //        recyclerView.visibility = VISIBLE
 //    }
 
-//    override fun addJoke(joke: Joke) {
+//    override fun addJoke(joke: Joke) = ui {
 //        adapter?.add(joke)
 //
 //        adapter?.notifyDataSetChanged()

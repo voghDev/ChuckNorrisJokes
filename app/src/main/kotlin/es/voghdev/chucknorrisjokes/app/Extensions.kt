@@ -16,7 +16,9 @@
 package es.voghdev.chucknorrisjokes.app
 
 import android.R
+import android.app.Activity
 import android.content.Context
+import android.support.v4.app.Fragment
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
@@ -44,6 +46,18 @@ fun Pair<List<Any>?, AbsError?>.hasResults(): Boolean {
 
 fun Pair<List<Any>?, AbsError?>.hasNoResults(): Boolean {
     return first != null && first?.isEmpty() ?: false
+}
+
+fun Activity.ui(action: () -> Unit) {
+    runOnUiThread {
+        action()
+    }
+}
+
+fun Fragment.ui(action: () -> Unit) {
+    activity?.runOnUiThread {
+        action()
+    }
 }
 
 fun Spinner.configureDefaultAdapter(values: List<String>) {
