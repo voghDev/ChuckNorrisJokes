@@ -24,7 +24,7 @@ One of these tools is [arrow-kt](https://github.com/arrow-kt/arrow), a functiona
 Also, [KotlinTest][kotlinTest] brings some fresh air to the good old `JUnit` for naming Tests. Its nomenclature is probably the sweetest one ever made. Tests can be named with Strings that can be as long as we want, and can also be splitted in various lines. Any requirement can be specified in as much depth as one may need.
 [mockito][mockito] and [mockito_kotlin][mockitoKotlin] make the mix even tastier.
 
-All the codebase has been refactored to [KotlinTest][kotlinTest], improving readability as well as removing some non-elegant hacks like `lateinit var`s.
+All the codebase has been refactored to [KotlinTest][kotlinTest], improving readability as well as removing some non-elegant hacks like `lateinit` vars.
 
 And best of all, without losing the green :-)
 
