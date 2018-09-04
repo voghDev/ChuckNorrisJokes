@@ -34,6 +34,6 @@ class LogJsonInterceptor : Interceptor {
 
         // Re-create the response before returning it because body can be read only once
         return response.newBuilder()
-                .body(ResponseBody.create(body.contentType(), rawJson)).build()
+            .body(ResponseBody.create(body.contentType(), rawJson)).build()
     }
 }

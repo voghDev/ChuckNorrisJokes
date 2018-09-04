@@ -4,9 +4,6 @@ import com.nhaarman.mockito_kotlin.mock
 import es.voghdev.chucknorrisjokes.app.ResLocator
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import io.kotlintest.specs.StringSpec
-import org.junit.Before
-import org.mockito.Mock
-import org.mockito.MockitoAnnotations
 
 class JokeByKeywordPresenterTest : StringSpec(
     {
