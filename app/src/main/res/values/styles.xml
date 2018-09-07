@@ -107,6 +107,7 @@
     </style>
 
     <style name="EmptyCaseLabel" parent="ChuckNorrisText">
+        <item name="android:layout_marginTop">140dp</item>
         <item name="android:visibility">invisible</item>
     </style>
 </resources>
