@@ -15,11 +15,16 @@
  */
 package es.voghdev.chucknorrisjokes.ui.presenter
 
-import es.voghdev.chucknorrisjokes.app.*
+import arrow.core.Either
+import es.voghdev.chucknorrisjokes.app.ResLocator
+import es.voghdev.chucknorrisjokes.app.coroutine
+import es.voghdev.chucknorrisjokes.app.hasResults
+import es.voghdev.chucknorrisjokes.app.success
+import es.voghdev.chucknorrisjokes.model.Joke
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 
 class JokeByKeywordPresenter(val resLocator: ResLocator, val repository: ChuckNorrisRepository) :
-        Presenter<JokeByKeywordPresenter.MVPView, JokeByKeywordPresenter.Navigator>() {
+    Presenter<JokeByKeywordPresenter.MVPView, JokeByKeywordPresenter.Navigator>() {
 
     override suspend fun initialize() {
 
@@ -36,18 +41,23 @@ class JokeByKeywordPresenter(val resLocator: ResLocator, val repository: ChuckNo
         }
         val result = task.await()
         if (result.hasResults()) {
-            view?.showJokeText(result.firstJoke().value)
-            view?.showJokeImage(result.firstJoke().iconUrl)
+            view?.hideEmptyCase()
+            (result as Either.Right).b.forEach { joke ->
+                view?.addJoke(joke)
+            }
         } else if (result.success()) {
             view?.showEmptyCase()
+        } else {
+            view?.showError((result as? Either.Left)?.a?.message() ?: "Unknown error")
         }
     }
 
     interface MVPView {
         fun showKeywordError(msg: String)
         fun showEmptyCase()
-        fun showJokeText(text: String)
-        fun showJokeImage(url: String)
+        fun hideEmptyCase()
+        fun addJoke(joke: Joke)
+        fun showError(msg: String)
     }
 
     interface Navigator {

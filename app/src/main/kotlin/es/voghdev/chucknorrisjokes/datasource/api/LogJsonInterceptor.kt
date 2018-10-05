@@ -13,29 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package es.voghdev.chucknorrisjokes.datasource.api;
+package es.voghdev.chucknorrisjokes.datasource.api
 
-import android.util.Log;
+import android.util.Log
+import okhttp3.Interceptor
+import okhttp3.Response
+import okhttp3.ResponseBody
+import java.io.IOException
 
-import java.io.IOException;
+class LogJsonInterceptor : Interceptor {
+    @Throws(IOException::class)
+    override fun intercept(chain: Interceptor.Chain): Response {
+        val request = chain.request()
 
-import okhttp3.Interceptor;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
+        val response = chain.proceed(request)
+        val body = response.body()!!
+        val rawJson = body.string()
 
-public class LogJsonInterceptor implements Interceptor {
-    @Override
-    public Response intercept(Chain chain) throws IOException {
-        Request request = chain.request();
-
-        Response response = chain.proceed(request);
-        String rawJson = response.body().string();
-
-        Log.d("LogJson", String.format("raw JSON response is: %s", rawJson));
+        Log.d("LogJson", String.format("Raw JSON response is: %s", rawJson))
 
         // Re-create the response before returning it because body can be read only once
         return response.newBuilder()
-                .body(ResponseBody.create(response.body().contentType(), rawJson)).build();
+                .body(ResponseBody.create(body.contentType(), rawJson)).build()
     }
 }

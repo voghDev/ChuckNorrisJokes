@@ -1,25 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <Spinner
         android:id="@+id/spn_categories"
-        style="@style/JokeCategorySpinner" />
+        style="@style/JokeCategorySpinner"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.01" />
 
     <Button
         android:id="@+id/btn_search"
-        style="@style/SearchByCategoryButton" />
+        style="@style/SearchByCategoryButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spn_categories"
+        app:layout_constraintVertical_bias="0.03" />
+
+    <ImageView
+        android:id="@+id/iv_image"
+        style="@style/ChuckNorrisImage"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_search"
+        app:layout_constraintVertical_bias="0.1" />
 
     <TextView
         android:id="@+id/tv_text"
         style="@style/ChuckNorrisText.JokeByCategory"
-        android:text="Hello World! This is JokeByCategoryFragment" />
+        android:text="Hello World! This is JokeByCategoryFragment"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_image"
+        app:layout_constraintVertical_bias="0.05" />
 
-    <ImageView
-        android:id="@+id/iv_image"
-        style="@style/ChuckNorrisImage" />
-
-</FrameLayout>
+</android.support.constraint.ConstraintLayout>

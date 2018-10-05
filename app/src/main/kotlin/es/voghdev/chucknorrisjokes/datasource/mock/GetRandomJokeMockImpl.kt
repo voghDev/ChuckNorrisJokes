@@ -15,13 +15,14 @@
  */
 package es.voghdev.chucknorrisjokes.datasource.mock
 
+import arrow.core.Either
 import es.voghdev.chucknorrisjokes.model.AbsError
 import es.voghdev.chucknorrisjokes.model.CNError
 import es.voghdev.chucknorrisjokes.model.Joke
 import es.voghdev.chucknorrisjokes.usecase.GetRandomJoke
 
 class GetRandomJokeMockImpl : GetRandomJoke {
-    override fun getRandomJoke(): Pair<Joke?, AbsError?> {
-        return Pair(null, CNError("Not implemented"))
+    override fun getRandomJoke(): Either<AbsError, Joke> {
+        return Either.left(CNError("Not implemented"))
     }
 }

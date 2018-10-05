@@ -20,10 +20,12 @@ import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import es.voghdev.chucknorrisjokes.R
 import es.voghdev.chucknorrisjokes.app.AndroidResLocator
+import es.voghdev.chucknorrisjokes.app.ui
 import es.voghdev.chucknorrisjokes.ui.adapter.MainPagerAdapter
 import es.voghdev.chucknorrisjokes.ui.presenter.MainPresenter
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.experimental.runBlocking
+import kotlinx.coroutines.experimental.CommonPool
+import kotlinx.coroutines.experimental.launch
 
 class MainActivity : BaseActivity(), MainPresenter.MVPView, MainPresenter.Navigator {
     var presenter: MainPresenter? = null
@@ -39,7 +41,7 @@ class MainActivity : BaseActivity(), MainPresenter.MVPView, MainPresenter.Naviga
 
         onTabSelectedListener = TabLayout.ViewPagerOnTabSelectedListener(viewPager)
 
-        runBlocking {
+        launch(CommonPool) {
             presenter?.initialize()
         }
     }
@@ -47,18 +49,16 @@ class MainActivity : BaseActivity(), MainPresenter.MVPView, MainPresenter.Naviga
     override fun onDestroy() {
         super.onDestroy()
 
-        runBlocking {
+        launch(CommonPool) {
             presenter?.destroy()
         }
 
         tabLayout.removeOnTabSelectedListener(onTabSelectedListener)
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.activity_main
-    }
+    override fun getLayoutId(): Int = R.layout.activity_main
 
-    override fun configureTabs() {
+    override fun configureTabs() = ui {
         tabLayout.addTab(tabLayout.newTab().setText("Random"))
         tabLayout.addTab(tabLayout.newTab().setText("By Keyword"))
         tabLayout.addTab(tabLayout.newTab().setText("By Category"))

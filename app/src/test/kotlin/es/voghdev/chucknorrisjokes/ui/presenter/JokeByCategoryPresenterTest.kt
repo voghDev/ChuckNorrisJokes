@@ -1,5 +1,7 @@
 package es.voghdev.chucknorrisjokes.ui.presenter
 
+import arrow.core.Either
+import arrow.core.Right
 import com.nhaarman.mockito_kotlin.argumentCaptor
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
@@ -17,25 +19,29 @@ import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 
 class JokeByCategoryPresenterTest() {
-    @Mock lateinit var mockResLocator: ResLocator
+    @Mock
+    lateinit var mockResLocator: ResLocator
 
-    @Mock lateinit var mockNavigator: JokeByCategoryPresenter.Navigator
+    @Mock
+    lateinit var mockNavigator: JokeByCategoryPresenter.Navigator
 
-    @Mock lateinit var mockView: JokeByCategoryPresenter.MVPView
-
-    @Mock lateinit var mockChuckNorrisRepository: ChuckNorrisRepository
+    @Mock
+    lateinit var mockView: JokeByCategoryPresenter.MVPView
 
     lateinit var presenter: JokeByCategoryPresenter
 
+    @Mock
+    lateinit var mockChuckNorrisRepository: ChuckNorrisRepository
+
     val categories = listOf(
-            JokeCategory("Politics"),
-            JokeCategory("Sports")
+        JokeCategory("Politics"),
+        JokeCategory("Sports")
     )
 
     val exampleJoke = Joke(id = "abc",
-            iconUrl = "http://chuck.image.url",
-            url = "http://example.url",
-            value = "We have our fears, fear has its Chuck Norris'es")
+                           iconUrl = "http://chuck.image.url",
+                           url = "http://example.url",
+                           value = "We have our fears, fear has its Chuck Norris'es")
 
     val categoryCaptor = argumentCaptor<JokeCategory>()
     val strCaptor = argumentCaptor<String>()
@@ -116,11 +122,11 @@ class JokeByCategoryPresenterTest() {
     }
 
     private fun givenTheRepositoryHasAnExampleJoke(exampleJoke: Joke) {
-        whenever(mockChuckNorrisRepository.getRandomJokeByCategory(anyCategory())).thenReturn(Pair(exampleJoke, null))
+        whenever(mockChuckNorrisRepository.getRandomJokeByCategory(anyCategory())).thenReturn(Either.Right(exampleJoke))
     }
 
     private fun givenThereAreSomeCategories(categories: List<JokeCategory>) {
-        whenever(mockChuckNorrisRepository.getJokeCategories()).thenReturn(Pair(categories, null))
+        whenever(mockChuckNorrisRepository.getJokeCategories()).thenReturn(Right(categories))
     }
 
     private fun createMockedPresenter(): JokeByCategoryPresenter {

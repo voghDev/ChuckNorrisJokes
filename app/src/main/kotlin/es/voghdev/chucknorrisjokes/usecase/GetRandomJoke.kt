@@ -15,9 +15,10 @@
  */
 package es.voghdev.chucknorrisjokes.usecase
 
+import arrow.core.Either
 import es.voghdev.chucknorrisjokes.model.AbsError
 import es.voghdev.chucknorrisjokes.model.Joke
 
 interface GetRandomJoke {
-    fun getRandomJoke(): Pair<Joke?, AbsError?>
+    fun getRandomJoke(): Either<AbsError, Joke>
 }

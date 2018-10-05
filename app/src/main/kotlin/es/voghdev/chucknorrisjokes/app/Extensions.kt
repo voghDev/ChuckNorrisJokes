@@ -21,42 +21,57 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import arrow.core.Either
 import es.voghdev.chucknorrisjokes.model.AbsError
 import es.voghdev.chucknorrisjokes.model.Joke
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.Deferred
 import kotlinx.coroutines.experimental.async
+import android.app.Activity
+import android.support.v4.app.Fragment
 
 fun <T> coroutine(function: () -> T): Deferred<T> {
     return async(CommonPool) { function() }
 }
 
-fun Pair<Any?, AbsError?>.success(): Boolean {
-    return first != null
+fun Either<AbsError, Any>.success(): Boolean {
+    return this.isRight()
 }
 
-fun Pair<Any?, AbsError?>.failure(): Boolean {
-    return second != null
+fun Either<AbsError, Any>.failure(): Boolean {
+    return this.isLeft()
 }
 
-fun Pair<List<Joke>?, AbsError?>.firstJoke(): Joke {
-    return first?.elementAt(0) ?: Joke()
+fun Either<AbsError, List<Joke>>.firstJoke(): Joke {
+    return (this as? Either.Right)?.b?.elementAt(0) ?: Joke()
 }
 
-fun Pair<Joke?, AbsError?>.hasImage(): Boolean {
-    return success() && first?.iconUrl?.isNotEmpty() ?: false
+fun Either<AbsError, Joke>.hasImage(): Boolean {
+    return success() && (this as? Either.Right)?.b?.iconUrl?.isNotEmpty() ?: false
 }
 
-fun Pair<List<Any>?, AbsError?>.hasResults(): Boolean {
-    return first != null && first?.isNotEmpty() ?: false
+fun Either<AbsError, List<Any>>.hasResults(): Boolean {
+    return success() && (this as? Either.Right)?.b?.isNotEmpty() ?: false
 }
 
-fun Pair<List<Any>?, AbsError?>.hasNoResults(): Boolean {
-    return first != null && first?.isEmpty() ?: false
+fun Either<AbsError, List<Any>>.hasNoResults(): Boolean {
+    return success() && (this as? Either.Right)?.b?.isEmpty() ?: false
 }
 
 fun Spinner.configureDefaultAdapter(values: List<String>) {
     adapter = ArrayAdapter<String>(context, R.layout.simple_spinner_item, values)
+}
+
+fun Activity.ui(action: () -> Unit) {
+    runOnUiThread {
+        action()
+    }
+}
+
+fun Fragment.ui(action: () -> Unit) {
+    activity?.runOnUiThread {
+        action()
+    }
 }
 
 fun Context.hideSoftKeyboard(v: View) {

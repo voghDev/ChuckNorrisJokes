@@ -29,9 +29,9 @@ class MainPagerAdapter(val context: Context) : FragmentStatePagerAdapter((contex
     var listener: Listener? = null
 
     val classes = listOf(
-            RandomJokeFragment::class.java.name,
-            JokeByKeywordFragment::class.java.name,
-            JokeByCategoryFragment::class.java.name
+        RandomJokeFragment::class.java.name,
+        JokeByKeywordFragment::class.java.name,
+        JokeByCategoryFragment::class.java.name
     )
 
     override fun getItem(position: Int): Fragment {
@@ -41,7 +41,7 @@ class MainPagerAdapter(val context: Context) : FragmentStatePagerAdapter((contex
         return fragment
     }
 
-    override fun getItemPosition(`object`: Any?): Int {
+    override fun getItemPosition(obj: Any): Int {
         return PagerAdapter.POSITION_NONE
     }
 

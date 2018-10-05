@@ -20,6 +20,7 @@ import android.view.View
 import com.squareup.picasso.Picasso
 import es.voghdev.chucknorrisjokes.R
 import es.voghdev.chucknorrisjokes.app.AndroidResLocator
+import es.voghdev.chucknorrisjokes.app.ui
 import es.voghdev.chucknorrisjokes.datasource.api.GetJokeCategoriesApiImpl
 import es.voghdev.chucknorrisjokes.datasource.api.GetRandomJokeApiImpl
 import es.voghdev.chucknorrisjokes.datasource.api.GetRandomJokeByCategoryApiImpl
@@ -27,38 +28,37 @@ import es.voghdev.chucknorrisjokes.datasource.api.GetRandomJokeByKeywordApiImpl
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import es.voghdev.chucknorrisjokes.ui.presenter.RandomJokePresenter
 import kotlinx.android.synthetic.main.fragment_random_joke.*
-import kotlinx.coroutines.experimental.runBlocking
+import kotlinx.coroutines.experimental.CommonPool
+import kotlinx.coroutines.experimental.launch
 
 class RandomJokeFragment : BaseFragment(), RandomJokePresenter.MVPView, RandomJokePresenter.Navigator {
     var presenter: RandomJokePresenter? = null
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val chuckNorrisRepository = ChuckNorrisRepository(
-                GetRandomJokeApiImpl(),
-                GetJokeCategoriesApiImpl(),
-                GetRandomJokeByKeywordApiImpl(),
-                GetRandomJokeByCategoryApiImpl())
+            GetRandomJokeApiImpl(),
+            GetJokeCategoriesApiImpl(),
+            GetRandomJokeByKeywordApiImpl(),
+            GetRandomJokeByCategoryApiImpl())
 
-        presenter = RandomJokePresenter(AndroidResLocator(context), chuckNorrisRepository)
+        presenter = RandomJokePresenter(AndroidResLocator(requireContext()), chuckNorrisRepository)
         presenter?.view = this
         presenter?.navigator = this
 
-        runBlocking {
+        launch(CommonPool) {
             presenter?.initialize()
         }
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_random_joke
-    }
+    override fun getLayoutId(): Int = R.layout.fragment_random_joke
 
-    override fun showJokeText(text: String) {
+    override fun showJokeText(text: String) = ui {
         tv_text.text = text
     }
 
-    override fun loadJokeImage(url: String) {
+    override fun loadJokeImage(url: String) = ui {
         Picasso.with(context)
                 .load(url)
                 .into(iv_image)

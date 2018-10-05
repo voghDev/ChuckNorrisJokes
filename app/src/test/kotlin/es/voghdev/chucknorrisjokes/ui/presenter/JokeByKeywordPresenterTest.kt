@@ -1,25 +1,35 @@
 package es.voghdev.chucknorrisjokes.ui.presenter
 
+import arrow.core.Either
+import arrow.core.Right
+import com.nhaarman.mockito_kotlin.argumentCaptor
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import es.voghdev.chucknorrisjokes.app.ResLocator
+import es.voghdev.chucknorrisjokes.model.CNError
 import es.voghdev.chucknorrisjokes.model.Joke
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import kotlinx.coroutines.experimental.runBlocking
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mock
+import org.mockito.Mockito.times
 import org.mockito.MockitoAnnotations
 
 class JokeByKeywordPresenterTest() {
-    @Mock lateinit var mockResLocator: ResLocator
+    @Mock
+    lateinit var mockResLocator: ResLocator
 
-    @Mock lateinit var mockNavigator: JokeByKeywordPresenter.Navigator
+    @Mock
+    lateinit var mockNavigator: JokeByKeywordPresenter.Navigator
 
-    @Mock lateinit var mockView: JokeByKeywordPresenter.MVPView
+    @Mock
+    lateinit var mockView: JokeByKeywordPresenter.MVPView
 
-    @Mock lateinit var mockChuckNorrisRepository: ChuckNorrisRepository
+    @Mock
+    lateinit var mockChuckNorrisRepository: ChuckNorrisRepository
 
     lateinit var presenter: JokeByKeywordPresenter
 
@@ -85,7 +95,7 @@ class JokeByKeywordPresenterTest() {
     }
 
     @Test
-    fun `should show the text for the first joke of the list when a list of jokes is returned by the API`() {
+    fun `should add the first two jokes to the list when a list of two jokes is returned by the API`() {
         givenTheApiReturns(someJokes)
 
         runBlocking {
@@ -94,28 +104,52 @@ class JokeByKeywordPresenterTest() {
             presenter.onSearchButtonClicked("chan")
         }
 
-        verify(mockView).showJokeText("Chuck Norris knows how to say souffle in the French language.")
+        val captor = argumentCaptor<Joke>()
+
+        verify(mockView, times(2)).addJoke(captor.capture())
+
+        assertEquals("Chuck Norris knows how to say souffle in the French language.", captor.firstValue.value)
+        assertEquals("https://assets.chucknorris.host/img/avatar/chuck-norris.png", captor.firstValue.iconUrl)
+        assertEquals("We have our fears, fear has its Chuck Norris'es", captor.secondValue.value)
+        assertEquals("http://chuck.image.url", captor.secondValue.iconUrl)
     }
 
     @Test
-    fun `should show the image for the first joke of the list when a list of jokes is returned`() {
+    fun `should hide empty case when there are results`() {
         givenTheApiReturns(someJokes)
 
         runBlocking {
             presenter.initialize()
 
-            presenter.onSearchButtonClicked("chan")
+            presenter.onSearchButtonClicked("Jackie")
         }
 
-        verify(mockView).showJokeImage("https://assets.chucknorris.host/img/avatar/chuck-norris.png")
+        verify(mockView).hideEmptyCase()
+    }
+
+    @Test
+    fun `should show an error when Api returns an error`() {
+        givenTheApiReturnsAnError("422 unprocessable Entity")
+
+        runBlocking {
+            presenter.initialize()
+
+            presenter.onSearchButtonClicked("v")
+        }
+
+        verify(mockView).showError("422 unprocessable Entity")
+    }
+
+    private fun givenTheApiReturnsAnError(message: String) {
+        whenever(mockChuckNorrisRepository.getRandomJokeByKeyword(anyString())).thenReturn(Either.Left(CNError(message)))
     }
 
     private fun givenTheApiReturns(jokes: List<Joke>) {
-        whenever(mockChuckNorrisRepository.getRandomJokeByKeyword(anyString())).thenReturn(Pair(jokes, null))
+        whenever(mockChuckNorrisRepository.getRandomJokeByKeyword(anyString())).thenReturn(Right(jokes))
     }
 
     private fun givenTheApiReturnsNoResults() {
-        whenever(mockChuckNorrisRepository.getRandomJokeByKeyword(anyString())).thenReturn(Pair(emptyList<Joke>(), null))
+        whenever(mockChuckNorrisRepository.getRandomJokeByKeyword(anyString())).thenReturn(Right(emptyList()))
     }
 
     private fun createMockedPresenter(): JokeByKeywordPresenter {

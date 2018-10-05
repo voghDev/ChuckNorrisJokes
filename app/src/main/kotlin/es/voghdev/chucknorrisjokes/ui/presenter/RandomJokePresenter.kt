@@ -15,6 +15,7 @@
  */
 package es.voghdev.chucknorrisjokes.ui.presenter
 
+import arrow.core.Either
 import es.voghdev.chucknorrisjokes.app.ResLocator
 import es.voghdev.chucknorrisjokes.app.coroutine
 import es.voghdev.chucknorrisjokes.app.hasImage
@@ -22,7 +23,7 @@ import es.voghdev.chucknorrisjokes.app.success
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 
 class RandomJokePresenter(val resLocator: ResLocator, val repository: ChuckNorrisRepository) :
-        Presenter<RandomJokePresenter.MVPView, RandomJokePresenter.Navigator>() {
+    Presenter<RandomJokePresenter.MVPView, RandomJokePresenter.Navigator>() {
 
     override suspend fun initialize() {
         val task = coroutine {
@@ -31,11 +32,11 @@ class RandomJokePresenter(val resLocator: ResLocator, val repository: ChuckNorri
 
         val result = task.await()
         if (result.success()) {
-            view?.showJokeText(result.first?.value ?: "")
+            view?.showJokeText((result as Either.Right).b.value)
         }
 
         if (result.hasImage()) {
-            view?.loadJokeImage(result.first?.iconUrl ?: "")
+            view?.loadJokeImage((result as Either.Right).b.iconUrl)
         }
     }
 

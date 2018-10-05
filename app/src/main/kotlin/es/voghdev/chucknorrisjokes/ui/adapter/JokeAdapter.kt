@@ -32,14 +32,14 @@ class JokeAdapter(val context: Context) : RecyclerView.Adapter<JokeViewHolder>()
         return JokeViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: JokeViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: JokeViewHolder, position: Int) {
         val joke = jokes.elementAt(position)
 
         holder?.tv_text?.text = joke.value
 
         Picasso.with(context)
-                .load(joke.iconUrl)
-                .into(holder?.iv_image)
+            .load(joke.iconUrl)
+            .into(holder?.iv_image)
     }
 
     override fun getItemCount(): Int {
