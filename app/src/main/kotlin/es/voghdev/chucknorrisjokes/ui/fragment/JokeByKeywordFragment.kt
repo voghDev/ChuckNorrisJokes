@@ -56,7 +56,7 @@ class JokeByKeywordFragment : BaseFragment(), JokeByKeywordPresenter.MVPView, Jo
 
 //        btn_search.setOnClickListener {
 //            val keyword = et_keyword.text?.toString()?.trim() ?: ""
-//            launch(CommonPool {
+//            launch(CommonPool) {
 //                presenter?.onSearchButtonClicked(keyword)
 //            }
 //        }
