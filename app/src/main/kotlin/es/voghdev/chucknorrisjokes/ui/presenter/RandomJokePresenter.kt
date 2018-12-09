@@ -22,18 +22,15 @@ import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 class RandomJokePresenter(val resLocator: ResLocator, val repository: ChuckNorrisRepository) :
         Presenter<RandomJokePresenter.MVPView, RandomJokePresenter.Navigator>() {
 
-    override suspend fun initialize() {
-        val task = coroutine {
-            repository.getRandomJoke()
-        }
+    override suspend fun initialize() = coroutine { repository.getRandomJoke() }
+            .await()
+            .fold({}, {
+                view?.showJokeText(it.value)
 
-        task.await().fold({}, {
-            view?.showJokeText(it.value)
+                if (it.iconUrl.isNotEmpty())
+                    view?.loadJokeImage(it.iconUrl)
+            })
 
-            if (it.iconUrl.isNotEmpty())
-                view?.loadJokeImage(it.iconUrl)
-        })
-    }
 
     interface MVPView {
         fun showJokeText(text: String)

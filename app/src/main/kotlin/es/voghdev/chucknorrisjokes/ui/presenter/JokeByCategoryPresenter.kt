@@ -25,25 +25,22 @@ class JokeByCategoryPresenter(val resLocator: ResLocator, val repository: ChuckN
 
     var categories: List<JokeCategory> = emptyList()
 
-    override suspend fun initialize() {
-        val task = coroutine {
-            repository.getJokeCategories()
-        }
-        task.await().fold({},
-                {
-                    categories = it
-                    view?.fillCategories(categories)
-                })
-    }
+    override suspend fun initialize() = coroutine {
+        repository.getJokeCategories()
+    }.await().fold({},
+            {
+                categories = it
+                view?.fillCategories(categories)
+            })
 
-    suspend fun onSearchButtonClicked(position: Int) {
-        coroutine {
-            repository.getRandomJokeByCategory(categories[position])
-        }.await().fold({}, {
-            view?.showJokeText(it.value)
-            view?.showJokeImage(it.iconUrl)
-        })
-    }
+
+    suspend fun onSearchButtonClicked(position: Int) = coroutine {
+        repository.getRandomJokeByCategory(categories[position])
+    }.await().fold({}, {
+        view?.showJokeText(it.value)
+        view?.showJokeImage(it.iconUrl)
+    })
+
 
     interface MVPView {
         fun fillCategories(list: List<JokeCategory>)

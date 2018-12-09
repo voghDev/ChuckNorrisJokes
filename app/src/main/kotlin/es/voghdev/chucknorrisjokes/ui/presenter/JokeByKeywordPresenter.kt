@@ -33,10 +33,9 @@ class JokeByKeywordPresenter(val resLocator: ResLocator, val repository: ChuckNo
             return
         }
 
-        val task = coroutine {
+        coroutine {
             repository.getRandomJokeByKeyword(text)
-        }
-        task.await().fold({
+        }.await().fold({
             view?.showError(it.message())
         }, {
             if (it.isNotEmpty()) {
