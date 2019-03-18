@@ -8,6 +8,7 @@ Used to practice Test Driven Development in Kotlin.
 - Used in the following workshops / live codings:
   - "Effective TDD on Android with Kotlin" @ GDG DevFestGRX 2017 - [Video][gdgVideo], [Slides][gdgSlides]
   - "Effective TDD on Android with Kotlin" @ MADGEvents. Madrid (Spain) -  Video available soon, [Slides][madgSlides]
+  - "Effective TDD on Android" @ Mobilization8. Lodz (Poland) -  [Video][mobilizationVideo], [Slides][mobilizationSlides]
 
 # Demo
 
@@ -34,6 +35,8 @@ Just refactor, refactor, refactor...
 [gdgVideo]: https://youtu.be/WLM5hw3ndP0
 [gdgSlides]: https://github.com/voghDev/ChuckNorrisJokes/tree/master/slides/devfest.pdf
 [madgSlides]: https://github.com/voghDev/ChuckNorrisJokes/tree/master/slides/madg.pdf
+[mobilizationVideo]: https://www.youtube.com/watch?v=a3Wy3UMgaUM
+[mobilizationSlides]: https://github.com/voghDev/ChuckNorrisJokes/tree/master/slides/mobilization.pdf
 [kotlinLogo]: ./img/kotlin.png
 [kotlinTest]: https://github.com/kotlintest/kotlintest
 [mockito]: https://github.com/mockito/mockito
