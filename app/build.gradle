@@ -5,7 +5,6 @@ apply plugin: 'kotlin-kapt' // New version of the plugin to enable spaces in tes
 
 android {
     compileSdkVersion 27
-    buildToolsVersion "27.0.3"
     defaultConfig {
         applicationId "es.voghdev.chucknorrisjokes"
         minSdkVersion 21
