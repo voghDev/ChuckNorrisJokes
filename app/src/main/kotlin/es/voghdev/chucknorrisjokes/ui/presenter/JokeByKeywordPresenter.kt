@@ -15,16 +15,13 @@
  */
 package es.voghdev.chucknorrisjokes.ui.presenter
 
-import arrow.core.Either
 import es.voghdev.chucknorrisjokes.app.ResLocator
 import es.voghdev.chucknorrisjokes.app.coroutine
-import es.voghdev.chucknorrisjokes.app.hasResults
-import es.voghdev.chucknorrisjokes.app.success
 import es.voghdev.chucknorrisjokes.model.Joke
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 
 class JokeByKeywordPresenter(val resLocator: ResLocator, val repository: ChuckNorrisRepository) :
-    Presenter<JokeByKeywordPresenter.MVPView, JokeByKeywordPresenter.Navigator>() {
+        Presenter<JokeByKeywordPresenter.MVPView, JokeByKeywordPresenter.Navigator>() {
 
     override suspend fun initialize() {
 
@@ -36,23 +33,21 @@ class JokeByKeywordPresenter(val resLocator: ResLocator, val repository: ChuckNo
             return
         }
 
-        if (text.length <= 2) {
-            view?.showKeywordError("Keyword must have 2 characters at least")
-            return
-        }
+        coroutine {
+            repository.getRandomJokeByKeyword(text)
+        }.await().fold({
+            view?.showError(it.message())
+        }, {
+            if (it.isNotEmpty()) {
+                view?.hideEmptyCase()
 
-        val result = coroutine { repository.getRandomJokeByKeyword(text) }.await()
-
-        if (result.hasResults()) {
-            view?.hideEmptyCase()
-            (result as Either.Right).b.forEach { joke ->
-                view?.addJoke(joke)
+                it.forEach { joke ->
+                    view?.addJoke(joke)
+                }
+            } else {
+                view?.showEmptyCase()
             }
-        } else if (result.success()) {
-            view?.showEmptyCase()
-        } else {
-            view?.showError((result as? Either.Left)?.a?.message() ?: "Unknown error")
-        }
+        })
     }
 
     interface MVPView {

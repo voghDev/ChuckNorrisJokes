@@ -32,6 +32,7 @@ import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import es.voghdev.chucknorrisjokes.ui.adapter.JokeAdapter
 import es.voghdev.chucknorrisjokes.ui.presenter.JokeByKeywordPresenter
 import kotlinx.android.synthetic.main.fragment_joke_by_keyword.*
+import kotlinx.coroutines.experimental.runBlocking
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.launch
 import org.jetbrains.anko.toast
