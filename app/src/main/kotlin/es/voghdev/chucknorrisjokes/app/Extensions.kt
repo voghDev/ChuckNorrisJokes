@@ -16,7 +16,9 @@
 package es.voghdev.chucknorrisjokes.app
 
 import android.R
+import android.app.Activity
 import android.content.Context
+import android.support.v4.app.Fragment
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
@@ -24,15 +26,6 @@ import android.widget.Spinner
 import arrow.core.Either
 import es.voghdev.chucknorrisjokes.model.AbsError
 import es.voghdev.chucknorrisjokes.model.Joke
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.Deferred
-import kotlinx.coroutines.experimental.async
-import android.app.Activity
-import android.support.v4.app.Fragment
-
-fun <T> coroutine(function: () -> T): Deferred<T> {
-    return async(CommonPool) { function() }
-}
 
 fun Either<AbsError, Any>.success(): Boolean {
     return this.isRight()

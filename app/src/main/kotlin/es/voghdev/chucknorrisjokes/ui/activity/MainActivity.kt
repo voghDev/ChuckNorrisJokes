@@ -24,8 +24,6 @@ import es.voghdev.chucknorrisjokes.app.ui
 import es.voghdev.chucknorrisjokes.ui.adapter.MainPagerAdapter
 import es.voghdev.chucknorrisjokes.ui.presenter.MainPresenter
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.launch
 
 class MainActivity : BaseActivity(), MainPresenter.MVPView, MainPresenter.Navigator {
     var presenter: MainPresenter? = null
@@ -41,17 +39,13 @@ class MainActivity : BaseActivity(), MainPresenter.MVPView, MainPresenter.Naviga
 
         onTabSelectedListener = TabLayout.ViewPagerOnTabSelectedListener(viewPager)
 
-        launch(CommonPool) {
-            presenter?.initialize()
-        }
+        presenter?.initialize()
     }
 
     override fun onDestroy() {
         super.onDestroy()
 
-        launch(CommonPool) {
-            presenter?.destroy()
-        }
+        presenter?.destroy()
 
         tabLayout.removeOnTabSelectedListener(onTabSelectedListener)
     }

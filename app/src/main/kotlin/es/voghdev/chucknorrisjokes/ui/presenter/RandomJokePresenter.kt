@@ -16,21 +16,26 @@
 package es.voghdev.chucknorrisjokes.ui.presenter
 
 import es.voghdev.chucknorrisjokes.app.ResLocator
-import es.voghdev.chucknorrisjokes.app.coroutine
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
-class RandomJokePresenter(val resLocator: ResLocator, val repository: ChuckNorrisRepository) :
-        Presenter<RandomJokePresenter.MVPView, RandomJokePresenter.Navigator>() {
+class RandomJokePresenter(val dispatcher: CoroutineDispatcher, val resLocator: ResLocator, val repository: ChuckNorrisRepository) :
+    Presenter<RandomJokePresenter.MVPView, RandomJokePresenter.Navigator>() {
 
-    override suspend fun initialize() = coroutine { repository.getRandomJoke() }
-            .await()
-            .fold({}, {
-                view?.showJokeText(it.value)
+    override fun initialize() {
+        GlobalScope.launch(dispatcher) {
+            async { repository.getRandomJoke() }
+                .await()
+                .fold({}, {
+                    view?.showJokeText(it.value)
 
-                if (it.iconUrl.isNotEmpty())
-                    view?.loadJokeImage(it.iconUrl)
-            })
-
+                    if (it.iconUrl.isNotEmpty())
+                        view?.loadJokeImage(it.iconUrl)
+                })
+        }
+    }
 
     interface MVPView {
         fun showJokeText(text: String)

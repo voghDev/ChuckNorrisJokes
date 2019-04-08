@@ -32,9 +32,7 @@ import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import es.voghdev.chucknorrisjokes.ui.adapter.JokeAdapter
 import es.voghdev.chucknorrisjokes.ui.presenter.JokeByKeywordPresenter
 import kotlinx.android.synthetic.main.fragment_joke_by_keyword.*
-import kotlinx.coroutines.experimental.runBlocking
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.Dispatchers
 import org.jetbrains.anko.toast
 
 class JokeByKeywordFragment : BaseFragment(), JokeByKeywordPresenter.MVPView, JokeByKeywordPresenter.Navigator {
@@ -51,7 +49,7 @@ class JokeByKeywordFragment : BaseFragment(), JokeByKeywordPresenter.MVPView, Jo
             GetRandomJokeByCategoryApiImpl()
         )
 
-        presenter = JokeByKeywordPresenter(AndroidResLocator(requireContext()), chuckNorrisRepository)
+        presenter = JokeByKeywordPresenter(Dispatchers.IO, AndroidResLocator(requireContext()), chuckNorrisRepository)
         presenter?.view = this
         presenter?.navigator = this
 
@@ -59,15 +57,11 @@ class JokeByKeywordFragment : BaseFragment(), JokeByKeywordPresenter.MVPView, Jo
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-        launch(CommonPool) {
-            presenter?.initialize()
-        }
+        presenter?.initialize()
 
         btn_search.setOnClickListener {
             val keyword = et_keyword.text?.toString()?.trim() ?: ""
-            launch(CommonPool) {
-                presenter?.onSearchButtonClicked(keyword)
-            }
+            presenter?.onSearchButtonClicked(keyword)
         }
     }
 

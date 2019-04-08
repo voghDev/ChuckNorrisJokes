@@ -19,7 +19,7 @@ import es.voghdev.chucknorrisjokes.app.ResLocator
 
 class MainPresenter(val resLocator: ResLocator) : Presenter<MainPresenter.MVPView, MainPresenter.Navigator>() {
 
-    override suspend fun initialize() {
+    override fun initialize() {
         view?.configureTabs()
     }
 

@@ -2,9 +2,9 @@ package es.voghdev.chucknorrisjokes.ui.presenter
 
 import arrow.core.Either
 import arrow.core.Right
-import com.nhaarman.mockito_kotlin.argumentCaptor
-import com.nhaarman.mockito_kotlin.verify
-import com.nhaarman.mockito_kotlin.whenever
+import com.nhaarman.mockitokotlin2.argumentCaptor
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.whenever
 import es.voghdev.chucknorrisjokes.anyCategory
 import es.voghdev.chucknorrisjokes.app.ResLocator
 import es.voghdev.chucknorrisjokes.model.Joke
@@ -12,100 +12,92 @@ import es.voghdev.chucknorrisjokes.model.JokeCategory
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import io.kotlintest.mock.mock
 import io.kotlintest.specs.StringSpec
-import kotlinx.coroutines.experimental.runBlocking
+import kotlinx.coroutines.Dispatchers
 import org.junit.Assert
 import org.mockito.ArgumentMatchers
 
-class JokeByCategoryPresenterTest : StringSpec({
-    val mockResLocator: ResLocator = mock()
+class JokeByCategoryPresenterTest : StringSpec(
+    {
+        val mockResLocator: ResLocator = mock()
 
-    val mockNavigator: JokeByCategoryPresenter.Navigator = mock()
+        val mockNavigator: JokeByCategoryPresenter.Navigator = mock()
 
-    val mockView: JokeByCategoryPresenter.MVPView = mock()
+        val mockView: JokeByCategoryPresenter.MVPView = mock()
 
-    val mockChuckNorrisRepository: ChuckNorrisRepository = mock()
+        val mockChuckNorrisRepository: ChuckNorrisRepository = mock()
 
-    val presenter: JokeByCategoryPresenter = JokeByCategoryPresenter(mockResLocator, mockChuckNorrisRepository).apply {
-        view = mockView
-        navigator = mockNavigator
-    }
-
-    val categories = listOf(
-        JokeCategory("Politics"),
-        JokeCategory("Sports")
-    )
-
-    val exampleJoke = Joke(id = "abc",
-        iconUrl = "http://chuck.image.url",
-        url = "http://example.url",
-        value = "We have our fears, fear has its Chuck Norris'es")
-
-    val categoryCaptor = argumentCaptor<JokeCategory>()
-    val strCaptor = argumentCaptor<String>()
-
-    "should request all available categories on start"{
-        givenThereAreSomeCategories(mockChuckNorrisRepository, categories)
-
-        runBlocking {
-            presenter.initialize()
+        val presenter: JokeByCategoryPresenter = JokeByCategoryPresenter(Dispatchers.Unconfined, mockResLocator, mockChuckNorrisRepository).apply {
+            view = mockView
+            navigator = mockNavigator
         }
 
-        verify(mockChuckNorrisRepository).getJokeCategories()
-    }
+        val categories = listOf(
+            JokeCategory("Politics"),
+            JokeCategory("Sports")
+        )
 
-    "should fill category names in a spinner when categories are received"{
-        givenThereAreSomeCategories(mockChuckNorrisRepository, categories)
+        val exampleJoke = Joke(id = "abc",
+                               iconUrl = "http://chuck.image.url",
+                               url = "http://example.url",
+                               value = "We have our fears, fear has its Chuck Norris'es")
 
-        runBlocking {
+        val categoryCaptor = argumentCaptor<JokeCategory>()
+        val strCaptor = argumentCaptor<String>()
+
+        "should request all available categories on start"{
+            givenThereAreSomeCategories(mockChuckNorrisRepository, categories)
+
             presenter.initialize()
+
+            verify(mockChuckNorrisRepository).getJokeCategories()
         }
 
-        verify(mockView).fillCategories(ArgumentMatchers.anyList())
-    }
+        "should fill category names in a spinner when categories are received"{
+            givenThereAreSomeCategories(mockChuckNorrisRepository, categories)
 
-    "should perform search with selected category when Search button is clicked"{
-        givenThereAreSomeCategories(mockChuckNorrisRepository, categories)
-        givenTheRepositoryHasAnExampleJoke(mockChuckNorrisRepository, exampleJoke)
+            presenter.initialize()
 
-        runBlocking {
+            verify(mockView).fillCategories(ArgumentMatchers.anyList())
+        }
+
+        "should perform search with selected category when Search button is clicked"{
+            givenThereAreSomeCategories(mockChuckNorrisRepository, categories)
+            givenTheRepositoryHasAnExampleJoke(mockChuckNorrisRepository, exampleJoke)
+
             presenter.initialize()
 
             presenter.onSearchButtonClicked(0)
+
+            verify(mockChuckNorrisRepository).getRandomJokeByCategory(categoryCaptor.capture())
         }
 
-        verify(mockChuckNorrisRepository).getRandomJokeByCategory(categoryCaptor.capture())
-    }
+        "should show the joke's text when a joke is receved"{
+            givenThereAreSomeCategories(mockChuckNorrisRepository, categories)
+            givenTheRepositoryHasAnExampleJoke(mockChuckNorrisRepository, exampleJoke)
 
-    "should show the joke's text when a joke is receved"{
-        givenThereAreSomeCategories(mockChuckNorrisRepository, categories)
-        givenTheRepositoryHasAnExampleJoke(mockChuckNorrisRepository, exampleJoke)
-
-        runBlocking {
             presenter.initialize()
 
             presenter.onSearchButtonClicked(0)
+
+            verify(mockView).showJokeText(strCaptor.capture())
+
+            Assert.assertEquals("We have our fears, fear has its Chuck Norris'es", strCaptor.firstValue)
         }
 
-        verify(mockView).showJokeText(strCaptor.capture())
+        "should show the joke's image when a joke is received"{
+            givenThereAreSomeCategories(mockChuckNorrisRepository, categories)
+            givenTheRepositoryHasAnExampleJoke(mockChuckNorrisRepository, exampleJoke)
 
-        Assert.assertEquals("We have our fears, fear has its Chuck Norris'es", strCaptor.firstValue)
-    }
-
-    "should show the joke's image when a joke is received"{
-        givenThereAreSomeCategories(mockChuckNorrisRepository, categories)
-        givenTheRepositoryHasAnExampleJoke(mockChuckNorrisRepository, exampleJoke)
-
-        runBlocking {
             presenter.initialize()
 
             presenter.onSearchButtonClicked(0)
+
+            verify(mockView).showJokeImage(strCaptor.capture())
+
+            Assert.assertEquals("http://chuck.image.url", strCaptor.firstValue)
         }
-
-        verify(mockView).showJokeImage(strCaptor.capture())
-
-        Assert.assertEquals("http://chuck.image.url", strCaptor.firstValue)
     }
-})
+)
 
 private fun givenTheRepositoryHasAnExampleJoke(repository: ChuckNorrisRepository, exampleJoke: Joke) {
     whenever(repository.getRandomJokeByCategory(anyCategory())).thenReturn(Either.Right(exampleJoke))
