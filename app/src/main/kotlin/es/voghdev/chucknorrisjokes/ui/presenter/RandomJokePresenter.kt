@@ -20,6 +20,7 @@ import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.async
 
 class RandomJokePresenter(val dispatcher: CoroutineDispatcher, val resLocator: ResLocator, val repository: ChuckNorrisRepository) :
     Presenter<RandomJokePresenter.MVPView, RandomJokePresenter.Navigator>() {
