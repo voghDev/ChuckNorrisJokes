@@ -42,8 +42,8 @@ dependencies {
 
     // Unit Testing
     testImplementation 'junit:junit:4.12'
-    testImplementation "com.nhaarman:mockito-kotlin:1.4.0"
-    testImplementation 'org.mockito:mockito-core:2.7.5'
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0"
+    testImplementation 'org.mockito:mockito-core:2.23.0'
     testImplementation "io.kotlintest:kotlintest:2.0.7"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -57,9 +57,10 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
     implementation "com.android.support:design:$supportLibraryVersion"
     implementation "com.android.support:recyclerview-v7:$supportLibraryVersion"
+    implementation "io.arrow-kt:arrow-core-data:$arrowVersion"
+    implementation "io.arrow-kt:arrow-core-extensions:$arrowVersion"
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.0.2'
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
-    implementation "io.arrow-kt:arrow-core:0.7.2"
 }

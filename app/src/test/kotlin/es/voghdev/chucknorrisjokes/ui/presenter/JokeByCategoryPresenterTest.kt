@@ -1,12 +1,13 @@
 package es.voghdev.chucknorrisjokes.ui.presenter
 
-import com.nhaarman.mockito_kotlin.argumentCaptor
-import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockitokotlin2.argumentCaptor
+import com.nhaarman.mockitokotlin2.mock
 import es.voghdev.chucknorrisjokes.app.ResLocator
 import es.voghdev.chucknorrisjokes.model.Joke
 import es.voghdev.chucknorrisjokes.model.JokeCategory
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import io.kotlintest.specs.StringSpec
+import kotlinx.coroutines.Dispatchers
 
 class JokeByCategoryPresenterTest : StringSpec(
     {
@@ -19,7 +20,7 @@ class JokeByCategoryPresenterTest : StringSpec(
         val mockChuckNorrisRepository: ChuckNorrisRepository = mock()
 
         fun createMockedPresenter(): JokeByCategoryPresenter {
-            val presenter = JokeByCategoryPresenter(mockResLocator, mockChuckNorrisRepository)
+            val presenter = JokeByCategoryPresenter(Dispatchers.Unconfined, mockResLocator, mockChuckNorrisRepository)
             presenter.view = mockView
             presenter.navigator = mockNavigator
             return presenter

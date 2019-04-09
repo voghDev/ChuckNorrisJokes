@@ -16,16 +16,16 @@
 package es.voghdev.chucknorrisjokes.ui.presenter
 
 abstract class Presenter<T1, T2>() {
-    open suspend fun initialize() { /* Empty */
+    open fun initialize() { /* Empty */
     }
 
-    open suspend fun resume() { /* Empty */
+    open fun resume() { /* Empty */
     }
 
-    open suspend fun pause() { /* Empty */
+    open fun pause() { /* Empty */
     }
 
-    open suspend fun destroy() { /* Empty */
+    open fun destroy() { /* Empty */
     }
 
     var view: T1? = null

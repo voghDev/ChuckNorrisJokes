@@ -1,6 +1,6 @@
 package es.voghdev.chucknorrisjokes.ui.presenter
 
-import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockitokotlin2.mock
 import es.voghdev.chucknorrisjokes.app.ResLocator
 import io.kotlintest.specs.StringSpec
 

@@ -25,8 +25,7 @@ import es.voghdev.chucknorrisjokes.datasource.api.GetRandomJokeByCategoryApiImpl
 import es.voghdev.chucknorrisjokes.datasource.api.GetRandomJokeByKeywordApiImpl
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import es.voghdev.chucknorrisjokes.ui.presenter.JokeByCategoryPresenter
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.Dispatchers
 
 class JokeByCategoryFragment : BaseFragment(), JokeByCategoryPresenter.MVPView, JokeByCategoryPresenter.Navigator {
 
@@ -41,13 +40,11 @@ class JokeByCategoryFragment : BaseFragment(), JokeByCategoryPresenter.MVPView, 
             GetRandomJokeByKeywordApiImpl(),
             GetRandomJokeByCategoryApiImpl())
 
-        presenter = JokeByCategoryPresenter(AndroidResLocator(requireContext()), chuckNorrisRepository)
+        presenter = JokeByCategoryPresenter(Dispatchers.IO, AndroidResLocator(requireContext()), chuckNorrisRepository)
         presenter?.view = this
         presenter?.navigator = this
 
-        launch(CommonPool) {
-            presenter?.initialize()
-        }
+        presenter?.initialize()
 
 //        btn_search.setOnClickListener {
 //            launch(CommonPool {

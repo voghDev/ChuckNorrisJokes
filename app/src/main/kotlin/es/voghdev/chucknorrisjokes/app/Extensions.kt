@@ -26,13 +26,6 @@ import android.widget.Spinner
 import arrow.core.Either
 import es.voghdev.chucknorrisjokes.model.AbsError
 import es.voghdev.chucknorrisjokes.model.Joke
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.Deferred
-import kotlinx.coroutines.experimental.async
-
-fun <T> coroutine(function: () -> T): Deferred<T> {
-    return async(CommonPool) { function() }
-}
 
 fun Either<AbsError, Any>.success(): Boolean {
     return this.isRight()
