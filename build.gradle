@@ -5,7 +5,7 @@ buildscript {
     ext.ankoVersion = '0.10.2'
     ext.coroutinesVersion = '1.0.1'
     ext.arrowVersion = '0.9.0'
-    ext.supportLibraryVersion = '27.1.1'
+    ext.supportLibraryVersion = '27.1.0'
 
     repositories {
         google()

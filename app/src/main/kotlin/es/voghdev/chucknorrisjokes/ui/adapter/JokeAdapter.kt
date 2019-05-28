@@ -37,7 +37,7 @@ class JokeAdapter(val context: Context) : RecyclerView.Adapter<JokeViewHolder>()
 
         holder?.tv_text?.text = joke.value
 
-        Picasso.with(context)
+        Picasso.get()
             .load(joke.iconUrl)
             .into(holder?.iv_image)
     }
