@@ -25,15 +25,17 @@ android {
     }
 }
 
-task createTestResources << {
-    def mockMakerFile = new File("$projectDir/src/test/resources/mockito-extensions/org.mockito.plugins.MockMaker")
-    if (System.env.MOCK_MAKER != null) {
-        logger.info("Using MockMaker ${System.env.MOCK_MAKER}")
-        mockMakerFile.parentFile.mkdirs()
-        mockMakerFile.createNewFile()
-        mockMakerFile.write(System.env.MOCK_MAKER)
-    } else {
-        logger.info("Using default MockMaker")
+task createTestResources {
+    doLast {
+        def mockMakerFile = new File("$projectDir/src/test/resources/mockito-extensions/org.mockito.plugins.MockMaker")
+        if (System.env.MOCK_MAKER != null) {
+            logger.info("Using MockMaker ${System.env.MOCK_MAKER}")
+            mockMakerFile.parentFile.mkdirs()
+            mockMakerFile.createNewFile()
+            mockMakerFile.write(System.env.MOCK_MAKER)
+        } else {
+            logger.info("Using default MockMaker")
+        }
     }
 }
 
@@ -54,13 +56,14 @@ dependencies {
     implementation "org.jetbrains.anko:anko-design:$ankoVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:design:27.1.1'
-    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
+    implementation "com.android.support:design:$supportLibraryVersion"
+    implementation "com.android.support:recyclerview-v7:$supportLibraryVersion"
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.0.2'
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
-    implementation "io.arrow-kt:arrow-core:0.7.2"
+    implementation "io.arrow-kt:arrow-core-data:$arrowVersion"
+    implementation "io.arrow-kt:arrow-core-extensions:$arrowVersion"
 }
