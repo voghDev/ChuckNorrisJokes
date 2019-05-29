@@ -11,6 +11,10 @@ import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import io.kotlintest.mock.mock
 import io.kotlintest.specs.StringSpec
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.setMain
 import org.junit.Assert
 import org.mockito.ArgumentMatchers
 import org.mockito.Mockito
@@ -22,6 +26,8 @@ class JokeByKeywordPresenterTest : StringSpec({
     val mockView: JokeByKeywordPresenter.MVPView = mock()
 
     val mockChuckNorrisRepository: ChuckNorrisRepository = mock()
+
+    val testCoroutineDispatcher = TestCoroutineDispatcher()
 
     val presenter: JokeByKeywordPresenter = JokeByKeywordPresenter(Dispatchers.Main, mockChuckNorrisRepository).apply {
         view = mockView
@@ -46,69 +52,93 @@ class JokeByKeywordPresenterTest : StringSpec({
     )
 
     "should not accept an empty text as search keyword" {
-        presenter.initialize()
+        runBlockingTest {
+            Dispatchers.setMain(testCoroutineDispatcher)
+            presenter.initialize()
 
-        presenter.onSearchButtonClicked("")
+            presenter.onSearchButtonClicked("")
 
-        verify(mockView).showKeywordError("You must enter a keyword")
+            verify(mockView).showKeywordError("You must enter a keyword")
+            Dispatchers.resetMain()
+        }
     }
 
     "should request a random joke by keyword when  search button is clicked with a valid keyword" {
-        givenTheApiReturnsNoResults(mockChuckNorrisRepository)
+        runBlockingTest {
+            Dispatchers.setMain(testCoroutineDispatcher)
+            givenTheApiReturnsNoResults(mockChuckNorrisRepository)
 
-        presenter.initialize()
+            presenter.initialize()
 
-        presenter.onSearchButtonClicked("lee")
+            presenter.onSearchButtonClicked("lee")
 
 
-        verify(mockChuckNorrisRepository).getRandomJokeByKeyword("lee")
+            verify(mockChuckNorrisRepository).getRandomJokeByKeyword("lee")
+            Dispatchers.resetMain()
+        }
     }
 
     "should show an empty case when an empty list is returned by the API" {
-        givenTheApiReturnsNoResults(mockChuckNorrisRepository)
+        runBlockingTest {
+            Dispatchers.setMain(testCoroutineDispatcher)
+            givenTheApiReturnsNoResults(mockChuckNorrisRepository)
 
-        presenter.initialize()
+            presenter.initialize()
 
-        presenter.onSearchButtonClicked("this query returns no results")
+            presenter.onSearchButtonClicked("this query returns no results")
 
-        verify(mockView).showEmptyCase()
+            verify(mockView).showEmptyCase()
+            Dispatchers.resetMain()
+        }
     }
 
     "should add the first two jokes to the list when a list of two jokes is returned by the API" {
-        givenTheApiReturns(mockChuckNorrisRepository, someJokes)
+        runBlockingTest {
+            Dispatchers.setMain(testCoroutineDispatcher)
+            givenTheApiReturns(mockChuckNorrisRepository, someJokes)
 
-        presenter.initialize()
+            presenter.initialize()
 
-        presenter.onSearchButtonClicked("chan")
+            presenter.onSearchButtonClicked("chan")
 
-        val captor = argumentCaptor<Joke>()
+            val captor = argumentCaptor<Joke>()
 
-        verify(mockView, Mockito.times(2)).addJoke(captor.capture())
+            verify(mockView, Mockito.times(2)).addJoke(captor.capture())
 
-        Assert.assertEquals("Chuck Norris knows how to say souffle in the French language.", captor.firstValue.value)
-        Assert.assertEquals("https://assets.chucknorris.host/img/avatar/chuck-norris.png", captor.firstValue.iconUrl)
-        Assert.assertEquals("We have our fears, fear has its Chuck Norris'es", captor.secondValue.value)
-        Assert.assertEquals("http://chuck.image.url", captor.secondValue.iconUrl)
+            Assert.assertEquals("Chuck Norris knows how to say souffle in the French language.", captor.firstValue.value)
+            Assert.assertEquals("https://assets.chucknorris.host/img/avatar/chuck-norris.png", captor.firstValue.iconUrl)
+            Assert.assertEquals("We have our fears, fear has its Chuck Norris'es", captor.secondValue.value)
+            Assert.assertEquals("http://chuck.image.url", captor.secondValue.iconUrl)
+            Dispatchers.resetMain()
+        }
     }
 
     "should hide empty case when there are results" {
-        givenTheApiReturns(mockChuckNorrisRepository, someJokes)
+        runBlockingTest {
+            Dispatchers.setMain(testCoroutineDispatcher)
+            givenTheApiReturns(mockChuckNorrisRepository, someJokes)
 
-        presenter.initialize()
+            presenter.initialize()
 
-        presenter.onSearchButtonClicked("Jackie")
+            presenter.onSearchButtonClicked("Jackie")
 
-        verify(mockView).hideEmptyCase()
+            verify(mockView).hideEmptyCase()
+            Dispatchers.resetMain()
+        }
     }
 
     "should show an error when Api returns an error" {
-        givenTheApiReturnsAnError(mockChuckNorrisRepository, "422 unprocessable Entity")
+        runBlockingTest {
+            Dispatchers.setMain(testCoroutineDispatcher)
+            givenTheApiReturnsAnError(mockChuckNorrisRepository, "422 unprocessable Entity")
 
-        presenter.initialize()
+            presenter.initialize()
 
-        presenter.onSearchButtonClicked("v")
+            presenter.onSearchButtonClicked("v")
 
-        verify(mockView).showError("422 unprocessable Entity")
+            verify(mockView).showError("422 unprocessable Entity")
+            Dispatchers.resetMain()
+        }
     }
 })
 

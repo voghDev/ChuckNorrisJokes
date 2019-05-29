@@ -9,6 +9,10 @@ import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import io.kotlintest.mock.mock
 import io.kotlintest.specs.StringSpec
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.setMain
 import org.mockito.ArgumentMatchers.anyString
 
 class RandomJokePresenterKotlinTest : StringSpec({
@@ -17,6 +21,8 @@ class RandomJokePresenterKotlinTest : StringSpec({
     val mockView: RandomJokePresenter.MVPView = mock()
 
     val mockChuckNorrisRepository: ChuckNorrisRepository = mock()
+
+    val testCoroutineDispatcher = TestCoroutineDispatcher()
 
     val presenter: RandomJokePresenter = RandomJokePresenter(Dispatchers.Main, mockChuckNorrisRepository).apply {
         view = mockView
@@ -31,37 +37,53 @@ class RandomJokePresenterKotlinTest : StringSpec({
     )
 
     "should request a random joke on start" {
-        givenThereIsARandomJoke(mockChuckNorrisRepository, exampleJoke)
+        runBlockingTest {
+            Dispatchers.setMain(testCoroutineDispatcher)
+            givenThereIsARandomJoke(mockChuckNorrisRepository, exampleJoke)
 
-        presenter.initialize()
+            presenter.initialize()
 
-        verify(mockChuckNorrisRepository).getRandomJoke()
+            verify(mockChuckNorrisRepository).getRandomJoke()
+            Dispatchers.resetMain()
+        }
     }
 
     "should show the joke's text on screen when a random joke is received" {
-        givenThereIsARandomJoke(mockChuckNorrisRepository, exampleJoke)
+        runBlockingTest {
+            Dispatchers.setMain(testCoroutineDispatcher)
+            givenThereIsARandomJoke(mockChuckNorrisRepository, exampleJoke)
 
-        presenter.initialize()
+            presenter.initialize()
 
-        verify(mockView).showJokeText(anyString())
+            verify(mockView).showJokeText(anyString())
+            Dispatchers.resetMain()
+        }
     }
 
     "should show the joke's image on screen when a random joke is received" {
-        givenThereIsARandomJoke(mockChuckNorrisRepository, exampleJoke)
+        runBlockingTest {
+            Dispatchers.setMain(testCoroutineDispatcher)
+            givenThereIsARandomJoke(mockChuckNorrisRepository, exampleJoke)
 
-        presenter.initialize()
+            presenter.initialize()
 
-        verify(mockView).loadJokeImage("https://assets.chucknorris.host/img/avatar/chuck-norris.png")
+            verify(mockView).loadJokeImage("https://assets.chucknorris.host/img/avatar/chuck-norris.png")
+            Dispatchers.resetMain()
+        }
     }
 
     "should not load the joke's image if it's empty" {
-        val jokeWithoutImage = exampleJoke.copy(iconUrl = "")
+        runBlockingTest {
+            Dispatchers.setMain(testCoroutineDispatcher)
+            val jokeWithoutImage = exampleJoke.copy(iconUrl = "")
 
-        givenThereIsARandomJoke(mockChuckNorrisRepository, jokeWithoutImage)
+            givenThereIsARandomJoke(mockChuckNorrisRepository, jokeWithoutImage)
 
-        presenter.initialize()
+            presenter.initialize()
 
-        verify(mockView, times(0)).loadJokeImage(anyString())
+            verify(mockView, times(0)).loadJokeImage(anyString())
+            Dispatchers.resetMain()
+        }
     }
 })
 
