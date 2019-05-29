@@ -15,32 +15,38 @@
  */
 package es.voghdev.chucknorrisjokes.ui.presenter
 
-import es.voghdev.chucknorrisjokes.app.ResLocator
-import es.voghdev.chucknorrisjokes.app.coroutine
 import es.voghdev.chucknorrisjokes.model.JokeCategory
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
-class JokeByCategoryPresenter(val resLocator: ResLocator, val repository: ChuckNorrisRepository) :
-        Presenter<JokeByCategoryPresenter.MVPView, JokeByCategoryPresenter.Navigator>() {
+class JokeByCategoryPresenter(val dispatcher: CoroutineDispatcher, val repository: ChuckNorrisRepository) :
+        Presenter<JokeByCategoryPresenter.MVPView, JokeByCategoryPresenter.Navigator>(), CoroutineScope {
 
     var categories: List<JokeCategory> = emptyList()
 
-    override suspend fun initialize() = coroutine {
-        repository.getJokeCategories()
-    }.await().fold({},
-            {
-                categories = it
-                view?.fillCategories(categories)
-            })
+    override fun initialize() {
+        launch {
+            async(dispatcher) { repository.getJokeCategories() }
+                    .await()
+                    .fold({},
+                            {
+                                categories = it
+                                view?.fillCategories(categories)
+                            })
+        }
+    }
 
-
-    suspend fun onSearchButtonClicked(position: Int) = coroutine {
-        repository.getRandomJokeByCategory(categories[position])
-    }.await().fold({}, {
-        view?.showJokeText(it.value)
-        view?.showJokeImage(it.iconUrl)
-    })
-
+    fun onSearchButtonClicked(position: Int) = launch {
+        async(dispatcher) { repository.getRandomJokeByCategory(categories[position]) }
+                .await()
+                .fold({}, {
+                    view?.showJokeText(it.value)
+                    view?.showJokeImage(it.iconUrl)
+                })
+    }
 
     interface MVPView {
         fun fillCategories(list: List<JokeCategory>)

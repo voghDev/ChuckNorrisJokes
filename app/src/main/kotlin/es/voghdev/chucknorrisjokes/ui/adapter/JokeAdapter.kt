@@ -38,8 +38,8 @@ class JokeAdapter(val context: Context) : RecyclerView.Adapter<JokeViewHolder>()
         holder?.tv_text?.text = joke.value
 
         Picasso.with(context)
-            .load(joke.iconUrl)
-            .into(holder?.iv_image)
+                .load(joke.iconUrl)
+                .into(holder?.iv_image)
     }
 
     override fun getItemCount(): Int {

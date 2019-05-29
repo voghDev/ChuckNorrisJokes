@@ -19,7 +19,6 @@ import android.os.Bundle
 import android.view.View
 import com.squareup.picasso.Picasso
 import es.voghdev.chucknorrisjokes.R
-import es.voghdev.chucknorrisjokes.app.AndroidResLocator
 import es.voghdev.chucknorrisjokes.app.ui
 import es.voghdev.chucknorrisjokes.datasource.api.GetJokeCategoriesApiImpl
 import es.voghdev.chucknorrisjokes.datasource.api.GetRandomJokeApiImpl
@@ -28,8 +27,7 @@ import es.voghdev.chucknorrisjokes.datasource.api.GetRandomJokeByKeywordApiImpl
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import es.voghdev.chucknorrisjokes.ui.presenter.RandomJokePresenter
 import kotlinx.android.synthetic.main.fragment_random_joke.*
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.Dispatchers
 
 class RandomJokeFragment : BaseFragment(), RandomJokePresenter.MVPView, RandomJokePresenter.Navigator {
     var presenter: RandomJokePresenter? = null
@@ -38,18 +36,16 @@ class RandomJokeFragment : BaseFragment(), RandomJokePresenter.MVPView, RandomJo
         super.onViewCreated(view, savedInstanceState)
 
         val chuckNorrisRepository = ChuckNorrisRepository(
-            GetRandomJokeApiImpl(),
-            GetJokeCategoriesApiImpl(),
-            GetRandomJokeByKeywordApiImpl(),
-            GetRandomJokeByCategoryApiImpl())
+                GetRandomJokeApiImpl(),
+                GetJokeCategoriesApiImpl(),
+                GetRandomJokeByKeywordApiImpl(),
+                GetRandomJokeByCategoryApiImpl())
 
-        presenter = RandomJokePresenter(AndroidResLocator(requireContext()), chuckNorrisRepository)
+        presenter = RandomJokePresenter(Dispatchers.IO, chuckNorrisRepository)
         presenter?.view = this
         presenter?.navigator = this
 
-        launch(CommonPool) {
-            presenter?.initialize()
-        }
+        presenter?.initialize()
     }
 
     override fun getLayoutId(): Int = R.layout.fragment_random_joke

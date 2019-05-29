@@ -15,18 +15,25 @@
  */
 package es.voghdev.chucknorrisjokes.ui.presenter
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+
 abstract class Presenter<T1, T2>() {
-    open suspend fun initialize() { /* Empty */
+    open fun initialize() { /* Empty */
     }
 
-    open suspend fun resume() { /* Empty */
+    open fun resume() { /* Empty */
     }
 
-    open suspend fun pause() { /* Empty */
+    open fun pause() { /* Empty */
     }
 
-    open suspend fun destroy() { /* Empty */
+    open fun destroy() {
+        job.cancel()
     }
+
+    val job = Job()
+    val coroutineContext = Dispatchers.Main + job
 
     var view: T1? = null
     var navigator: T2? = null

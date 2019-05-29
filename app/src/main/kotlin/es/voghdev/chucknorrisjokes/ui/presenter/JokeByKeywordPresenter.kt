@@ -15,39 +15,40 @@
  */
 package es.voghdev.chucknorrisjokes.ui.presenter
 
-import es.voghdev.chucknorrisjokes.app.ResLocator
-import es.voghdev.chucknorrisjokes.app.coroutine
 import es.voghdev.chucknorrisjokes.model.Joke
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
-class JokeByKeywordPresenter(val resLocator: ResLocator, val repository: ChuckNorrisRepository) :
-        Presenter<JokeByKeywordPresenter.MVPView, JokeByKeywordPresenter.Navigator>() {
+class JokeByKeywordPresenter(val dispatcher: CoroutineDispatcher, val repository: ChuckNorrisRepository) :
+        Presenter<JokeByKeywordPresenter.MVPView, JokeByKeywordPresenter.Navigator>(), CoroutineScope {
 
-    override suspend fun initialize() {
+    override fun initialize() {
 
     }
 
-    suspend fun onSearchButtonClicked(text: String) {
+    fun onSearchButtonClicked(text: String) = launch {
         if (text.isEmpty()) {
             view?.showKeywordError("You must enter a keyword")
-            return
+        } else {
+            async(dispatcher) { repository.getRandomJokeByKeyword(text) }
+                    .await()
+                    .fold({
+                        view?.showError(it.message())
+                    }, {
+                        if (it.isNotEmpty()) {
+                            view?.hideEmptyCase()
+
+                            it.forEach { joke ->
+                                view?.addJoke(joke)
+                            }
+                        } else {
+                            view?.showEmptyCase()
+                        }
+                    })
         }
-
-        coroutine {
-            repository.getRandomJokeByKeyword(text)
-        }.await().fold({
-            view?.showError(it.message())
-        }, {
-            if (it.isNotEmpty()) {
-                view?.hideEmptyCase()
-
-                it.forEach { joke ->
-                    view?.addJoke(joke)
-                }
-            } else {
-                view?.showEmptyCase()
-            }
-        })
     }
 
     interface MVPView {

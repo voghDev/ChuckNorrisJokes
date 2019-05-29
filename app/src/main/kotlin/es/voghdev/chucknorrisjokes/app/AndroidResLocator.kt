@@ -16,7 +16,7 @@
 package es.voghdev.chucknorrisjokes.app
 
 import android.content.Context
-import java.util.Collections.emptyList
+import java.util.Collections.*
 
 class AndroidResLocator(val context: Context) : ResLocator {
     override fun getString(resId: Int): String {
