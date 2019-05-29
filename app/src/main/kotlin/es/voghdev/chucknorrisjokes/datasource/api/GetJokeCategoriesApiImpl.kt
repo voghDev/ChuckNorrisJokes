@@ -16,6 +16,7 @@
 package es.voghdev.chucknorrisjokes.datasource.api
 
 import arrow.core.Either
+import arrow.effects.IO
 import com.google.gson.JsonSyntaxException
 import es.voghdev.chucknorrisjokes.BuildConfig
 import es.voghdev.chucknorrisjokes.datasource.api.model.ChuckNorrisService
@@ -30,7 +31,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class GetJokeCategoriesApiImpl : ApiRequest, GetJokeCategories {
-    override fun getJokeCategories(): Either<AbsError, List<JokeCategory>> {
+    override fun getJokeCategories(): IO<Either<AbsError, List<JokeCategory>>> {
         val builder: OkHttpClient.Builder = OkHttpClient.Builder()
         if (BuildConfig.DEBUG)
             builder.addInterceptor(LogJsonInterceptor())
@@ -49,17 +50,19 @@ class GetJokeCategoriesApiImpl : ApiRequest, GetJokeCategories {
             val rsp: Response<List<String>>? = call.execute()
 
             if (rsp?.body()?.size ?: 0 > 0) {
-                return Either.Right(rsp?.body()
-                        ?.map { JokeCategory(name = it) }
-                        ?: emptyList<JokeCategory>())
+                return IO {
+                    Either.Right(rsp?.body()
+                            ?.map { JokeCategory(name = it) }
+                            ?: emptyList<JokeCategory>())
+                }
             } else if (rsp?.errorBody() != null) {
                 val error = (rsp.errorBody())?.string() ?: ""
-                return Either.left(CNError(error))
+                return IO { Either.left(CNError(error)) }
             }
         } catch (e: JsonSyntaxException) {
-            return Either.left(CNError(e.message ?: "Unknown error parsing JSON"))
+            return IO { Either.left(CNError(e.message ?: "Unknown error parsing JSON")) }
         }
 
-        return Either.left(CNError("Unknown error"))
+        return IO { Either.left(CNError("Unknown error")) }
     }
 }

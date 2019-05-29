@@ -35,6 +35,7 @@ class JokeByKeywordPresenter(val dispatcher: CoroutineDispatcher, val repository
         } else {
             async(dispatcher) { repository.getRandomJokeByKeyword(text) }
                     .await()
+                    .unsafeRunSync()
                     .fold({
                         view?.showError(it.message())
                     }, {

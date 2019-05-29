@@ -16,9 +16,10 @@
 package es.voghdev.chucknorrisjokes.usecase
 
 import arrow.core.Either
+import arrow.effects.IO
 import es.voghdev.chucknorrisjokes.model.AbsError
 import es.voghdev.chucknorrisjokes.model.JokeCategory
 
 interface GetJokeCategories {
-    fun getJokeCategories(): Either<AbsError, List<JokeCategory>>
+    fun getJokeCategories(): IO<Either<AbsError, List<JokeCategory>>>
 }

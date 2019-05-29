@@ -31,6 +31,7 @@ class JokeByCategoryPresenter(val dispatcher: CoroutineDispatcher, val repositor
         launch {
             async(dispatcher) { repository.getJokeCategories() }
                     .await()
+                    .unsafeRunSync()
                     .fold({},
                             {
                                 categories = it
@@ -42,6 +43,7 @@ class JokeByCategoryPresenter(val dispatcher: CoroutineDispatcher, val repositor
     fun onSearchButtonClicked(position: Int) = launch {
         async(dispatcher) { repository.getRandomJokeByCategory(categories[position]) }
                 .await()
+                .unsafeRunSync()
                 .fold({}, {
                     view?.showJokeText(it.value)
                     view?.showJokeImage(it.iconUrl)

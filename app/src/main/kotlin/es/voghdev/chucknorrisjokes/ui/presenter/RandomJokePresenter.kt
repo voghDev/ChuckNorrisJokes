@@ -28,6 +28,7 @@ class RandomJokePresenter(val dispatcher: CoroutineDispatcher, val repository: C
         launch {
             async(dispatcher) { repository.getRandomJoke() }
                     .await()
+                    .unsafeRunSync()
                     .fold({}, {
                         view?.showJokeText(it.value)
 
