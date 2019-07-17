@@ -19,16 +19,15 @@ import es.voghdev.chucknorrisjokes.app.ResLocator
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 class RandomJokePresenter(val dispatcher: CoroutineDispatcher, val resLocator: ResLocator, val repository: ChuckNorrisRepository) :
     Presenter<RandomJokePresenter.MVPView, RandomJokePresenter.Navigator>() {
 
     override fun initialize() {
         GlobalScope.launch(dispatcher) {
-            async { repository.getRandomJoke() }
-                .await()
+            async { repository.getRandomJoke() }.await()
                 .fold({}, {
                     view?.showJokeText(it.value)
 
