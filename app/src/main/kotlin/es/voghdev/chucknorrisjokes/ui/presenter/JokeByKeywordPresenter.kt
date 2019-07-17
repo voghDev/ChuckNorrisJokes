@@ -20,8 +20,8 @@ import es.voghdev.chucknorrisjokes.model.Joke
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 class JokeByKeywordPresenter(val dispatcher: CoroutineDispatcher, val resLocator: ResLocator, val repository: ChuckNorrisRepository) :
     Presenter<JokeByKeywordPresenter.MVPView, JokeByKeywordPresenter.Navigator>() {
@@ -37,21 +37,20 @@ class JokeByKeywordPresenter(val dispatcher: CoroutineDispatcher, val resLocator
         }
 
         GlobalScope.launch(dispatcher) {
-            async {
-                repository.getRandomJokeByKeyword(text)
-            }.await().fold({
-                               view?.showError(it.message())
-                           }, {
-                               if (it.isNotEmpty()) {
-                                   view?.hideEmptyCase()
+            async { repository.getRandomJokeByKeyword(text) }.await()
+                .fold({
+                    view?.showError(it.message())
+                }, {
+                    if (it.isNotEmpty()) {
+                        view?.hideEmptyCase()
 
-                                   it.forEach { joke ->
-                                       view?.addJoke(joke)
-                                   }
-                               } else {
-                                   view?.showEmptyCase()
-                               }
-                           })
+                        it.forEach { joke ->
+                            view?.addJoke(joke)
+                        }
+                    } else {
+                        view?.showEmptyCase()
+                    }
+                })
         }
     }
 
