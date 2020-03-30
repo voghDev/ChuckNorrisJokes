@@ -19,7 +19,7 @@ import es.voghdev.chucknorrisjokes.app.ResLocator
 import es.voghdev.chucknorrisjokes.model.JokeCategory
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.async
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -39,17 +39,16 @@ class JokeByCategoryPresenter(val dispatcher: CoroutineDispatcher, val resLocato
         }
     }
 
-    fun onSearchButtonClicked(position: Int) {
-        scope.launch(dispatcher) {
-            async {
-                repository.getRandomJokeByCategory(categories[position])
-            }.await()
-                    .fold({}, {
-                        view?.showJokeText(it.value)
-                        view?.showJokeImage(it.iconUrl)
-                    })
+    fun onSearchButtonClicked(position: Int) = scope.launch(dispatcher) {
+        withContext(dispatcher) {
+            repository.getRandomJokeByCategory(categories[position])
         }
+                .fold({}, {
+                    view?.showJokeText(it.value)
+                    view?.showJokeImage(it.iconUrl)
+                })
     }
+
 
     interface MVPView {
         fun fillCategories(list: List<JokeCategory>)
