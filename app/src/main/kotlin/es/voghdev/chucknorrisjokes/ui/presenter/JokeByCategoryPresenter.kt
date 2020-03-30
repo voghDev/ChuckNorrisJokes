@@ -21,6 +21,7 @@ import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class JokeByCategoryPresenter(val dispatcher: CoroutineDispatcher, val resLocator: ResLocator, val repository: ChuckNorrisRepository) :
         Presenter<JokeByCategoryPresenter.MVPView, JokeByCategoryPresenter.Navigator>() {
@@ -28,10 +29,8 @@ class JokeByCategoryPresenter(val dispatcher: CoroutineDispatcher, val resLocato
     var categories: List<JokeCategory> = emptyList()
 
     override fun initialize() {
-        scope.launch(dispatcher) {
-            async {
-                repository.getJokeCategories()
-            }.await()
+        scope.launch {
+            withContext(dispatcher) { repository.getJokeCategories() }
                     .fold({},
                             {
                                 categories = it

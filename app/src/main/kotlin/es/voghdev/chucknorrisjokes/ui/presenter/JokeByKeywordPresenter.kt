@@ -21,6 +21,7 @@ import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class JokeByKeywordPresenter(val dispatcher: CoroutineDispatcher, val resLocator: ResLocator, val repository: ChuckNorrisRepository) :
         Presenter<JokeByKeywordPresenter.MVPView, JokeByKeywordPresenter.Navigator>() {
@@ -35,8 +36,8 @@ class JokeByKeywordPresenter(val dispatcher: CoroutineDispatcher, val resLocator
             return
         }
 
-        scope.launch(dispatcher) {
-            async { repository.getRandomJokeByKeyword(text) }.await()
+        scope.launch {
+            withContext(dispatcher) { repository.getRandomJokeByKeyword(text) }
                     .fold({
                         view?.showError(it.message())
                     }, {

@@ -18,17 +18,15 @@ package es.voghdev.chucknorrisjokes.ui.presenter
 import es.voghdev.chucknorrisjokes.app.ResLocator
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class RandomJokePresenter(val dispatcher: CoroutineDispatcher, val resLocator: ResLocator, val repository: ChuckNorrisRepository) :
         Presenter<RandomJokePresenter.MVPView, RandomJokePresenter.Navigator>() {
 
     override fun initialize() {
-        scope.launch(dispatcher) {
-            async {
-                repository.getRandomJoke()
-            }.await()
+        scope.launch {
+            withContext(dispatcher) { repository.getRandomJoke() }
                     .fold({}, {
                         view?.showJokeText(it.value)
 
