@@ -13,6 +13,8 @@ import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import io.kotlintest.mock.mock
 import io.kotlintest.specs.StringSpec
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.setMain
 import org.junit.Assert
 import org.mockito.ArgumentMatchers
 
@@ -97,7 +99,11 @@ class JokeByCategoryPresenterTest : StringSpec(
             Assert.assertEquals("http://chuck.image.url", strCaptor.firstValue)
         }
     }
-)
+) {
+    init {
+        Dispatchers.setMain(TestCoroutineDispatcher())
+    }
+}
 
 private fun givenTheRepositoryHasAnExampleJoke(repository: ChuckNorrisRepository, exampleJoke: Joke) {
     whenever(repository.getRandomJokeByCategory(anyCategory())).thenReturn(Either.Right(exampleJoke))
