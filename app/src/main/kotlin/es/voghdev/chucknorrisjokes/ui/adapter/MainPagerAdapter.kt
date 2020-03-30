@@ -17,9 +17,9 @@ package es.voghdev.chucknorrisjokes.ui.adapter
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentStatePagerAdapter
-import android.support.v4.view.PagerAdapter
+import androidx.core.app.Fragment
+import androidx.core.app.FragmentStatePagerAdapter
+import androidx.core.view.PagerAdapter
 import android.support.v7.app.AppCompatActivity
 import es.voghdev.chucknorrisjokes.ui.fragment.JokeByCategoryFragment
 import es.voghdev.chucknorrisjokes.ui.fragment.JokeByKeywordFragment

@@ -17,7 +17,7 @@ package es.voghdev.chucknorrisjokes.ui.activity
 
 import android.os.Bundle
 import android.support.design.widget.TabLayout
-import android.support.v4.view.ViewPager
+import androidx.core.view.ViewPager
 import es.voghdev.chucknorrisjokes.R
 import es.voghdev.chucknorrisjokes.app.AndroidResLocator
 import es.voghdev.chucknorrisjokes.app.ui
