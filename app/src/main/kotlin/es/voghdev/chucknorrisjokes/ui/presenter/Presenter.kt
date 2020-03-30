@@ -15,6 +15,11 @@
  */
 package es.voghdev.chucknorrisjokes.ui.presenter
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.MainScope
+
 abstract class Presenter<T1, T2>() {
     open fun initialize() { /* Empty */
     }
@@ -30,4 +35,10 @@ abstract class Presenter<T1, T2>() {
 
     var view: T1? = null
     var navigator: T2? = null
+    val scope = PresenterScope()
+}
+
+class PresenterScope : CoroutineScope by MainScope() {
+    val job = Job()
+    override val coroutineContext = Dispatchers.Main + job
 }

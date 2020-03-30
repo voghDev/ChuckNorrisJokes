@@ -19,7 +19,6 @@ import es.voghdev.chucknorrisjokes.app.ResLocator
 import es.voghdev.chucknorrisjokes.model.Joke
 import es.voghdev.chucknorrisjokes.repository.ChuckNorrisRepository
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
@@ -36,7 +35,7 @@ class JokeByKeywordPresenter(val dispatcher: CoroutineDispatcher, val resLocator
             return
         }
 
-        GlobalScope.launch(dispatcher) {
+        scope.launch(dispatcher) {
             async { repository.getRandomJokeByKeyword(text) }.await()
                 .fold({
                     view?.showError(it.message())
