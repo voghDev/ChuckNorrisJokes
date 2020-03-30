@@ -26,7 +26,7 @@ import kotlinx.coroutines.withContext
 class JokeByKeywordPresenter(val dispatcher: CoroutineDispatcher, val resLocator: ResLocator, val repository: ChuckNorrisRepository) :
         Presenter<JokeByKeywordPresenter.MVPView, JokeByKeywordPresenter.Navigator>() {
 
-    override fun initialize() {
+    override suspend fun initialize() {
 
     }
 

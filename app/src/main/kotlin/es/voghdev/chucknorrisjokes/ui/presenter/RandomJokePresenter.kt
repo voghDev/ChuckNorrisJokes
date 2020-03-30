@@ -24,16 +24,14 @@ import kotlinx.coroutines.withContext
 class RandomJokePresenter(val dispatcher: CoroutineDispatcher, val resLocator: ResLocator, val repository: ChuckNorrisRepository) :
         Presenter<RandomJokePresenter.MVPView, RandomJokePresenter.Navigator>() {
 
-    override fun initialize() {
-        scope.launch {
-            withContext(dispatcher) { repository.getRandomJoke() }
-                    .fold({}, {
-                        view?.showJokeText(it.value)
+    override suspend fun initialize() {
+        withContext(dispatcher) { repository.getRandomJoke() }
+                .fold({}, {
+                    view?.showJokeText(it.value)
 
-                        if (it.iconUrl.isNotEmpty())
-                            view?.loadJokeImage(it.iconUrl)
-                    })
-        }
+                    if (it.iconUrl.isNotEmpty())
+                        view?.loadJokeImage(it.iconUrl)
+                })
     }
 
     interface MVPView {

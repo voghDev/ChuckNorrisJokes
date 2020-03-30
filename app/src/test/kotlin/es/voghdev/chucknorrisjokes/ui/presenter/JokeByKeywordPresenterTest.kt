@@ -49,7 +49,7 @@ class JokeByKeywordPresenterTest : StringSpec(
         )
 
         "should not accept an empty text as search keyword" {
-            presenter.initialize()
+            presenter.initializeAsync()
 
             presenter.onSearchButtonClicked("")
 
@@ -59,7 +59,7 @@ class JokeByKeywordPresenterTest : StringSpec(
         "should request a random joke by keyword when  search button is clicked with a valid keyword" {
             givenTheApiReturnsNoResults(mockChuckNorrisRepository)
 
-            presenter.initialize()
+            presenter.initializeAsync()
 
             presenter.onSearchButtonClicked("lee")
 
@@ -69,7 +69,7 @@ class JokeByKeywordPresenterTest : StringSpec(
         "should show an empty case when an empty list is returned by the API" {
             givenTheApiReturnsNoResults(mockChuckNorrisRepository)
 
-            presenter.initialize()
+            presenter.initializeAsync()
 
             presenter.onSearchButtonClicked("this query returns no results")
 
@@ -79,7 +79,7 @@ class JokeByKeywordPresenterTest : StringSpec(
         "should add the first two jokes to the list when a list of two jokes is returned by the API" {
             givenTheApiReturns(mockChuckNorrisRepository, someJokes)
 
-            presenter.initialize()
+            presenter.initializeAsync()
 
             presenter.onSearchButtonClicked("chan")
 
@@ -96,7 +96,7 @@ class JokeByKeywordPresenterTest : StringSpec(
         "should hide empty case when there are results" {
             givenTheApiReturns(mockChuckNorrisRepository, someJokes)
 
-            presenter.initialize()
+            presenter.initializeAsync()
 
             presenter.onSearchButtonClicked("Jackie")
 
@@ -106,7 +106,7 @@ class JokeByKeywordPresenterTest : StringSpec(
         "should show an error when Api returns an error" {
             givenTheApiReturnsAnError(mockChuckNorrisRepository, "422 unprocessable Entity")
 
-            presenter.initialize()
+            presenter.initializeAsync()
 
             presenter.onSearchButtonClicked("erroneous search")
 

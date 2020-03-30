@@ -39,7 +39,7 @@ class MainActivity : BaseActivity(), MainPresenter.MVPView, MainPresenter.Naviga
 
         onTabSelectedListener = TabLayout.ViewPagerOnTabSelectedListener(viewPager)
 
-        presenter?.initialize()
+        presenter?.initializeAsync()
     }
 
     override fun onDestroy() {

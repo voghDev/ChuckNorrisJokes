@@ -57,7 +57,7 @@ class JokeByKeywordFragment : BaseFragment(), JokeByKeywordPresenter.MVPView, Jo
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-        presenter?.initialize()
+        presenter?.initializeAsync()
 
         btn_search.setOnClickListener {
             val keyword = et_keyword.text?.toString()?.trim() ?: ""

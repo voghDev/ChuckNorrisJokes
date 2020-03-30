@@ -49,7 +49,7 @@ class JokeByCategoryFragment : BaseFragment(), JokeByCategoryPresenter.MVPView, 
         presenter?.view = this
         presenter?.navigator = this
 
-        presenter?.initialize()
+        presenter?.initializeAsync()
 
         btn_search.setOnClickListener {
             presenter?.onSearchButtonClicked(spn_categories.selectedItemPosition)

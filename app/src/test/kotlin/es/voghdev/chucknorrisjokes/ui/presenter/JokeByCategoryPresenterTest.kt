@@ -49,7 +49,7 @@ class JokeByCategoryPresenterTest : StringSpec(
         "should request all available categories on start"{
             givenThereAreSomeCategories(mockChuckNorrisRepository, categories)
 
-            presenter.initialize()
+            presenter.initializeAsync()
 
             verify(mockChuckNorrisRepository).getJokeCategories()
         }
@@ -57,7 +57,7 @@ class JokeByCategoryPresenterTest : StringSpec(
         "should fill category names in a spinner when categories are received"{
             givenThereAreSomeCategories(mockChuckNorrisRepository, categories)
 
-            presenter.initialize()
+            presenter.initializeAsync()
 
             verify(mockView).fillCategories(ArgumentMatchers.anyList())
         }
@@ -66,7 +66,7 @@ class JokeByCategoryPresenterTest : StringSpec(
             givenThereAreSomeCategories(mockChuckNorrisRepository, categories)
             givenTheRepositoryHasAnExampleJoke(mockChuckNorrisRepository, exampleJoke)
 
-            presenter.initialize()
+            presenter.initializeAsync()
 
             presenter.onSearchButtonClicked(0)
 
@@ -77,7 +77,7 @@ class JokeByCategoryPresenterTest : StringSpec(
             givenThereAreSomeCategories(mockChuckNorrisRepository, categories)
             givenTheRepositoryHasAnExampleJoke(mockChuckNorrisRepository, exampleJoke)
 
-            presenter.initialize()
+            presenter.initializeAsync()
 
             presenter.onSearchButtonClicked(0)
 
@@ -90,7 +90,7 @@ class JokeByCategoryPresenterTest : StringSpec(
             givenThereAreSomeCategories(mockChuckNorrisRepository, categories)
             givenTheRepositoryHasAnExampleJoke(mockChuckNorrisRepository, exampleJoke)
 
-            presenter.initialize()
+            presenter.initializeAsync()
 
             presenter.onSearchButtonClicked(0)
 

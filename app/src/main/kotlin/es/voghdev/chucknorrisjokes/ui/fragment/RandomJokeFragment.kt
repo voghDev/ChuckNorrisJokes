@@ -46,7 +46,7 @@ class RandomJokeFragment : BaseFragment(), RandomJokePresenter.MVPView, RandomJo
         presenter?.view = this
         presenter?.navigator = this
 
-        presenter?.initialize()
+        presenter?.initializeAsync()
     }
 
     override fun getLayoutId(): Int = R.layout.fragment_random_joke

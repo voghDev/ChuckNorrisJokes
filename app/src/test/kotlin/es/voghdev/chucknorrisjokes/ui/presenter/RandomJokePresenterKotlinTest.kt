@@ -37,7 +37,7 @@ class RandomJokePresenterKotlinTest : StringSpec(
         "should request a random joke on start" {
             givenThereIsARandomJoke(mockChuckNorrisRepository, exampleJoke)
 
-            presenter.initialize()
+            presenter.initializeAsync()
 
             verify(mockChuckNorrisRepository).getRandomJoke()
         }
@@ -45,7 +45,7 @@ class RandomJokePresenterKotlinTest : StringSpec(
         "should show the joke's text on screen when a random joke is received" {
             givenThereIsARandomJoke(mockChuckNorrisRepository, exampleJoke)
 
-            presenter.initialize()
+            presenter.initializeAsync()
 
             verify(mockView).showJokeText(anyString())
         }
@@ -53,7 +53,7 @@ class RandomJokePresenterKotlinTest : StringSpec(
         "should show the joke's image on screen when a random joke is received" {
             givenThereIsARandomJoke(mockChuckNorrisRepository, exampleJoke)
 
-            presenter.initialize()
+            presenter.initializeAsync()
 
             verify(mockView).loadJokeImage("https://assets.chucknorris.host/img/avatar/chuck-norris.png")
         }
@@ -63,7 +63,7 @@ class RandomJokePresenterKotlinTest : StringSpec(
 
             givenThereIsARandomJoke(mockChuckNorrisRepository, jokeWithoutImage)
 
-            presenter.initialize()
+            presenter.initializeAsync()
 
             verify(mockView, times(0)).loadJokeImage(anyString())
         }

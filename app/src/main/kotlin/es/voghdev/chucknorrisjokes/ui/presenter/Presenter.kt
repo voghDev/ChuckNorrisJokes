@@ -15,13 +15,23 @@
  */
 package es.voghdev.chucknorrisjokes.ui.presenter
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.*
 
 abstract class Presenter<T1, T2>() {
-    open fun initialize() { /* Empty */
+    fun initializeAsync() {
+        scope.launch {
+            initialize()
+        }
+    }
+
+    open suspend fun initialize() { /* Empty */
+
+    }
+
+    fun resumeAsync() {
+        scope.launch {
+            resume()
+        }
     }
 
     open fun resume() { /* Empty */

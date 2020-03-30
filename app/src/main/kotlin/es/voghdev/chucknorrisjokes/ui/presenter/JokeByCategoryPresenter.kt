@@ -28,15 +28,13 @@ class JokeByCategoryPresenter(val dispatcher: CoroutineDispatcher, val resLocato
 
     var categories: List<JokeCategory> = emptyList()
 
-    override fun initialize() {
-        scope.launch {
-            withContext(dispatcher) { repository.getJokeCategories() }
-                    .fold({},
-                            {
-                                categories = it
-                                view?.fillCategories(categories)
-                            })
-        }
+    override suspend fun initialize() {
+        withContext(dispatcher) { repository.getJokeCategories() }
+                .fold({},
+                        {
+                            categories = it
+                            view?.fillCategories(categories)
+                        })
     }
 
     fun onSearchButtonClicked(position: Int) = scope.launch(dispatcher) {
