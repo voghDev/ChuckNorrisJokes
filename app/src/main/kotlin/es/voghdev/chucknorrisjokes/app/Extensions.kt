@@ -23,6 +23,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.Toast
 import arrow.core.Either
 import es.voghdev.chucknorrisjokes.model.AbsError
 import es.voghdev.chucknorrisjokes.model.Joke
@@ -76,3 +77,6 @@ fun Context.showSoftKeyboard(v: View) {
     val imm: InputMethodManager? = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm?.showSoftInput(v, InputMethodManager.SHOW_IMPLICIT)
 }
+
+fun Fragment.toast(message: String) =
+        Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()

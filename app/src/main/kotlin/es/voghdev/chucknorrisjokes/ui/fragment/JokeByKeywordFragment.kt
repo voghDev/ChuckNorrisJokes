@@ -22,6 +22,7 @@ import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import es.voghdev.chucknorrisjokes.R
 import es.voghdev.chucknorrisjokes.app.AndroidResLocator
+import es.voghdev.chucknorrisjokes.app.toast
 import es.voghdev.chucknorrisjokes.app.ui
 import es.voghdev.chucknorrisjokes.datasource.api.GetJokeCategoriesApiImpl
 import es.voghdev.chucknorrisjokes.datasource.api.GetRandomJokeApiImpl
@@ -33,7 +34,6 @@ import es.voghdev.chucknorrisjokes.ui.adapter.JokeAdapter
 import es.voghdev.chucknorrisjokes.ui.presenter.JokeByKeywordPresenter
 import kotlinx.android.synthetic.main.fragment_joke_by_keyword.*
 import kotlinx.coroutines.Dispatchers
-import org.jetbrains.anko.toast
 
 class JokeByKeywordFragment : BaseFragment(), JokeByKeywordPresenter.MVPView, JokeByKeywordPresenter.Navigator {
     var presenter: JokeByKeywordPresenter? = null
@@ -68,11 +68,11 @@ class JokeByKeywordFragment : BaseFragment(), JokeByKeywordPresenter.MVPView, Jo
     override fun getLayoutId(): Int = R.layout.fragment_joke_by_keyword
 
     override fun showKeywordError(msg: String) = ui {
-        requireActivity().toast(msg)
+        toast(msg)
     }
 
     override fun showError(msg: String) = ui {
-        requireActivity().toast(msg)
+        toast(msg)
     }
 
     override fun showEmptyCase() = ui {
