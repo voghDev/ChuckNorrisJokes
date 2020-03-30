@@ -36,10 +36,10 @@ class GetJokeCategoriesApiImpl : ApiRequest, GetJokeCategories {
             builder.addInterceptor(LogJsonInterceptor())
 
         val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl(getEndPoint())
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(builder.build())
-            .build()
+                .baseUrl(getEndPoint())
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(builder.build())
+                .build()
 
         val service: ChuckNorrisService = retrofit.create(ChuckNorrisService::class.java)
 
@@ -50,8 +50,8 @@ class GetJokeCategoriesApiImpl : ApiRequest, GetJokeCategories {
 
             if (rsp?.body()?.size ?: 0 > 0) {
                 return Either.Right(rsp?.body()
-                                ?.map { JokeCategory(name = it) }
-                                ?: emptyList<JokeCategory>())
+                        ?.map { JokeCategory(name = it) }
+                        ?: emptyList<JokeCategory>())
             } else if (rsp?.errorBody() != null) {
                 val error = (rsp.errorBody())?.string() ?: ""
                 return Either.left(CNError(error))

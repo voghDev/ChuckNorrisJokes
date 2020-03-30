@@ -23,7 +23,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class JokeByKeywordPresenter(val dispatcher: CoroutineDispatcher, val resLocator: ResLocator, val repository: ChuckNorrisRepository) :
-    Presenter<JokeByKeywordPresenter.MVPView, JokeByKeywordPresenter.Navigator>() {
+        Presenter<JokeByKeywordPresenter.MVPView, JokeByKeywordPresenter.Navigator>() {
 
     override fun initialize() {
 
@@ -37,19 +37,19 @@ class JokeByKeywordPresenter(val dispatcher: CoroutineDispatcher, val resLocator
 
         scope.launch(dispatcher) {
             async { repository.getRandomJokeByKeyword(text) }.await()
-                .fold({
-                    view?.showError(it.message())
-                }, {
-                    if (it.isNotEmpty()) {
-                        view?.hideEmptyCase()
+                    .fold({
+                        view?.showError(it.message())
+                    }, {
+                        if (it.isNotEmpty()) {
+                            view?.hideEmptyCase()
 
-                        it.forEach { joke ->
-                            view?.addJoke(joke)
+                            it.forEach { joke ->
+                                view?.addJoke(joke)
+                            }
+                        } else {
+                            view?.showEmptyCase()
                         }
-                    } else {
-                        view?.showEmptyCase()
-                    }
-                })
+                    })
         }
     }
 

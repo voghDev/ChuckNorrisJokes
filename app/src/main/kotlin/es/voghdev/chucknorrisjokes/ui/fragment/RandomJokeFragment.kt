@@ -37,16 +37,16 @@ class RandomJokeFragment : BaseFragment(), RandomJokePresenter.MVPView, RandomJo
         super.onViewCreated(view, savedInstanceState)
 
         val chuckNorrisRepository = ChuckNorrisRepository(
-            GetRandomJokeApiImpl(),
-            GetJokeCategoriesApiImpl(),
-            GetRandomJokeByKeywordApiImpl(),
-            GetRandomJokeByCategoryApiImpl())
+                GetRandomJokeApiImpl(),
+                GetJokeCategoriesApiImpl(),
+                GetRandomJokeByKeywordApiImpl(),
+                GetRandomJokeByCategoryApiImpl())
 
         presenter = RandomJokePresenter(Dispatchers.IO, AndroidResLocator(requireContext()), chuckNorrisRepository)
         presenter?.view = this
         presenter?.navigator = this
 
-            presenter?.initialize()
+        presenter?.initialize()
     }
 
     override fun getLayoutId(): Int = R.layout.fragment_random_joke

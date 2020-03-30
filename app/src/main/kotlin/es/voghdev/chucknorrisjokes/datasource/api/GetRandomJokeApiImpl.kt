@@ -36,10 +36,10 @@ class GetRandomJokeApiImpl : GetRandomJoke, ApiRequest {
             builder.addInterceptor(LogJsonInterceptor())
 
         val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl(getEndPoint())
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(builder.build())
-            .build()
+                .baseUrl(getEndPoint())
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(builder.build())
+                .build()
 
         val service: ChuckNorrisService = retrofit.create(ChuckNorrisService::class.java)
 
