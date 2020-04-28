@@ -21,23 +21,26 @@ import androidx.viewpager.widget.ViewPager
 import es.voghdev.chucknorrisjokes.R
 import es.voghdev.chucknorrisjokes.app.AndroidResLocator
 import es.voghdev.chucknorrisjokes.app.ui
+import es.voghdev.chucknorrisjokes.databinding.ActivityMainBinding
 import es.voghdev.chucknorrisjokes.ui.adapter.MainPagerAdapter
 import es.voghdev.chucknorrisjokes.ui.presenter.MainPresenter
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(), MainPresenter.MVPView, MainPresenter.Navigator {
     var presenter: MainPresenter? = null
     lateinit var onTabSelectedListener: TabLayout.OnTabSelectedListener
     lateinit var adapter: MainPagerAdapter
+    lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
 
         presenter = MainPresenter(AndroidResLocator(this))
         presenter?.view = this
         presenter?.navigator = this
 
-        onTabSelectedListener = TabLayout.ViewPagerOnTabSelectedListener(viewPager)
+        onTabSelectedListener = TabLayout.ViewPagerOnTabSelectedListener(binding.viewPager)
 
         presenter?.initialize()
     }
@@ -47,19 +50,19 @@ class MainActivity : BaseActivity(), MainPresenter.MVPView, MainPresenter.Naviga
 
         presenter?.destroy()
 
-        tabLayout.removeOnTabSelectedListener(onTabSelectedListener)
+        binding.tabLayout.removeOnTabSelectedListener(onTabSelectedListener)
     }
 
     override fun getLayoutId(): Int = R.layout.activity_main
 
     override fun configureTabs() = ui {
-        tabLayout.addTab(tabLayout.newTab().setText("Random"))
-        tabLayout.addTab(tabLayout.newTab().setText("By Keyword"))
-        tabLayout.addTab(tabLayout.newTab().setText("By Category"))
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Random"))
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("By Keyword"))
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("By Category"))
 
-        viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
-        tabLayout.addOnTabSelectedListener(onTabSelectedListener)
-        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        binding.viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tabLayout))
+        binding.tabLayout.addOnTabSelectedListener(onTabSelectedListener)
+        binding.viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
             }
 
@@ -71,6 +74,6 @@ class MainActivity : BaseActivity(), MainPresenter.MVPView, MainPresenter.Naviga
         })
 
         adapter = MainPagerAdapter(this)
-        viewPager.adapter = adapter
+        binding.viewPager.adapter = adapter
     }
 }
