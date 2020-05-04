@@ -2,8 +2,9 @@
 
 buildscript {
     val kotlinVersion by extra { "1.3.71" }
-    var coroutinesVersion by extra { "1.2.1" }
-    var arrowVersion by extra { "0.9.0" }
+    val coroutinesVersion by extra { "1.2.1" }
+    val arrowVersion by extra { "0.9.0" }
+    val retrofitVersion by extra { "2.4.0" }
 
     repositories {
         google()

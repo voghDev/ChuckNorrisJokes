@@ -30,6 +30,7 @@ android {
 val kotlinVersion: String by rootProject.extra
 val coroutinesVersion: String by rootProject.extra
 val arrowVersion: String by rootProject.extra
+val retrofitVersion: String by rootProject.extra
 
 dependencies {
 
@@ -48,8 +49,8 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:1.1.3")
     implementation("com.squareup.picasso:picasso:2.5.2")
     implementation("com.jakewharton.picasso:picasso2-okhttp3-downloader:1.0.2")
-    implementation("com.squareup.retrofit2:retrofit:2.4.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.4.0")
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
     implementation("io.arrow-kt:arrow-core-data:$arrowVersion")
     implementation("io.arrow-kt:arrow-core-extensions:$arrowVersion")
 }
