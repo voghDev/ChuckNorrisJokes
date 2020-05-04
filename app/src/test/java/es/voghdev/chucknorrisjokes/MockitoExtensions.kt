@@ -1,11 +1,9 @@
 package es.voghdev.chucknorrisjokes
 
-import org.mockito.Mockito
+import com.nhaarman.mockitokotlin2.any
+import es.voghdev.chucknorrisjokes.model.Joke
+import es.voghdev.chucknorrisjokes.model.JokeCategory
 
-fun <T> anyCategory(): T {
-    return Mockito.anyObject<T>()
-}
+fun anyCategory(): JokeCategory = any()
 
-fun <T> anyJoke(): T {
-    return Mockito.anyObject<T>()
-}
+fun anyJoke(): Joke = any()
