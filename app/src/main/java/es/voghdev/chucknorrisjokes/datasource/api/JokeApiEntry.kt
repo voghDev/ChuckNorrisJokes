@@ -18,13 +18,13 @@ package es.voghdev.chucknorrisjokes.datasource.api
 import es.voghdev.chucknorrisjokes.model.Joke
 
 class JokeApiEntry(
-    val id: String = "",
-    val icon_url: String = "",
-    val url: String = "",
-    val value: String = "",
-    val category: List<String>? = emptyList()
+    private val id: String = "",
+    private val icon_url: String = "",
+    private val url: String = "",
+    private val value: String = "",
+    private val category: List<String>? = emptyList()
 ) {
-    inline fun map(): Joke = Joke(
+    fun map(): Joke = Joke(
         id = id,
         iconUrl = icon_url,
         url = url,
