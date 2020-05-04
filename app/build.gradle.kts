@@ -52,5 +52,4 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
     implementation("io.arrow-kt:arrow-core-data:$arrowVersion")
-    implementation("io.arrow-kt:arrow-core-extensions:$arrowVersion")
 }
